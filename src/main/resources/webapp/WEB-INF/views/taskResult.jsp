@@ -64,7 +64,7 @@ file="00-header.jsp" %>
   <br />
   <section>
     <span>Task Result</span>
-    <p>Transferred data: ${formData}</p>
+    <p>Transferred data: ${formData.data}</p>
   </section>
   <table class="res">
     <thead>

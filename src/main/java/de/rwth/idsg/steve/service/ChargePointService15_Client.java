@@ -81,7 +81,6 @@ public class ChargePointService15_Client extends ChargePointService12_Client {
 
     public int dataTransfer(DataTransferParams params) {
 
-	decodeHtmlEncodedEntities(params);
 
         DataTransferTask task = new DataTransferTask(getVersion(), params);
 
@@ -100,7 +99,7 @@ public class ChargePointService15_Client extends ChargePointService12_Client {
 		params.setData(decodedData);
 		log.info(params.getData());
 	}
-
+ 
 }
 
     public int getConfiguration(GetConfigurationParams params) {
