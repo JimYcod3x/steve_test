@@ -78,4 +78,8 @@ public class LogController {
         log.error("Exception happened", e);
     }
     }
+    public String getLogFilePath() {
+        return LogFileRetriever.INSTANCE.getLogFilePathOrErrorMessage();
+    }
+
 }
