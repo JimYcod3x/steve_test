@@ -63,23 +63,25 @@ public class LogController {
 
 
     public void log(HttpServletResponse response) {
-    response.setContentType("text/plain");
-
-    try (PrintWriter writer = response.getWriter()) {
-        Optional<Path> p = LogFileRetriever.INSTANCE.getPath();
-        if (p.isPresent()) {
-            Files.lines(p.get(), StandardCharsets.UTF_8)
-                 .map(StringEscapeUtils::unescapeHtml4)  // Decode HTML entities
-                 .forEach(writer::println);
-        } else {
-            writer.write(LogFileRetriever.INSTANCE.getErrorMessage());
+        response.setContentType("text/plain");
+    
+        try (PrintWriter writer = response.getWriter()) {
+            Optional<Path> p = LogFileRetriever.INSTANCE.getPath();
+            if (p.isPresent()) {
+                Files.lines(p.get(), StandardCharsets.UTF_8)
+                     .map(line -> StringEscapeUtils.unescapeHtml4(line).replace("\\\"", "\"")) // Replace \" after unescaping HTML entities
+                     .forEach(writer::println);
+            } else {
+                writer.write(LogFileRetriever.INSTANCE.getErrorMessage());
+            }
+        } catch (IOException e) {
+            log.error("Exception happened", e);
         }
-    } catch (IOException e) {
-        log.error("Exception happened", e);
     }
-    }
+    
     public String getLogFilePath() {
         return LogFileRetriever.INSTANCE.getLogFilePathOrErrorMessage();
     }
+    
 
 }
