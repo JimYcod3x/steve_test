@@ -490,8 +490,8 @@
 <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
         <dependency>
             <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-            <version>1.11.0</version>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.13.0</version>
         </dependency>
 
         <dependency>
