@@ -45,31 +45,13 @@ import java.util.stream.Collectors;
 public class LogController {
 
     @RequestMapping(value = "/log", method = RequestMethod.GET)
-    // public void log(HttpServletResponse response) {
-    //     response.setContentType("text/plain");
-
-    //     try (PrintWriter writer = response.getWriter()) {
-    //         Optional<Path> p = LogFileRetriever.INSTANCE.getPath();
-    //         if (p.isPresent()) {
-    //             Files.lines(p.get(), StandardCharsets.UTF_8)
-    //                  .forEach(writer::println);
-    //         } else {
-    //             writer.write(LogFileRetriever.INSTANCE.getErrorMessage());
-    //         }
-    //     } catch (IOException e) {
-    //         log.error("Exception happened", e);
-    //     }
-    // }
-
-
     public void log(HttpServletResponse response) {
         response.setContentType("text/plain");
-    
+
         try (PrintWriter writer = response.getWriter()) {
             Optional<Path> p = LogFileRetriever.INSTANCE.getPath();
             if (p.isPresent()) {
                 Files.lines(p.get(), StandardCharsets.UTF_8)
-                     .map(line -> StringEscapeUtils.unescapeHtml4(line).replace("\\\"", "\"")) // Replace \" after unescaping HTML entities
                      .forEach(writer::println);
             } else {
                 writer.write(LogFileRetriever.INSTANCE.getErrorMessage());
@@ -78,10 +60,11 @@ public class LogController {
             log.error("Exception happened", e);
         }
     }
-    
+
+
+
     public String getLogFilePath() {
         return LogFileRetriever.INSTANCE.getLogFilePathOrErrorMessage();
     }
-    
 
 }
