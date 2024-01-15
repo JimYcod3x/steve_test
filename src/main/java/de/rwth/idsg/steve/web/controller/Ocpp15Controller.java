@@ -29,6 +29,9 @@ import de.rwth.idsg.steve.web.dto.ocpp.GetConfigurationParams;
 import de.rwth.idsg.steve.web.dto.ocpp.MultipleChargePointSelect;
 import de.rwth.idsg.steve.web.dto.ocpp.ReserveNowParams;
 import de.rwth.idsg.steve.web.dto.ocpp.SendLocalListParams;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -47,6 +50,7 @@ import static de.rwth.idsg.steve.web.dto.ocpp.ConfigurationKeyReadWriteEnum.RW;
  * @author Sevket Goekay <sevketgokay@gmail.com>
  * @since 07.11.2014
  */
+@Slf4j
 @Controller
 @RequestMapping(value = "/manager/operations/v1.5")
 public class Ocpp15Controller extends Ocpp12Controller {
@@ -180,9 +184,9 @@ public class Ocpp15Controller extends Ocpp12Controller {
     }
 
     @RequestMapping(value = DATA_TRANSFER_PATH, method = RequestMethod.POST)
-    public String postDataTransfer(@Valid @ModelAttribute(PARAMS) DataTransferParams params,
+    public String postDataTransfer(@Valid @ModelAttribute(PARAMS) @RequestBody String req, DataTransferParams params,
                                    BindingResult result, Model model) {
-                                    
+        log.info("display the request body: " + req);
         if (result.hasErrors()) {
             setCommonAttributes(model);
             return getPrefix() + DATA_TRANSFER_PATH;
