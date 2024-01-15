@@ -41,7 +41,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Map;
 
 import static de.rwth.idsg.steve.web.dto.ocpp.ConfigurationKeyReadWriteEnum.RW;
@@ -184,9 +188,17 @@ public class Ocpp15Controller extends Ocpp12Controller {
     }
 
     @RequestMapping(value = DATA_TRANSFER_PATH, method = RequestMethod.POST)
-    public String postDataTransfer(@Valid @ModelAttribute(PARAMS) @RequestBody String req, DataTransferParams params,
+    public String postDataTransfer(HttpServletRequest req, @Valid @ModelAttribute(PARAMS) DataTransferParams params,
                                    BindingResult result, Model model) {
-        log.info("display the request body: " + req);
+           try {
+        BufferedReader reader = req.getReader();
+        String requestBody = reader.lines().reduce("", (accumulator, actual) -> accumulator + actual);
+        log.info("display the request body: " + requestBody);
+    } catch (IOException e) {
+        // Handle the IOException appropriately, such as logging an error or returning an error response
+        e.printStackTrace();
+        return "error-page"; // Return an error page or response
+    }
         if (result.hasErrors()) {
             setCommonAttributes(model);
             return getPrefix() + DATA_TRANSFER_PATH;
