@@ -81,7 +81,8 @@ public class ChargePointService15_Client extends ChargePointService12_Client {
 
     public int dataTransfer(DataTransferParams params) {
 
-
+        log.info(params.getData());
+        
         DataTransferTask task = new DataTransferTask(getVersion(), params);
 
         BackgroundService.with(executorService)
