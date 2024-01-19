@@ -36,6 +36,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
@@ -48,11 +49,15 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import static de.rwth.idsg.steve.SteveConfiguration.CONFIG;
 
@@ -77,6 +82,13 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder() {
         return CONFIG.getAuth().getPasswordEncoder();
     }
+
+    SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+	http
+		// ...
+		.cors(cors -> cors.disable());
+	return http.build();
+}
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -121,6 +133,16 @@ public class SecurityConfiguration {
     @Order(1)
     public SecurityFilterChain apiKeyFilterChain(HttpSecurity http, ObjectMapper objectMapper) throws Exception {
         return http.antMatcher(CONFIG.getApiMapping() + "/**")
+            // .cors()
+            // .configurationSource(request -> {
+            //     CorsConfiguration cors = new CorsConfiguration();
+            //     cors.setAllowedOrigins(List.of("*"));
+	        //     cors.setAllowedMethods(List.of("*"));
+            //     cors.setAllowedHeaders(List.of("*"));
+            //     cors.setAllowCredentials(false);
+            //     return cors;
+            // })
+            // .and()
             .csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()

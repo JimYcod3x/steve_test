@@ -139,6 +139,7 @@ public class OcppTagService {
     public int addOcppTag(OcppTagForm form) {
         var id = ocppTagRepository.addOcppTag(form);
         removeUnknown(Collections.singletonList(form.getIdTag()));
+        log.info("create the the occptag: ", id);
         return id;
     }
     public void addOcppTagList(List<String> idTagList) {

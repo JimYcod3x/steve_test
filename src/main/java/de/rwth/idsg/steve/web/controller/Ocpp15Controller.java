@@ -29,6 +29,8 @@ import de.rwth.idsg.steve.web.dto.ocpp.GetConfigurationParams;
 import de.rwth.idsg.steve.web.dto.ocpp.MultipleChargePointSelect;
 import de.rwth.idsg.steve.web.dto.ocpp.ReserveNowParams;
 import de.rwth.idsg.steve.web.dto.ocpp.SendLocalListParams;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -38,6 +40,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Map;
 
@@ -47,6 +50,8 @@ import static de.rwth.idsg.steve.web.dto.ocpp.ConfigurationKeyReadWriteEnum.RW;
  * @author Sevket Goekay <sevketgokay@gmail.com>
  * @since 07.11.2014
  */
+
+ @Slf4j
 @Controller
 @RequestMapping(value = "/manager/operations/v1.5")
 public class Ocpp15Controller extends Ocpp12Controller {
@@ -179,13 +184,21 @@ public class Ocpp15Controller extends Ocpp12Controller {
         return REDIRECT_TASKS_PATH + getClient15().cancelReservation(params);
     }
 
+    
     @RequestMapping(value = DATA_TRANSFER_PATH, method = RequestMethod.POST)
     public String postDataTransfer(@Valid @ModelAttribute(PARAMS) DataTransferParams params,
-                                   BindingResult result, Model model) {
+                                   BindingResult result, Model model, HttpServletRequest req) {
+
+                                    
+
+
         if (result.hasErrors()) {
             setCommonAttributes(model);
             return getPrefix() + DATA_TRANSFER_PATH;
         }
+
+
+
         return REDIRECT_TASKS_PATH + getClient15().dataTransfer(params);
     }
 
