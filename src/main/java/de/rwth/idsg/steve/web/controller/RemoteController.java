@@ -28,7 +28,7 @@ public class RemoteController {
         ocpp16Controller.setCommonAttributesForTx(model);
         ocpp16Controller.setActiveUserIdTagList(model);
         model.addAttribute(PARAMS, new RemoteStartTransactionParams());
-        return getPrefix() + REMOTE_PATH;
+        return REMOTE_PATH;
     }
 }
 
