@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value = "/remoteController")
+@RequestMapping(value = "/manager")
 public class RemoteController {
 
 
-    private static final String START_TX_PATH = "/StartTransaction";
+    private static final String REMOTE_PATH = "/remoteController";
     @Autowired
     protected ChargePointHelperService chargePointHelperService;
     @Autowired protected Ocpp16Controller ocpp16Controller;
@@ -23,12 +23,12 @@ public class RemoteController {
         return "op16";
     }
 
-    @RequestMapping(value = START_TX_PATH, method = RequestMethod.GET)
+    @RequestMapping(value = REMOTE_PATH, method = RequestMethod.GET)
     public String getRemoteStartTx(Model model) {
         ocpp16Controller.setCommonAttributesForTx(model);
         ocpp16Controller.setActiveUserIdTagList(model);
         model.addAttribute(PARAMS, new RemoteStartTransactionParams());
-        return getPrefix() + START_TX_PATH;
+        return getPrefix() + REMOTE_PATH;
     }
 }
 
