@@ -23,7 +23,7 @@ public class RemoteController {
         return "op16";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = START_TX_PATH, method = RequestMethod.GET)
     public String getRemoteStartTx(Model model) {
         ocpp16Controller.setCommonAttributesForTx(model);
         ocpp16Controller.setActiveUserIdTagList(model);
