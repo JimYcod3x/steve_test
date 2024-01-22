@@ -18,6 +18,15 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 --%>
+
+<%@ include file="00-header.jsp" %>
+<%@ include file="00-op-bind-errors.jsp" %>
+<script type="text/javascript">
+    $(document).ready(function() {
+        <%@ include file="snippets/getConnectorIdsZeroAllowed.js" %>
+    });
+</script>
+<div class="op16-content">
 <form:form  modelAttribute="params">
     <section><span>Charge Points with OCPP ${opVersion}</span></section>
     <%@ include file="00-cp-single.jsp" %>
@@ -46,3 +55,7 @@
         <tr><td></td><td><div class="submit-button"><input type="submit" value="Perform"></div></td></tr>
     </table>
 </form:form>
+
+</div></div>
+
+<%@ include file="00-footer.jsp" %>
