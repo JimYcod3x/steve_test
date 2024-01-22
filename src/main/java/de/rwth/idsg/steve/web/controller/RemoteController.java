@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping(value = "/manager")
-public class RemoteController {
+public class RemoteController extends Ocpp16Controller{
 
 
     private static final String REMOTE_PATH = "/remoteController";
     @Autowired
     protected ChargePointHelperService chargePointHelperService;
-    @Autowired protected Ocpp16Controller ocpp16Controller;
     protected static final String PARAMS = "params";
     protected String getPrefix() {
         return "op16";
@@ -25,8 +24,8 @@ public class RemoteController {
 
     @RequestMapping(value = REMOTE_PATH, method = RequestMethod.GET)
     public String getRemoteStartTx(Model model) {
-        ocpp16Controller.setCommonAttributesForTx(model);
-        ocpp16Controller.setActiveUserIdTagList(model);
+        setCommonAttributesForTx(model);
+        setActiveUserIdTagList(model);
         model.addAttribute(PARAMS, new RemoteStartTransactionParams());
         return "remoteController";
     }
