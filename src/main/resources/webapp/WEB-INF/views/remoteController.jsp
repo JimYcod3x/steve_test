@@ -11,7 +11,7 @@
     <div class="top-banner">
     </div>
     <div class="op16-content">
-        <form:form modelAttribute="params">
+        <form:form action="${ctxPath}/manager/operations/${opVersion}/RemoteStartTransaction" modelAttribute="params">
             <section><span>Charge Points with OCPP ${opVersion}</span></section>
             <%@ include file="00-cp-single.jsp" %>
             <section><span>Parameters</span></section>
