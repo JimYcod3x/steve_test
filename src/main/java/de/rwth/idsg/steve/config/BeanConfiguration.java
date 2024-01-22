@@ -56,6 +56,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
 import javax.annotation.PreDestroy;
@@ -236,6 +237,8 @@ public class BeanConfiguration implements WebMvcConfigurer {
         return templateResolver;
     }
 
+
+
     @Bean
     public SpringTemplateEngine templateEngine(){
         // SpringTemplateEngine automatically applies SpringStandardDialect and
@@ -249,6 +252,16 @@ public class BeanConfiguration implements WebMvcConfigurer {
         // for safer backwards compatibility.
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
+    }
+
+    @Bean
+    public ThymeleafViewResolver viewResolver(){
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(templateEngine());
+        // NOTE 'order' and 'viewNames' are optional
+        viewResolver.setOrder(1);
+        viewResolver.setViewNames(new String[] {".html", ".xhtml"});
+        return viewResolver;
     }
 
 
