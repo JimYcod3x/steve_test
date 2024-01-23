@@ -8,14 +8,13 @@ import de.rwth.idsg.steve.web.dto.ocpp.RemoteStopTransactionParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Controller
+@RestController
 @RequestMapping(value = "/manager")
 public class RemoteController extends Ocpp16Controller{
 
