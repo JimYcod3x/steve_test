@@ -5,6 +5,7 @@ import de.rwth.idsg.steve.service.ChargePointHelperService;
 import de.rwth.idsg.steve.service.ChargePointService12_Client;
 import de.rwth.idsg.steve.web.dto.ocpp.RemoteStartTransactionParams;
 import de.rwth.idsg.steve.web.dto.ocpp.RemoteStopTransactionParams;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 @RequestMapping(value = "/manager")
 public class RemoteController extends Ocpp16Controller{
@@ -53,6 +55,8 @@ public class RemoteController extends Ocpp16Controller{
             setActiveUserIdTagList(model);
             return REMOTE_PATH + START_PATH;
         }
+
+        log.info("Received form parameters: {}", startParams);
         getClient12().remoteStartTransaction(startParams);
         return "remoteController";
     }
