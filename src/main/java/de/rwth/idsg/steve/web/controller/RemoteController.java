@@ -17,7 +17,7 @@ import javax.validation.Valid;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/manager/remoteController")
+@RequestMapping(value = "/manager")
 public class RemoteController extends Ocpp16Controller{
 
 
@@ -35,17 +35,17 @@ public class RemoteController extends Ocpp16Controller{
         return client12;
     }
 
-    @GetMapping( "")
+    @GetMapping( "/remoteController")
     public String myGetController(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
         model.addAttribute(START_PARAMS, new RemoteStartTransactionParams());
         model.addAttribute(STOP_PARAMS, new RemoteStopTransactionParams());
-        return "";
+        return "/remoteController";
     }
 
     @ResponseBody
-    @PostMapping(  START_PATH)
+    @PostMapping( "/remoteController" + START_PATH)
     public String myPostRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams startParams,
                                     BindingResult result, Model model) {
         log.info("Received form parameters: {}", startParams);
@@ -62,7 +62,7 @@ public class RemoteController extends Ocpp16Controller{
         return "";
     }
     @ResponseBody
-    @PostMapping( STOP_PATH)
+    @PostMapping("/remoteController" + STOP_PATH)
     public String myPostRemoteStopTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams stopParams,
                                     BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -71,7 +71,7 @@ public class RemoteController extends Ocpp16Controller{
             return STOP_PATH;
         }
         getClient12().remoteStopTransaction(stopParams);
-        return "";
+        return "/remoteController";
     }
 }
 
