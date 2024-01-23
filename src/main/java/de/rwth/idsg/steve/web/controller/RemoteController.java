@@ -2,7 +2,7 @@ package de.rwth.idsg.steve.web.controller;
 
 
 import de.rwth.idsg.steve.service.ChargePointHelperService;
-import de.rwth.idsg.steve.web.dto.ocpp.RemoteStartTransactionParams;
+import de.rwth.idsg.steve.web.dto.ocpp.CombineStartStopParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +26,7 @@ public class RemoteController extends Ocpp16Controller{
     public String getRemoteStartTx(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
-        model.addAttribute(PARAMS, new RemoteStartTransactionParams());
+        model.addAttribute(PARAMS, new CombineStartStopParams());
         return "remoteController";
     }
 }
