@@ -7,12 +7,11 @@ import de.rwth.idsg.steve.web.dto.ocpp.RemoteStartTransactionParams;
 import de.rwth.idsg.steve.web.dto.ocpp.RemoteStopTransactionParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -37,7 +36,7 @@ public class RemoteController extends Ocpp16Controller{
         return client12;
     }
 
-    @RequestMapping(value = REMOTE_PATH, method = RequestMethod.GET)
+    @GetMapping( REMOTE_PATH)
     public String myGetRemoteStartTx(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
@@ -46,28 +45,24 @@ public class RemoteController extends Ocpp16Controller{
         return "remoteController";
     }
 
-    @RequestMapping(value = REMOTE_PATH + START_PATH, method = RequestMethod.POST)
-    public String myPostRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams startParams,
-                                    BindingResult result, Model model) {
+    @PostMapping( REMOTE_PATH + START_PATH)
+    public ResponseEntity<String> myPostRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams startParams,
+                                              BindingResult result) {
         if (result.hasErrors()) {
-            setCommonAttributesForTx(model);
-            setActiveUserIdTagList(model);
-            return START_PATH;
+            return ResponseEntity.badRequest().body("Validation failed");
         }
         getClient12().remoteStartTransaction(startParams);
-        return "remoteController";
+        return ResponseEntity.ok("The ChargePoint is running");
     }
 
-    @RequestMapping(value = REMOTE_PATH + STOP_PATH, method = RequestMethod.POST)
-    public String myPostRemoteStartTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams stopParams,
-                                    BindingResult result, Model model) {
+    @PostMapping(REMOTE_PATH + STOP_PATH)
+    public ResponseEntity<String> myPostRemoteStartTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams stopParams,
+                                    BindingResult result) {
         if (result.hasErrors()) {
-            setCommonAttributesForTx(model);
-            setActiveUserIdTagList(model);
-            return STOP_PATH;
+            return ResponseEntity.badRequest().body("Validation failed");
         }
         getClient12().remoteStopTransaction(stopParams);
-        return "remoteController";
+        return ResponseEntity.ok("The ChargePoint is stopped");
     }
 }
 
