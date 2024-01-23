@@ -17,15 +17,13 @@ import javax.validation.Valid;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/manager")
+@RequestMapping(value = "/manager/remoteController")
 public class RemoteController extends Ocpp16Controller{
 
 
     @Autowired
     @Qualifier("ChargePointService12_Client")
     private ChargePointService12_Client client12;
-
-    private static final String REMOTE_PATH = "/remoteController";
     private static final String START_PATH = "/start";
     private static final String STOP_PATH = "/stop";
     @Autowired
@@ -37,7 +35,7 @@ public class RemoteController extends Ocpp16Controller{
         return client12;
     }
 
-    @GetMapping( REMOTE_PATH)
+    @GetMapping( "")
     public String myGetRemoteStartTx(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
@@ -47,7 +45,7 @@ public class RemoteController extends Ocpp16Controller{
     }
 
     @ResponseBody
-    @PostMapping( REMOTE_PATH + START_PATH)
+    @PostMapping(  START_PATH)
     public String myPostRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams startParams,
                                     BindingResult result, Model model) {
         log.info("Received form parameters: {}", startParams);
@@ -55,7 +53,7 @@ public class RemoteController extends Ocpp16Controller{
             setCommonAttributesForTx(model);
             setActiveUserIdTagList(model);
 
-            return REMOTE_PATH + START_PATH;
+            return  START_PATH;
 
         }
 
@@ -64,16 +62,16 @@ public class RemoteController extends Ocpp16Controller{
         return "remoteController";
     }
     @ResponseBody
-    @PostMapping(REMOTE_PATH + STOP_PATH)
+    @PostMapping( STOP_PATH)
     public String myPostRemoteStartTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams stopParams,
                                     BindingResult result, Model model) {
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             setActiveUserIdTagList(model);
-            return REMOTE_PATH + STOP_PATH;
+            return STOP_PATH;
         }
         getClient12().remoteStopTransaction(stopParams);
-        return "remoteController";
+        return "";
     }
 }
 
