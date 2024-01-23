@@ -3,11 +3,12 @@
 <script type="text/javascript">
     $(document).ready(function() {
         <%@ include file="snippets/getConnectorIdsZeroAllowed.js" %>
+
     });
 </script>
 <div class="content">
     <div class="op16-content">
-        <form:form action="${ctxPath}/manager/remoteController/start" modelAttribute="startParams">
+        <form:form action="${ctxPath}/manager/remoteController/start" modelAttribute="startParams" id="startForm">
             <section><span>Charge Points with OCPP ${opVersion}</span></section>
             <%@ include file="00-cp-single.jsp" %>
             <section><span>Parameters</span></section>
@@ -25,6 +26,7 @@
                 <tr><td></td><td><div class="submit-button"><input type="submit" value="Perform"></div></td></tr>
             </table>
         </form:form>
+        <p id="remoteResult"></p>
         <div class="op16-content">
             <form:form action="${ctxPath}/manager/remoteController/stop" modelAttribute="stopParams">
                 <section><span>Charge Points with OCPP ${opVersion}</span></section>
