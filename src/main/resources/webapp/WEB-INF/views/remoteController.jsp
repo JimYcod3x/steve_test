@@ -26,6 +26,7 @@
                 <tr><td></td><td><div class="submit-button"><input type="submit" value="Perform"></div></td></tr>
             </table>
         </form:form>
+    </div>
         <p id="remoteResult"></p>
         <div class="op16-content">
             <form:form action="${ctxPath}/manager/remoteController/stop" modelAttribute="stopParams">
