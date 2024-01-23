@@ -38,7 +38,7 @@
     <script type="text/javascript" src="${ctxPath}/static/js/jquery-ui-timepicker-addon.min.js" ></script>
     <script type="text/javascript" src="${ctxPath}/static/js/script.js" ></script>
     <script type="text/javascript" src="${ctxPath}/static/js/stupidtable.min.js" ></script>
-    <script type="text/javascript" src="${ctxPath}/static/js/getConnectorIdsZeroAllowed.js"  ></script>
+    <script type="text/javascript" src="${ctxPath}/static/js/callback.js"  ></script>
     <title>SteVe - Steckdosenverwaltung</title>
 </head>
 <body>
