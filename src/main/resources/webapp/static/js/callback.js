@@ -9,7 +9,7 @@
         // Make an AJAX POST request
         $.ajax({
             type: "POST",
-            url: "/remote/start",
+            url: "/remote",
             data: formData,
             success: function (response) {
                 // Handle the success response event
