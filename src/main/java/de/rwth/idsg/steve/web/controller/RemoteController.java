@@ -35,13 +35,13 @@ public class RemoteController extends Ocpp16Controller{
         return client12;
     }
 
-    @GetMapping( "")
-    public String myGetRemoteStartTx(Model model) {
+    @GetMapping( "/")
+    public String myGetController(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
         model.addAttribute(START_PARAMS, new RemoteStartTransactionParams());
         model.addAttribute(STOP_PARAMS, new RemoteStopTransactionParams());
-        return "remoteController";
+        return "/";
     }
 
     @ResponseBody
@@ -59,11 +59,11 @@ public class RemoteController extends Ocpp16Controller{
 
         log.info("Received form parameters: {}", startParams);
         getClient12().remoteStartTransaction(startParams);
-        return "remoteController";
+        return "/";
     }
     @ResponseBody
     @PostMapping( STOP_PATH)
-    public String myPostRemoteStartTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams stopParams,
+    public String myPostRemoteStopTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams stopParams,
                                     BindingResult result, Model model) {
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
@@ -71,7 +71,7 @@ public class RemoteController extends Ocpp16Controller{
             return STOP_PATH;
         }
         getClient12().remoteStopTransaction(stopParams);
-        return "";
+        return "/";
     }
 }
 
