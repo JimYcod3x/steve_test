@@ -53,7 +53,9 @@ public class RemoteController extends Ocpp16Controller{
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             setActiveUserIdTagList(model);
+            log.info("Received form parameters: {}", startParams);
             return REMOTE_PATH + START_PATH;
+
         }
 
         log.info("Received form parameters: {}", startParams);
