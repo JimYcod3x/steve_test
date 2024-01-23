@@ -42,7 +42,7 @@ public class RemoteController extends Ocpp16Controller{
         setActiveUserIdTagList(model);
         model.addAttribute(START_PARAMS, new RemoteStartTransactionParams());
         model.addAttribute(STOP_PARAMS, new RemoteStopTransactionParams());
-        return "remoteController";
+        return "/remoteController";
     }
 
     @RequestMapping(value =  START_PATH, method = RequestMethod.POST)
