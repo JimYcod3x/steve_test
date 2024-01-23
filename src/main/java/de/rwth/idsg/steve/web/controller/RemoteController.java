@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.concurrent.ScheduledExecutorService;
@@ -74,6 +71,7 @@ public class RemoteController extends Ocpp16Controller{
         return "/remoteController";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/remoteController", method = RequestMethod.POST)
     public String postRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
