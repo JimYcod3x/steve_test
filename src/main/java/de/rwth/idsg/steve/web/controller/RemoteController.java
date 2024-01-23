@@ -49,7 +49,7 @@ public class RemoteController extends Ocpp16Controller{
     public ResponseEntity<String> myPostRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams startParams,
                                               BindingResult result) {
         if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body("Validation failed");
+            return ResponseEntity.ok("The ChargePoint is fail to run");
         }
         getClient12().remoteStartTransaction(startParams);
         return ResponseEntity.ok("The ChargePoint is running");
