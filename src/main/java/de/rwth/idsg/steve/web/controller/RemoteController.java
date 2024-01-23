@@ -42,11 +42,11 @@ public class RemoteController extends Ocpp16Controller{
         setActiveUserIdTagList(model);
         model.addAttribute(START_PARAMS, new RemoteStartTransactionParams());
         model.addAttribute(STOP_PARAMS, new RemoteStopTransactionParams());
-        return "/remoteController";
+        return "";
     }
 
     @RequestMapping(value =  START_PATH, method = RequestMethod.POST)
-    public String myGetRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams startParams,
+    public String myPostRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams startParams,
                                     BindingResult result, Model model) {
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
@@ -58,7 +58,7 @@ public class RemoteController extends Ocpp16Controller{
     }
 
     @RequestMapping(value =  STOP_PATH, method = RequestMethod.POST)
-    public String mypostRemoteStartTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams stopParams,
+    public String myPostRemoteStartTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams stopParams,
                                     BindingResult result, Model model) {
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
