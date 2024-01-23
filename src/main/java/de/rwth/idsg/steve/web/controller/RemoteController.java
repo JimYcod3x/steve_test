@@ -24,8 +24,8 @@ public class RemoteController extends Ocpp16Controller{
     @Autowired
     @Qualifier("ChargePointService12_Client")
     private ChargePointService12_Client client12;
-    private static final String START_PATH = "/start";
-    private static final String STOP_PATH = "/stop";
+    private static final String START_PATH = "start";
+    private static final String STOP_PATH = "stop";
     @Autowired
     protected ChargePointHelperService chargePointHelperService;
     protected static final String START_PARAMS = "startParams";
@@ -45,7 +45,7 @@ public class RemoteController extends Ocpp16Controller{
     }
 
     @ResponseBody
-    @PostMapping( "/remoteController" + START_PATH)
+    @PostMapping( "/remoteController/" + START_PATH)
     public String myPostRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams startParams,
                                     BindingResult result, Model model) {
         log.info("Received form parameters: {}", startParams);
@@ -62,7 +62,7 @@ public class RemoteController extends Ocpp16Controller{
         return "remoteController";
     }
     @ResponseBody
-    @PostMapping("/remoteController" + STOP_PATH)
+    @PostMapping("/remoteController/" + STOP_PATH)
     public String myPostRemoteStopTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams stopParams,
                                     BindingResult result, Model model) {
         if (result.hasErrors()) {
