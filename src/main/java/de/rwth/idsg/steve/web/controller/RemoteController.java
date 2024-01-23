@@ -1,6 +1,10 @@
 package de.rwth.idsg.steve.web.controller;
 
 
+import de.rwth.idsg.steve.ocpp.ChargePointService12_Invoker;
+import de.rwth.idsg.steve.ocpp.ChargePointService12_InvokerImpl;
+import de.rwth.idsg.steve.ocpp.OcppVersion;
+import de.rwth.idsg.steve.repository.TaskStore;
 import de.rwth.idsg.steve.service.ChargePointHelperService;
 import de.rwth.idsg.steve.service.ChargePointService12_Client;
 import de.rwth.idsg.steve.web.dto.ocpp.RemoteStartTransactionParams;
@@ -11,9 +15,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.concurrent.ScheduledExecutorService;
 
 @Slf4j
 @Controller
@@ -31,33 +39,69 @@ public class RemoteController extends Ocpp16Controller{
     protected static final String START_PARAMS = "startParams";
     protected static final String STOP_PARAMS = "stopParams";
 
+    @Autowired protected TaskStore taskStore;
+
+    protected OcppVersion getVersion() {
+        return OcppVersion.V_12;
+    }
+
+    @Autowired private ChargePointService12_InvokerImpl invoker12;
+
+    protected ChargePointService12_Invoker getOcpp12Invoker() {
+        return invoker12;
+    }
+
+    @Autowired protected ScheduledExecutorService executorService;
+
     protected ChargePointService12_Client getClient12() {
         return client12;
     }
 
-    @GetMapping( "/remoteController")
-    public String myGetController(Model model) {
+//    @GetMapping( "/remoteController")
+//    public String myGetController(Model model) {
+//        setCommonAttributesForTx(model);
+//        setActiveUserIdTagList(model);
+//        model.addAttribute(START_PARAMS, new RemoteStartTransactionParams());
+//        model.addAttribute(STOP_PARAMS, new RemoteStopTransactionParams());
+//        return "remoteController";
+//    }
+
+    @RequestMapping(value ="/remoteController", method = RequestMethod.GET)
+    public String getRemoteStartTx(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
         model.addAttribute(START_PARAMS, new RemoteStartTransactionParams());
-        model.addAttribute(STOP_PARAMS, new RemoteStopTransactionParams());
-        return "remoteController";
+        return "/remoteController";
     }
 
-    @PostMapping( "/remoteController/start")
-    public String myPostRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams startParams,
+    @RequestMapping(value = "/remoteController", method = RequestMethod.POST)
+    public String postRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
-        log.info("Received form parameters: {}", startParams);
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             setActiveUserIdTagList(model);
-
-
+            return "/remoteController";
         }
-
-        getClient12().remoteStartTransaction(startParams);
-        return "remoteController/start";
+        getClient12().remoteStartTransaction(params);
+        return "/remoteController";
     }
+
+
+
+//    @PostMapping( "/remoteController/start")
+//    public String myPostRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams startParams,
+//                                    BindingResult result, Model model) {
+//        log.info("Received form parameters: {}", startParams);
+//        if (result.hasErrors()) {
+//            setCommonAttributesForTx(model);
+//            setActiveUserIdTagList(model);
+//
+//
+//        }
+//
+//        getClient12().remoteStartTransaction(startParams);
+//        return "remoteController/start";
+//    }
     @PostMapping("/remoteController/" + STOP_PATH)
     public String myPostRemoteStopTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams stopParams,
                                     BindingResult result, Model model) {
