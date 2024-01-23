@@ -62,7 +62,7 @@ public class RemoteController extends Ocpp16Controller{
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             setActiveUserIdTagList(model);
-            return REMOTE_PATH + START_PATH;
+            return REMOTE_PATH + STOP_PATH;
         }
         getClient12().remoteStopTransaction(stopParams);
         return "remoteController";
