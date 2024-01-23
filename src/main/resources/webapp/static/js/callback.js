@@ -9,7 +9,7 @@
         // Make an AJAX POST request
         $.ajax({
             type: "POST",
-            url: "${ctxPath}/manager/remoteController",
+            url: "/remoteController",
             data: formData,
             success: function (response) {
                 // Handle the success response event
