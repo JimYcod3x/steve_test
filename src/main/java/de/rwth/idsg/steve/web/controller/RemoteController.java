@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "/manager/remoteController")
+@RequestMapping(value = "/manager")
 public class RemoteController extends Ocpp16Controller{
 
 
@@ -36,13 +36,13 @@ public class RemoteController extends Ocpp16Controller{
         return client12;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/remoteController", method = RequestMethod.GET)
     public String myGetRemoteStartTx(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
         model.addAttribute(START_PARAMS, new RemoteStartTransactionParams());
         model.addAttribute(STOP_PARAMS, new RemoteStopTransactionParams());
-        return "redirect:/manager/remoteController";
+        return "redirect:remoteController";
     }
 
     @RequestMapping(value =  START_PATH, method = RequestMethod.POST)
