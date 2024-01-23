@@ -29,7 +29,7 @@
     </div>
         <p id="remoteResult"></p>
         <div class="op16-content">
-            <form:form action="${ctxPath}/manager/remoteController/stop" modelAttribute="stopParams">
+            <form:form action="${ctxPath}/manager/remoteController/stop" modelAttribute="stopParams" id="stopForm">
                 <section><span>Charge Points with OCPP ${opVersion}</span></section>
                 <%@ include file="00-cp-single.jsp" %>
                 <section><span>Parameters</span></section>
