@@ -7,14 +7,14 @@ import de.rwth.idsg.steve.web.dto.ocpp.RemoteStartTransactionParams;
 import de.rwth.idsg.steve.web.dto.ocpp.RemoteStopTransactionParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RestController
+@Controller
 @RequestMapping(value = "/manager")
 public class RemoteController extends Ocpp16Controller{
 
@@ -46,22 +46,26 @@ public class RemoteController extends Ocpp16Controller{
 
     @PostMapping( REMOTE_PATH + START_PATH)
     public String myPostRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams startParams,
-                                              BindingResult result) {
+                                    BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "The ChargePoint is fail to run";
+            setCommonAttributesForTx(model);
+            setActiveUserIdTagList(model);
+            return REMOTE_PATH + START_PATH;
         }
         getClient12().remoteStartTransaction(startParams);
-        return "The ChargePoint is running";
+        return "remoteController";
     }
 
     @PostMapping(REMOTE_PATH + STOP_PATH)
-    public ResponseEntity<String> myPostRemoteStartTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams stopParams,
-                                    BindingResult result) {
+    public String myPostRemoteStartTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams stopParams,
+                                    BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body("Validation failed");
+            setCommonAttributesForTx(model);
+            setActiveUserIdTagList(model);
+            return REMOTE_PATH + START_PATH;
         }
         getClient12().remoteStopTransaction(stopParams);
-        return ResponseEntity.ok("The ChargePoint is stopped");
+        return "remoteController";
     }
 }
 
