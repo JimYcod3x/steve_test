@@ -22,7 +22,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/manager/remoteController/")
+@RequestMapping(value = "/manager")
 public class RemoteController extends Ocpp16Controller {
 
 
@@ -30,6 +30,8 @@ public class RemoteController extends Ocpp16Controller {
     @Qualifier("ChargePointService12_Client")
     private ChargePointService12_Client client12;
     private static final String START_PATH = "start";
+
+    private static final String REMOTE_PATH = "/remoteController"
     private static final String STOP_PATH = "stop";
     @Autowired
     protected ChargePointHelperService chargePointHelperService;
@@ -57,7 +59,7 @@ public class RemoteController extends Ocpp16Controller {
         return client12;
     }
 
-    @GetMapping("")
+    @GetMapping(REMOTE_PATH)
     public String myGetController(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
@@ -96,7 +98,7 @@ public class RemoteController extends Ocpp16Controller {
 //        return "remoteController/start";
 //    }
     @ResponseBody
-    @RequestMapping(value = START_PATH, method = RequestMethod.POST)
+    @PostMapping(REMOTE_PATH + START_PATH)
     public String postMyRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams params,
                                       BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -108,7 +110,7 @@ public class RemoteController extends Ocpp16Controller {
     }
 
     @ResponseBody
-    @RequestMapping(value = STOP_PATH, method = RequestMethod.POST)
+    @PostMapping(REMOTE_PATH + STOP_PATH)
     public String postMyRemoteStopTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams params,
                                      BindingResult result, Model model) {
         if (result.hasErrors()) {
