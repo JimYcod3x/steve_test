@@ -33,7 +33,7 @@ public class RemoteController extends Ocpp16Controller{
     private static final String STOP_PATH = "stop";
     @Autowired
     protected ChargePointHelperService chargePointHelperService;
-    protected static final String START_PARAMS = "startParams";
+    protected static final String START_PARAMS = "params";
     protected static final String STOP_PARAMS = "stopParams";
 
     @Autowired protected TaskStore taskStore;
