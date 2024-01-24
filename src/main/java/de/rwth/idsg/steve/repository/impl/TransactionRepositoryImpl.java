@@ -89,7 +89,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     }
 
     @Override
-    public TransactionDetails getDetails(int transactionPk, boolean firstArrivingMeterValueIfMultiple) {
+    public String getDetails(int transactionPk, boolean firstArrivingMeterValueIfMultiple) {
 
         // -------------------------------------------------------------------------
         // Step 1: Collect general data about transaction
