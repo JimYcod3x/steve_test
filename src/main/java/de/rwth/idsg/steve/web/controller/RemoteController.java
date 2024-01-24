@@ -68,7 +68,7 @@ public class RemoteController extends Ocpp16Controller{
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
         model.addAttribute(START_PARAMS, new RemoteStartTransactionParams());
-        return "/remoteController";
+        return "remoteController";
     }
 
     @ResponseBody
