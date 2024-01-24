@@ -97,7 +97,7 @@ public class AjaxCallController {
     public void getTransactionDetails(@PathVariable("transactionId") Integer transactionId, HttpServletResponse response) throws IOException {
 
 
-        String s = serializeArray(Collections.singletonList(transactionRepository.getDetails(transactionId, true).getTransaction()));
+        String s = serializeArray(Collections.singletonList(transactionRepository.getDetails(transactionId, true)));
 
         writeOutput(response, s);
     }
