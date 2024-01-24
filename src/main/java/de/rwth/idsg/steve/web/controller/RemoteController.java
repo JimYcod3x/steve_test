@@ -31,7 +31,7 @@ public class RemoteController extends Ocpp16Controller {
     private ChargePointService12_Client client12;
     private static final String START_PATH = "start";
 
-    private static final String REMOTE_PATH = "/remoteController"
+    private static final String REMOTE_PATH = "/remoteController";
     private static final String STOP_PATH = "stop";
     @Autowired
     protected ChargePointHelperService chargePointHelperService;
