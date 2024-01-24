@@ -14,10 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
 import java.util.concurrent.ScheduledExecutorService;
 
 @Slf4j
@@ -100,30 +99,30 @@ public class RemoteController extends Ocpp16Controller {
 //        return "remoteController/start";
 //    }
 
-        @PostMapping(REMOTE_PATH + START_PATH)
-        public String postMyRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams params,
-                                          BindingResult result, Model model) {
-            if (result.hasErrors()) {
-                setCommonAttributesForTx(model);
-                setActiveUserIdTagList(model);
-                return "remoteController";
-            }
-
-            getClient12().remoteStartTransaction(params);
-            return "redirect:remoteController";
-        }
-
-    @ResponseBody
-    @PostMapping(REMOTE_PATH + STOP_PATH)
-    public String postMyRemoteStopTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams params,
-                                     BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            setCommonAttributesForTx(model);
-            return "remoteController";
-        }
-
-        getClient12().remoteStopTransaction(params);
-        return REDIRECT_PATH ;
-    }
+//        @PostMapping(REMOTE_PATH + START_PATH)
+//        public String postMyRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams params,
+//                                          BindingResult result, Model model) {
+//            if (result.hasErrors()) {
+//                setCommonAttributesForTx(model);
+//                setActiveUserIdTagList(model);
+//                return "remoteController";
+//            }
+//
+//            getClient12().remoteStartTransaction(params);
+//            return "redirect:remoteController";
+//        }
+//
+//    @ResponseBody
+//    @PostMapping(REMOTE_PATH + STOP_PATH)
+//    public String postMyRemoteStopTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams params,
+//                                     BindingResult result, Model model) {
+//        if (result.hasErrors()) {
+//            setCommonAttributesForTx(model);
+//            return "remoteController";
+//        }
+//
+//        getClient12().remoteStopTransaction(params);
+//        return REDIRECT_PATH ;
+//    }
 }
 
