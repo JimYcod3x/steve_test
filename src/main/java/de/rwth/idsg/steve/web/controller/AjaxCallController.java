@@ -25,7 +25,6 @@ import de.rwth.idsg.steve.repository.ChargePointRepository;
 import de.rwth.idsg.steve.repository.ReservationRepository;
 import de.rwth.idsg.steve.repository.TransactionRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -37,7 +36,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -97,15 +95,11 @@ public class AjaxCallController {
     public void getTransactionDetails(@PathVariable("transactionId") Integer transactionId, HttpServletResponse response) throws IOException {
 
 
-        String s = serializeArray(Collections.singletonList(transactionRepository.getDetails(transactionId, true)));
+        String s = transactionRepository.getDetails(transactionId).getTransaction().toString();
 
         writeOutput(response, s);
     }
 
-    @Test
-    public void test() {
-        System.out.println(transactionRepository.getDetails(13, true).getClass().getSimpleName());
-    }
 
     @RequestMapping(value = RESERVATION_IDS_PATH)
     public void getReservationIds(@PathVariable("chargeBoxId") String chargeBoxId,
