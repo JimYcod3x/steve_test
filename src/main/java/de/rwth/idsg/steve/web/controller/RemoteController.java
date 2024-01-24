@@ -99,7 +99,7 @@ public class RemoteController extends Ocpp16Controller {
 //        getClient12().remoteStartTransaction(startParams);
 //        return "remoteController/start";
 //    }
-    @ResponseBody
+
     @PostMapping(REMOTE_PATH + START_PATH)
     public String postMyRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams params,
                                       BindingResult result, Model model) {
@@ -110,7 +110,7 @@ public class RemoteController extends Ocpp16Controller {
         }
 
         getClient12().remoteStartTransaction(params);
-        return "remoteController" ;
+        return REDIRECT_PATH ;
     }
 
     @ResponseBody
