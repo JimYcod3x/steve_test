@@ -95,7 +95,7 @@ public class AjaxCallController {
     public void getTransactionDetails(@PathVariable("transactionId") Integer transactionId, HttpServletResponse response) throws IOException {
 
 
-        String s = transactionRepository.getDetails(transactionId).getTransaction().toString();
+        String s = transactionRepository.getDetails(transactionId, true).getTransaction().toString();
 
         writeOutput(response, s);
     }
