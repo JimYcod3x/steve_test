@@ -22,17 +22,7 @@ import de.rwth.idsg.steve.ocpp.OcppVersion;
 import de.rwth.idsg.steve.service.ChargePointHelperService;
 import de.rwth.idsg.steve.service.ChargePointService12_Client;
 import de.rwth.idsg.steve.service.OcppTagService;
-import de.rwth.idsg.steve.web.dto.ocpp.ChangeAvailabilityParams;
-import de.rwth.idsg.steve.web.dto.ocpp.ChangeConfigurationParams;
-import de.rwth.idsg.steve.web.dto.ocpp.ConfigurationKeyEnum;
-import de.rwth.idsg.steve.web.dto.ocpp.ConfigurationKeyReadWriteEnum;
-import de.rwth.idsg.steve.web.dto.ocpp.GetDiagnosticsParams;
-import de.rwth.idsg.steve.web.dto.ocpp.MultipleChargePointSelect;
-import de.rwth.idsg.steve.web.dto.ocpp.RemoteStartTransactionParams;
-import de.rwth.idsg.steve.web.dto.ocpp.RemoteStopTransactionParams;
-import de.rwth.idsg.steve.web.dto.ocpp.ResetParams;
-import de.rwth.idsg.steve.web.dto.ocpp.UnlockConnectorParams;
-import de.rwth.idsg.steve.web.dto.ocpp.UpdateFirmwareParams;
+import de.rwth.idsg.steve.web.dto.ocpp.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -167,14 +157,6 @@ public class Ocpp12Controller {
         return getPrefix() + REMOTE_START_TX_PATH;
     }
 
-    @ResponseBody
-    @RequestMapping(value = START_PATH, method = RequestMethod.GET)
-    public String getMyRemoteStartTx(Model model) {
-        setCommonAttributesForTx(model);
-        setActiveUserIdTagList(model);
-        model.addAttribute(START_PARAMS, new RemoteStartTransactionParams());
-        return getPrefix() + START_PATH;
-    }
 
     @RequestMapping(value = REMOTE_STOP_TX_PATH, method = RequestMethod.GET)
     public String getRemoteStopTx(Model model) {
@@ -256,6 +238,19 @@ public class Ocpp12Controller {
             setCommonAttributesForTx(model);
             setActiveUserIdTagList(model);
             return getPrefix() + REMOTE_START_TX_PATH;
+        }
+        return REDIRECT_TASKS_PATH + getClient12().remoteStartTransaction(params);
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = START_PATH, method = RequestMethod.POST)
+    public String postMyRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams params,
+                                    BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            setCommonAttributesForTx(model);
+            setActiveUserIdTagList(model);
+            return getPrefix() + START_PATH;
         }
         return REDIRECT_TASKS_PATH + getClient12().remoteStartTransaction(params);
     }
