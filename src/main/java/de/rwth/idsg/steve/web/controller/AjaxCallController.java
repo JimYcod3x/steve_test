@@ -24,9 +24,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.rwth.idsg.steve.repository.ChargePointRepository;
 import de.rwth.idsg.steve.repository.ReservationRepository;
 import de.rwth.idsg.steve.repository.TransactionRepository;
+import de.rwth.idsg.steve.repository.dto.Transaction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +39,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Sevket Goekay <sevketgokay@gmail.com>
@@ -92,10 +95,17 @@ public class AjaxCallController {
     }
 
     @RequestMapping(value = TXDETAIL_PATH + "/{transactionId}")
-    public void getTransactionDetails(@PathVariable("transactionId") Integer transactionId, HttpServletResponse response) throws IOException {
-        String s = objectMapper.writeValueAsString(transactionRepository.getDetails(transactionId, true).getTransaction().getAllAttributes());
+    public ResponseEntity<Map<String, Object>> getTransactionDetails(@PathVariable("transactionId") Integer transactionId) {
+        Transaction transaction = transactionRepository.getDetails(transactionId, true).getTransaction();
 
-        writeOutput(response, s);
+        if (transaction != null) {
+            Map<String, Object> attributes = transaction.getAllAttributes();
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(attributes);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @RequestMapping(value = RESERVATION_IDS_PATH)
