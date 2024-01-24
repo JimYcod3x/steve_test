@@ -106,11 +106,11 @@ public class RemoteController extends Ocpp16Controller {
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             setActiveUserIdTagList(model);
-            return REDIRECT_PATH;
+            return "remoteController";
         }
 
         getClient12().remoteStartTransaction(params);
-        return REDIRECT_PATH ;
+        return "remoteController" ;
     }
 
     @ResponseBody
@@ -119,11 +119,11 @@ public class RemoteController extends Ocpp16Controller {
                                      BindingResult result, Model model) {
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
-            return REDIRECT_PATH;
+            return "remoteController";
         }
 
         getClient12().remoteStopTransaction(params);
-        return REDIRECT_PATH ;
+        return "remoteController" ;
     }
 }
 
