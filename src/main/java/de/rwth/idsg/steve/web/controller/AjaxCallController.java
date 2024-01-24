@@ -71,6 +71,8 @@ public class AjaxCallController {
     private static final String TRANSACTION_IDS_PATH    = "/transactionIds";
     private static final String RESERVATION_IDS_PATH    = "/reservationIds";
 
+    private static final String TXDETAIL_PATH           = "/transactionDetails";
+
     // -------------------------------------------------------------------------
     // HTTP methods
     // -------------------------------------------------------------------------
@@ -86,6 +88,12 @@ public class AjaxCallController {
     public void getTransactionIds(@PathVariable("chargeBoxId") String chargeBoxId,
                                   HttpServletResponse response) throws IOException {
         String s = serializeArray(transactionRepository.getActiveTransactionIds(chargeBoxId));
+        writeOutput(response, s);
+    }
+
+    @RequestMapping(value = TXDETAIL_PATH + "/{transactionId}")
+    public void getTransactionDetails(@PathVariable("transactionId") Integer transactionId, HttpServletResponse response) throws IOException {
+        String s = serializeArray(transactionRepository.getDetails(transactionId, true).getValues());
         writeOutput(response, s);
     }
 
