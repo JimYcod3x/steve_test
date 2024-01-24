@@ -41,6 +41,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -73,6 +74,9 @@ public class Ocpp12Controller {
     private static final String CLEAR_CACHE_PATH = "/ClearCache";
     private static final String GET_DIAG_PATH = "/GetDiagnostics";
     private static final String REMOTE_START_TX_PATH = "/RemoteStartTransaction";
+
+    private static final String START_PATH = "/start";
+    private static final String STOP_PATH = "/stop";
     private static final String REMOTE_STOP_TX_PATH = "/RemoteStopTransaction";
     private static final String RESET_PATH = "/Reset";
     private static final String UNLOCK_CON_PATH = "/UnlockConnector";
@@ -158,6 +162,15 @@ public class Ocpp12Controller {
         setActiveUserIdTagList(model);
         model.addAttribute(PARAMS, new RemoteStartTransactionParams());
         return getPrefix() + REMOTE_START_TX_PATH;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = START_PATH, method = RequestMethod.GET)
+    public String getMyRemoteStartTx(Model model) {
+        setCommonAttributesForTx(model);
+        setActiveUserIdTagList(model);
+        model.addAttribute(PARAMS, new RemoteStartTransactionParams());
+        return getPrefix() + START_PATH;
     }
 
     @RequestMapping(value = REMOTE_STOP_TX_PATH, method = RequestMethod.GET)
