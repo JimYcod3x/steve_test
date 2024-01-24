@@ -18,6 +18,7 @@ $("#chargePointSelectList").change(function() {
 		if (data.length > 0) {
 			// Capture the first transactionId from the data
 			var firstTransactionId = data[0];
+			console.log(firstTransactionId);
 
 			// Second AJAX request using the captured transactionId
 			$.getJSON("${ctxPath}/manager/ajax/" + cp + "/transactionDetails/" + firstTransactionId, function(data1) {
