@@ -93,13 +93,10 @@ public class AjaxCallController {
 
     @RequestMapping(value = TXDETAIL_PATH + "/{transactionId}")
     public void getTransactionDetails(@PathVariable("transactionId") Integer transactionId, HttpServletResponse response) throws IOException {
-
-
-        String s = transactionRepository.getDetails(transactionId, true).getTransaction().toString();
+        String s = String.valueOf(transactionRepository.getDetails(transactionId, true).getTransaction());
 
         writeOutput(response, s);
     }
-
 
     @RequestMapping(value = RESERVATION_IDS_PATH)
     public void getReservationIds(@PathVariable("chargeBoxId") String chargeBoxId,
