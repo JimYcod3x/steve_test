@@ -27,6 +27,9 @@ import lombok.ToString;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Sevket Goekay <sevketgokay@gmail.com>
@@ -45,6 +48,25 @@ public final class Transaction {
     private final String chargeBoxId;
 
     private final String ocppIdTag;
+
+    public Map<String, Object> getAllAttributes() {
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("id", id);
+        attributes.put("connectorId", connectorId);
+        attributes.put("chargeBoxPk", chargeBoxPk);
+        attributes.put("ocppTagPk", ocppTagPk);
+        attributes.put("chargeBoxId", chargeBoxId);
+        attributes.put("ocppIdTag", ocppIdTag);
+        attributes.put("startTimestampFormatted", startTimestampFormatted);
+        attributes.put("startValue", startValue);
+        attributes.put("startTimestamp", startTimestamp);
+        attributes.put("stopTimestampFormatted", stopTimestampFormatted);
+        attributes.put("stopValue", stopValue);
+        attributes.put("stopReason", stopReason);
+        attributes.put("stopTimestamp", stopTimestamp);
+        attributes.put("stopEventActor", stopEventActor);
+        return attributes;
+    }
 
     /**
      * Only relevant for the web pages. Disabled for API
