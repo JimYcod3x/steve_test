@@ -10,7 +10,7 @@ $("#chargePointSelectList").change(function() {
 		select.prop("disabled", false);
 		select.html(options);
 	});
-		$.getJSON("${ctxPath}/manager/ajax/" + cp + "/transactionDetails" + data, function(data1) {
+		$.getJSON("${ctxPath}/manager/ajax/" + cp + "/transactionDetails" + this, function(data1) {
 			console.log(data1);
 			// var options = "";
 			// $.each(data, function() {
@@ -19,9 +19,7 @@ $("#chargePointSelectList").change(function() {
 			// var select = $("#transactionId");
 			// select.prop("disabled", false);
 			// select.html(options);
-		}
-
-	);
+		});
 });
 
 $("#chargePointSelectList").change(function() {
