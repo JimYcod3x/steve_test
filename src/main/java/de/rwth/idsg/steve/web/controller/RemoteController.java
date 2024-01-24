@@ -29,6 +29,8 @@ public class RemoteController extends Ocpp16Controller {
     @Autowired
     @Qualifier("ChargePointService12_Client")
     private ChargePointService12_Client client12;
+
+    private static final String REDIRECT_PATH = "redirect:/manager" + REMOTE_PATH;
     private static final String START_PATH = "start";
 
     private static final String REMOTE_PATH = "/remoteController";
@@ -104,9 +106,11 @@ public class RemoteController extends Ocpp16Controller {
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             setActiveUserIdTagList(model);
-            return getPrefix() + START_PATH;
+            return REDIRECT_PATH;
         }
-        return REDIRECT_TASKS_PATH + getClient12().remoteStartTransaction(params);
+
+        getClient12().remoteStartTransaction(params);
+        return REDIRECT_PATH ;
     }
 
     @ResponseBody
@@ -115,9 +119,11 @@ public class RemoteController extends Ocpp16Controller {
                                      BindingResult result, Model model) {
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
-            return getPrefix() + STOP_PATH;
+            return REDIRECT_PATH;
         }
-        return REDIRECT_TASKS_PATH + getClient12().remoteStopTransaction(params);
+
+        getClient12().remoteStopTransaction(params);
+        return REDIRECT_PATH ;
     }
 }
 
