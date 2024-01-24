@@ -22,7 +22,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/manager")
+@RequestMapping(value = "/manager/remoteController")
 public class RemoteController extends Ocpp16Controller {
 
 
@@ -57,7 +57,7 @@ public class RemoteController extends Ocpp16Controller {
         return client12;
     }
 
-    @GetMapping("/remoteController")
+    @GetMapping("")
     public String myGetController(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);

@@ -8,7 +8,7 @@
 </script>
 <div class="content">
     <div class="op16-content">
-        <form:form action="${ctxPath}/manager/operations/${opVersion}/start" modelAttribute="startParams">
+        <form:form action="${ctxPath}/manager/remoteController/start" modelAttribute="startParams">
             <section><span>Charge Points with OCPP ${opVersion}</span></section>
             <%@ include file="00-cp-single.jsp" %>
             <section><span>Parameters</span></section>
@@ -29,7 +29,7 @@
     </div>
         <p id="remoteResult"></p>
         <div class="op16-content">
-            <form:form action="${ctxPath}/manager/operations/${opVersion}/stop" modelAttribute="stopParams">
+            <form:form action="${ctxPath}/manager/remoteController/stop" modelAttribute="stopParams">
                 <section><span>Charge Points with OCPP ${opVersion}</span></section>
                 <%@ include file="00-cp-single.jsp" %>
                 <section><span>Parameters</span></section>
