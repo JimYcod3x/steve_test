@@ -54,22 +54,15 @@ public class RemoteController extends Ocpp16Controller{
         return client12;
     }
 
-//    @GetMapping( "/remoteController")
-//    public String myGetController(Model model) {
-//        setCommonAttributesForTx(model);
-//        setActiveUserIdTagList(model);
-//        model.addAttribute(START_PARAMS, new RemoteStartTransactionParams());
-//        model.addAttribute(STOP_PARAMS, new RemoteStopTransactionParams());
-//        return "remoteController";
-//    }
-
-    @RequestMapping(value ="/remoteController", method = RequestMethod.GET)
-    public String getRemoteStartTx(Model model) {
+    @GetMapping( "/remoteController")
+    public String myGetController(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
         model.addAttribute(START_PARAMS, new RemoteStartTransactionParams());
+        model.addAttribute(STOP_PARAMS, new RemoteStopTransactionParams());
         return "remoteController";
     }
+
 
     @ResponseBody
     @RequestMapping(value = "/remoteController", method = RequestMethod.POST)

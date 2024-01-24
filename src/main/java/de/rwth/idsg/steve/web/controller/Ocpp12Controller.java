@@ -77,6 +77,9 @@ public class Ocpp12Controller {
 
     private static final String START_PATH = "/start";
     private static final String STOP_PATH = "/stop";
+
+    protected static final String START_PARAMS = "params";
+    protected static final String STOP_PARAMS = "stopParams";
     private static final String REMOTE_STOP_TX_PATH = "/RemoteStopTransaction";
     private static final String RESET_PATH = "/Reset";
     private static final String UNLOCK_CON_PATH = "/UnlockConnector";
@@ -169,7 +172,7 @@ public class Ocpp12Controller {
     public String getMyRemoteStartTx(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
-        model.addAttribute(PARAMS, new RemoteStartTransactionParams());
+        model.addAttribute(START_PARAMS, new RemoteStartTransactionParams());
         return getPrefix() + START_PATH;
     }
 
