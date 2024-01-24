@@ -31,10 +31,10 @@ public class RemoteController extends Ocpp16Controller {
     private ChargePointService12_Client client12;
     private static final String REMOTE_PATH = "/remoteController";
     private static final String REDIRECT_PATH = "redirect:/manager" + REMOTE_PATH;
-    private static final String START_PATH = "start";
+    private static final String START_PATH = "/start";
 
 
-    private static final String STOP_PATH = "stop";
+    private static final String STOP_PATH = "/stop";
     @Autowired
     protected ChargePointHelperService chargePointHelperService;
     protected static final String START_PARAMS = "startParams";
@@ -100,18 +100,18 @@ public class RemoteController extends Ocpp16Controller {
 //        return "remoteController/start";
 //    }
 
-    @PostMapping(REMOTE_PATH + START_PATH)
-    public String postMyRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams params,
-                                      BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            setCommonAttributesForTx(model);
-            setActiveUserIdTagList(model);
-            return "remoteController";
-        }
+        @PostMapping(REMOTE_PATH + START_PATH)
+        public String postMyRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams params,
+                                          BindingResult result, Model model) {
+            if (result.hasErrors()) {
+                setCommonAttributesForTx(model);
+                setActiveUserIdTagList(model);
+                return "remoteController";
+            }
 
-        getClient12().remoteStartTransaction(params);
-        return REDIRECT_PATH ;
-    }
+            getClient12().remoteStartTransaction(params);
+            return REDIRECT_PATH ;
+        }
 
     @ResponseBody
     @PostMapping(REMOTE_PATH + STOP_PATH)
@@ -123,7 +123,7 @@ public class RemoteController extends Ocpp16Controller {
         }
 
         getClient12().remoteStopTransaction(params);
-        return "remoteController" ;
+        return REDIRECT_PATH ;
     }
 }
 
