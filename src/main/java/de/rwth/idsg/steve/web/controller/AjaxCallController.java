@@ -94,7 +94,7 @@ public class AjaxCallController {
 
     @RequestMapping(value = TXDETAIL_PATH + "/{transactionId}")
     public void getTransactionDetails(@PathVariable("transactionId") Integer transactionId, HttpServletResponse response) throws IOException {
-        String s = serializeArray(Collections.singletonList(transactionRepository.getDetails(transactionId, true).getTransaction()));
+        String s = Collections.singletonList(transactionRepository.getDetails(transactionId, true).getTransaction()).toString();
 
         writeOutput(response, s);
     }
