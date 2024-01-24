@@ -23,7 +23,7 @@ import java.util.concurrent.ScheduledExecutorService;
 @Slf4j
 @Controller
 @RequestMapping(value = "/manager")
-public class RemoteController extends Ocpp16Controller{
+public class RemoteController extends Ocpp16Controller {
 
 
     @Autowired
@@ -36,25 +36,28 @@ public class RemoteController extends Ocpp16Controller{
     protected static final String START_PARAMS = "startParams";
     protected static final String STOP_PARAMS = "stopParams";
 
-    @Autowired protected TaskStore taskStore;
+    @Autowired
+    protected TaskStore taskStore;
 
     protected OcppVersion getVersion() {
         return OcppVersion.V_12;
     }
 
-    @Autowired private ChargePointService12_InvokerImpl invoker12;
+    @Autowired
+    private ChargePointService12_InvokerImpl invoker12;
 
     protected ChargePointService12_Invoker getOcpp12Invoker() {
         return invoker12;
     }
 
-    @Autowired protected ScheduledExecutorService executorService;
+    @Autowired
+    protected ScheduledExecutorService executorService;
 
     protected ChargePointService12_Client getClient12() {
         return client12;
     }
 
-    @GetMapping( "/remoteController")
+    @GetMapping("/remoteController")
     public String myGetController(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
@@ -64,22 +67,21 @@ public class RemoteController extends Ocpp16Controller{
     }
 
 
-    @ResponseBody
-    @RequestMapping(value = "/remoteController", method = RequestMethod.POST)
-    public String postRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams params,
-                                    BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            setCommonAttributesForTx(model);
-            setActiveUserIdTagList(model);
-            return "/remoteController";
-        }
-        getClient12().remoteStartTransaction(params);
-        return "/remoteController";
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "/remoteController", method = RequestMethod.POST)
+//    public String postRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams params,
+//                                    BindingResult result, Model model) {
+//        if (result.hasErrors()) {
+//            setCommonAttributesForTx(model);
+//            setActiveUserIdTagList(model);
+//            return "/remoteController";
+//        }
+//        getClient12().remoteStartTransaction(params);
+//        return "/remoteController";
+//    }
 
 
-
-//    @PostMapping( "/remoteController/start")
+    //    @PostMapping( "/remoteController/start")
 //    public String myPostRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams startParams,
 //                                    BindingResult result, Model model) {
 //        log.info("Received form parameters: {}", startParams);
@@ -93,16 +95,27 @@ public class RemoteController extends Ocpp16Controller{
 //        getClient12().remoteStartTransaction(startParams);
 //        return "remoteController/start";
 //    }
-    @PostMapping("/remoteController/" + STOP_PATH)
-    public String myPostRemoteStopTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams stopParams,
-                                    BindingResult result, Model model) {
+    @ResponseBody
+    @RequestMapping(value = START_PATH, method = RequestMethod.POST)
+    public String postMyRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams params,
+                                      BindingResult result, Model model) {
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             setActiveUserIdTagList(model);
-            return STOP_PATH;
+            return getPrefix() + START_PATH;
         }
-        getClient12().remoteStopTransaction(stopParams);
-        return "remoteController";
+        return REDIRECT_TASKS_PATH + getClient12().remoteStartTransaction(params);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = STOP_PATH, method = RequestMethod.POST)
+    public String postMyRemoteStopTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams params,
+                                     BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            setCommonAttributesForTx(model);
+            return getPrefix() + STOP_PATH;
+        }
+        return REDIRECT_TASKS_PATH + getClient12().remoteStopTransaction(params);
     }
 }
 
