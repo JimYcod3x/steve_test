@@ -110,7 +110,7 @@ public class RemoteController extends Ocpp16Controller {
             }
 
             getClient12().remoteStartTransaction(params);
-            return REDIRECT_PATH ;
+            return "redirect:remoteController";
         }
 
     @ResponseBody
