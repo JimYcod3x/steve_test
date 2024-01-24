@@ -25,6 +25,7 @@ import de.rwth.idsg.steve.repository.ChargePointRepository;
 import de.rwth.idsg.steve.repository.ReservationRepository;
 import de.rwth.idsg.steve.repository.TransactionRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -94,8 +95,16 @@ public class AjaxCallController {
 
     @RequestMapping(value = TXDETAIL_PATH + "/{transactionId}")
     public void getTransactionDetails(@PathVariable("transactionId") Integer transactionId, HttpServletResponse response) throws IOException {
-        String s = serializeArray(Collections.singletonList(transactionRepository.getDetails(transactionId, true)));
+
+
+        String s = serializeArray(Collections.singletonList(transactionRepository.getDetails(transactionId, true).getTransaction()));
+
         writeOutput(response, s);
+    }
+
+    @Test
+    public void test() {
+        System.out.println(transactionRepository.getDetails(13, true).getClass().getSimpleName());
     }
 
     @RequestMapping(value = RESERVATION_IDS_PATH)
