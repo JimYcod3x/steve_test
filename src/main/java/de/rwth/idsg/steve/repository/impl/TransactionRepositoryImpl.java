@@ -28,14 +28,7 @@ import jooq.steve.db.enums.TransactionStopEventActor;
 import jooq.steve.db.tables.records.ConnectorMeterValueRecord;
 import jooq.steve.db.tables.records.TransactionStartRecord;
 import org.joda.time.DateTime;
-import org.jooq.Condition;
-import org.jooq.DSLContext;
-import org.jooq.Field;
-import org.jooq.Record12;
-import org.jooq.Record9;
-import org.jooq.RecordMapper;
-import org.jooq.SelectQuery;
-import org.jooq.Table;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -88,6 +81,18 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                   .fetch(TRANSACTION.TRANSACTION_PK);
     }
 
+    @Override
+    public List<Integer> getAllStartStopDetails(String chargeBoxId) {
+        // Get a list of active transaction IDs
+        List<Integer> activeTransactionIds = getActiveTransactionIds(chargeBoxId);
+
+        // Query the database for details based on the active transaction IDs
+        List<Integer> allStartStopDetails = ctx.selectFrom(TRANSACTION)
+                .where(TRANSACTION.TRANSACTION_PK.in(activeTransactionIds))
+                .fetch(TRANSACTION.TRANSACTION_PK);
+
+        return allStartStopDetails;
+    }
     @Override
     public TransactionDetails getDetails(int transactionPk, boolean firstArrivingMeterValueIfMultiple) {
 
