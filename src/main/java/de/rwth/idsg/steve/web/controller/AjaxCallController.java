@@ -94,6 +94,7 @@ public class AjaxCallController {
         writeOutput(response, s);
     }
 
+    @ResponseBody
     @RequestMapping(value = TXDETAIL_PATH + "/{transactionId}")
     public ResponseEntity<Map<String, Object>> getTransactionDetails(@PathVariable("transactionId") Integer transactionId) {
         Transaction transaction = transactionRepository.getDetails(transactionId, true).getTransaction();
