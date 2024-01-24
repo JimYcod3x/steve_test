@@ -255,6 +255,17 @@ public class Ocpp12Controller {
         return REDIRECT_TASKS_PATH + getClient12().remoteStartTransaction(params);
     }
 
+    @ResponseBody
+    @RequestMapping(value = STOP_PATH, method = RequestMethod.POST)
+    public String postMyRemoteStopTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams params,
+                                   BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            setCommonAttributesForTx(model);
+            return getPrefix() + STOP_PATH;
+        }
+        return REDIRECT_TASKS_PATH + getClient12().remoteStopTransaction(params);
+    }
+
     @RequestMapping(value = REMOTE_STOP_TX_PATH, method = RequestMethod.POST)
     public String postRemoteStopTx(@Valid @ModelAttribute(PARAMS) RemoteStopTransactionParams params,
                                    BindingResult result, Model model) {
