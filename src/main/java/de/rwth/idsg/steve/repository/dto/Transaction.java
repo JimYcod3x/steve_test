@@ -59,12 +59,12 @@ public final class Transaction {
         attributes.put("ocppIdTag", ocppIdTag);
         attributes.put("startTimestampFormatted", startTimestampFormatted);
         attributes.put("startValue", startValue);
-        attributes.put("startTimestamp", startTimestamp);
+        attributes.put("startTimestamp", startTimestamp.toString());
         attributes.put("stopTimestampFormatted", stopTimestampFormatted);
         attributes.put("stopValue", stopValue);
         attributes.put("stopReason", stopReason);
-        attributes.put("stopTimestamp", stopTimestamp);
-        attributes.put("stopEventActor", stopEventActor);
+        attributes.put("stopTimestamp", stopTimestamp.toString());
+        attributes.put("stopEventActor", stopEventActor.name());
         return attributes;
     }
 
