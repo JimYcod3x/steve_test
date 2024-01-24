@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -94,8 +95,9 @@ public class AjaxCallController {
 
     @RequestMapping(value = TXDETAIL_PATH + "/{transactionId}")
     public void getTransactionDetails(@PathVariable("transactionId") Integer transactionId, HttpServletResponse response) throws IOException {
-        String s = serializeArray(Collections.singletonList(transactionRepository.getDetails(transactionId, true).getTransaction().toString()));
-        writeOutput(response, s);
+        List s = new ArrayList<>(Collections.singleton(transactionRepository.getDetails(transactionId, true).getTransaction())) ;
+
+        writeOutput(response, s.toString());
     }
 
     @RequestMapping(value = RESERVATION_IDS_PATH)
