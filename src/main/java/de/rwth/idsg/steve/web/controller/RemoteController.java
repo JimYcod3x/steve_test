@@ -30,7 +30,7 @@ public class RemoteController extends Ocpp16Controller {
     @Qualifier("ChargePointService12_Client")
     private ChargePointService12_Client client12;
     private static final String REMOTE_PATH = "/remoteController";
-    private static final String REDIRECT_PATH = "redirect:/manager" + REMOTE_PATH;
+    private static final String REDIRECT_PATH = "redirect:/manager/remoteController";
     private static final String START_PATH = "/start";
 
 
