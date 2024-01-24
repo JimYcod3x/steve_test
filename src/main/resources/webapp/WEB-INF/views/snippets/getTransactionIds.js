@@ -10,8 +10,8 @@ $("#chargePointSelectList").change(function() {
 		select.prop("disabled", false);
 		select.html(options);
 	});
-		$.getJSON("${ctxPath}/manager/ajax/" + cp + "/transactionDetails" + data, function(data) {
-			console.log(data);
+		$.getJSON("${ctxPath}/manager/ajax/" + cp + "/transactionDetails" + data, function(data1) {
+			console.log(data1);
 			// var options = "";
 			// $.each(data, function() {
 			// 	options += "<option value='" + this + "'>" + this + "</option>";
