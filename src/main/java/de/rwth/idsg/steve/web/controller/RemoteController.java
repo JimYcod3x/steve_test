@@ -57,7 +57,7 @@ public class RemoteController extends Ocpp16Controller {
         return client12;
     }
 
-    @GetMapping("")
+    @GetMapping("/")
     public String myGetController(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
