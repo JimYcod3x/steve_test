@@ -33,7 +33,7 @@
 </script>
 <div class="content">
     <div class="op16-content">
-        <form:form id="startStop" method="post">
+        <form:form id="startStop" method="post" modelAttribute="startStopParams">
 <%--        <form:form action="${ctxPath}/manager/operations/${opVersion}/start" modelAttribute="startParams">--%>
             <section><span>Charge Points with OCPP ${opVersion}</span></section>
 

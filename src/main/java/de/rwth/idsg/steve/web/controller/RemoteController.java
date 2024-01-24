@@ -7,8 +7,7 @@ import de.rwth.idsg.steve.ocpp.OcppVersion;
 import de.rwth.idsg.steve.repository.TaskStore;
 import de.rwth.idsg.steve.service.ChargePointHelperService;
 import de.rwth.idsg.steve.service.ChargePointService12_Client;
-import de.rwth.idsg.steve.web.dto.ocpp.RemoteStartTransactionParams;
-import de.rwth.idsg.steve.web.dto.ocpp.RemoteStopTransactionParams;
+import de.rwth.idsg.steve.web.dto.ocpp.StartStopParams;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,7 +35,7 @@ public class RemoteController extends Ocpp16Controller {
     private static final String STOP_PATH = "/stop";
     @Autowired
     protected ChargePointHelperService chargePointHelperService;
-    protected static final String START_PARAMS = "startParams";
+    protected static final String START_STOP_PARAMS = "startStopParams";
     protected static final String STOP_PARAMS = "stopParams";
 
     @Autowired
@@ -64,8 +63,7 @@ public class RemoteController extends Ocpp16Controller {
     public String myGetController(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
-        model.addAttribute(START_PARAMS, new RemoteStartTransactionParams());
-        model.addAttribute(STOP_PARAMS, new RemoteStopTransactionParams());
+        model.addAttribute(START_STOP_PARAMS, new StartStopParams());
         return "remoteController";
     }
 
