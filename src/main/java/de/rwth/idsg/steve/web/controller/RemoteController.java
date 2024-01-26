@@ -83,9 +83,14 @@ public class RemoteController extends Ocpp16Controller {
 
         for (Map.Entry<String, String> entry : transactionDetails.entrySet()) {
             String value = entry.getValue();
-            LocalDateTime dateTime = LocalDateTime.parse(value, inputFormatter);
-            String formattedDateTime = dateTime.format(outputFormatter);
-            transactionDetails.put(entry.getKey(), formattedDateTime);
+            try {
+                // Attempt to parse only if the value is a datetime
+                LocalDateTime dateTime = LocalDateTime.parse(value, inputFormatter);
+                String formattedDateTime = dateTime.format(outputFormatter);
+                transactionDetails.put(entry.getKey(), formattedDateTime);
+            } catch (Exception e) {
+                // Ignore parsing errors, keep the original value
+            }
         }
     }
 
