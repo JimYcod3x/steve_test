@@ -97,7 +97,8 @@ public class AjaxCallController {
 //        String s = serializeArray(transactionRepository.getAllStartStopDetails(chargeBoxId));
         Transaction transaction = transactionRepository.getDetails(transactionId).getTransaction();
 //        return objectMapper.writeValueAsString(transaction);
-        writeOutput(response, "abc");
+        String s = objectMapper.writeValueAsString(transaction);
+        writeOutput(response, s);
 //        return "abc";
     }
 
