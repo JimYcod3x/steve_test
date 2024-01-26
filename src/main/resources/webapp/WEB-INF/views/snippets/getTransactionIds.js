@@ -19,7 +19,7 @@ $("#chargePointSelectList").change(function() {
 			// Capture the first transactionId from the data
 			var firstTransactionId = data[0];
 			console.log(firstTransactionId);
-		}
+
 			var url = "${ctxPath}/manager/ajax/" + cp + "/transactionDetails/" + firstTransactionId;
 			console.log("URL being used:", url);
 			// Second AJAX request using the captured transactionId
@@ -28,7 +28,7 @@ $("#chargePointSelectList").change(function() {
 
 				// Your logic with data1
 			});
-
+		}
 	});
 });
 
