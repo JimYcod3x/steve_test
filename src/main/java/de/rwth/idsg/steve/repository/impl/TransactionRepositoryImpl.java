@@ -28,13 +28,16 @@ import jooq.steve.db.enums.TransactionStopEventActor;
 import jooq.steve.db.tables.records.ConnectorMeterValueRecord;
 import jooq.steve.db.tables.records.TransactionStartRecord;
 import org.joda.time.DateTime;
+import org.jooq.Record;
 import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static de.rwth.idsg.steve.utils.CustomDSL.date;
 import static jooq.steve.db.tables.ChargeBox.CHARGE_BOX;
@@ -82,15 +85,28 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     }
 
     @Override
-    public List<Integer> getAllStartStopDetails(String chargeBoxId) {
+    public Map<String, String> getAllStartStopDetails(String chargeBoxId) {
         // Get a list of active transaction IDs
         List<Integer> activeTransactionIds = getActiveTransactionIds(chargeBoxId);
 
         // Query the database for details based on the active transaction IDs
 
-        return ctx.selectFrom(TRANSACTION)
-                .where(TRANSACTION.TRANSACTION_PK.in(activeTransactionIds))
-                .fetch(TRANSACTION.TRANSACTION_PK);
+        Record transactionRecord = ctx.selectFrom(TRANSACTION)
+                .orderBy(TRANSACTION.TRANSACTION_PK.desc())
+                .limit(1)
+                .fetchOne();
+
+        if (transactionRecord != null) {
+            Map<String, String> transactionMap = new HashMap<>();
+            for (Field<?> field : transactionRecord.fields()) {
+                String columnName = field.getName();
+                String columnValue = transactionRecord.get(field, String.class); // Assuming all values are Strings
+                transactionMap.put(columnName, columnValue);
+            }
+            return transactionMap;
+        } else {
+            return null; // or throw an exception, depending on your requirements
+        }
     }
     @Override
     public TransactionDetails getDetails(int transactionPk, boolean firstArrivingMeterValueIfMultiple) {

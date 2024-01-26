@@ -24,6 +24,7 @@ import de.rwth.idsg.steve.web.dto.TransactionQueryForm;
 
 import java.io.Writer;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Sevket Goekay <sevketgokay@gmail.com>
@@ -36,7 +37,7 @@ public interface TransactionRepository {
 
     List<Integer> getActiveTransactionIds(String chargeBoxId);
 
-    public List<Integer> getAllStartStopDetails(String chargeBoxId);
+    public Map<String, String> getAllStartStopDetails(String chargeBoxId);
 
     TransactionDetails getDetails(int transactionPk, boolean firstArrivingMeterValueIfMultiple);
 
