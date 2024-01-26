@@ -56,9 +56,10 @@
 
         </c:forEach>
 
-                <p>The value for the key "specificKey" is: ${transactionDetails['transaction_pk']}</p>
+
 
             </table>
+            <p>The value for the key "specificKey" is: ${transactionDetails['transaction_pk']}</p>
             <br>
             <section><span>Parameters</span></section>
             <table class="userInput">
