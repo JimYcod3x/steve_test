@@ -21,6 +21,7 @@ package de.rwth.idsg.steve.web.controller;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import de.rwth.idsg.steve.repository.ChargePointRepository;
 import de.rwth.idsg.steve.repository.ReservationRepository;
 import de.rwth.idsg.steve.repository.TransactionRepository;
@@ -61,6 +62,7 @@ public class AjaxCallController {
     @PostConstruct
     private void init() {
         objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JodaModule());
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
