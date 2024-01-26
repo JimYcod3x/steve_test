@@ -48,6 +48,14 @@
                         </form:select>
                     </td>
                 </tr>
+        <c:forEach items="${txDetails}" var="txD">
+            <tr>
+                <td>${txD.key}</td>
+                <td>${txD.value}</td>
+            </tr>
+
+        </c:forEach>
+
             </table>
             <br>
             <section><span>Parameters</span></section>

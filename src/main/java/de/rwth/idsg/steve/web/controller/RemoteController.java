@@ -5,6 +5,7 @@ import de.rwth.idsg.steve.ocpp.ChargePointService12_Invoker;
 import de.rwth.idsg.steve.ocpp.ChargePointService12_InvokerImpl;
 import de.rwth.idsg.steve.ocpp.OcppVersion;
 import de.rwth.idsg.steve.repository.TaskStore;
+import de.rwth.idsg.steve.repository.TransactionRepository;
 import de.rwth.idsg.steve.service.ChargePointHelperService;
 import de.rwth.idsg.steve.service.ChargePointService12_Client;
 import de.rwth.idsg.steve.web.dto.ocpp.StartStopParams;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 
 @Slf4j
@@ -41,6 +43,9 @@ public class RemoteController extends Ocpp16Controller {
     @Autowired
     protected TaskStore taskStore;
 
+    @Autowired
+    protected TransactionRepository transactionRepository;
+
     protected OcppVersion getVersion() {
         return OcppVersion.V_12;
     }
@@ -64,6 +69,8 @@ public class RemoteController extends Ocpp16Controller {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
         model.addAttribute(START_STOP_PARAMS, new StartStopParams());
+        Map<String, String> transactionDetails = transactionRepository.getAllStartStopDetails();
+        model.addAttribute("txDetails", transactionDetails);
         return "remoteController";
     }
 
