@@ -74,7 +74,8 @@
                     </td>
                 </tr>
                 <tr><td>ID of the Active Transaction:</td><td><form:select path="transactionId" disabled="true" /></td></tr>
-                <tr><td></td><td><div class="submit-button"><input type="submit" value="Perform"></div></td></tr>
+                <tr><td></td><td><div style="color: green" class="submit-button"><input value="Start"></div></td></tr>
+                <tr><td></td><td><div style="color: green" class="submit-button"><input value="Stop"></div></td></tr>
             </table>
         </form:form>
     </div>
