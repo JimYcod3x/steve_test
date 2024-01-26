@@ -21,7 +21,7 @@ $("#chargePointSelectList").change(function() {
 			console.log(firstTransactionId);
 
 			// Second AJAX request using the captured transactionId
-			$.getJSON("${ctxPath}/manager/ajax/" + cp + "/transactionDetails/" + firstTransactionId, function(data1) {
+			$.getJSON("${ctxPath}/manager/ajax/transactionDetails/" + firstTransactionId, function(data1) {
 				console.log(data1);
 
 				// Your logic with data1
