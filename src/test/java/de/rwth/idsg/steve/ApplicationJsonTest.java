@@ -22,19 +22,14 @@ import de.rwth.idsg.steve.ocpp.OcppVersion;
 import de.rwth.idsg.steve.utils.OcppJsonChargePoint;
 import de.rwth.idsg.steve.utils.__DatabasePreparer__;
 import lombok.extern.slf4j.Slf4j;
-import ocpp.cs._2015._10.AuthorizationStatus;
-import ocpp.cs._2015._10.AuthorizeRequest;
-import ocpp.cs._2015._10.AuthorizeResponse;
-import ocpp.cs._2015._10.BootNotificationRequest;
-import ocpp.cs._2015._10.BootNotificationResponse;
-import ocpp.cs._2015._10.HeartbeatResponse;
-import ocpp.cs._2015._10.RegistrationStatus;
+import ocpp.cs._2015._10.*;
 import org.eclipse.jetty.websocket.api.exceptions.UpgradeException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static de.rwth.idsg.steve.utils.Helpers.getRandomString;
 
@@ -43,6 +38,7 @@ import static de.rwth.idsg.steve.utils.Helpers.getRandomString;
  * @since 21.03.2018
  */
 @Slf4j
+@SpringJUnitConfig(value = de.rwth.idsg.steve.config.BeanConfiguration.class)
 public class ApplicationJsonTest {
 
     private static final String PATH = "ws://localhost:8080/steve/websocket/CentralSystemService/";
@@ -118,6 +114,7 @@ public class ApplicationJsonTest {
     }
 
     @Test
+
     public void testOcpp16() {
         OcppJsonChargePoint chargePoint = new OcppJsonChargePoint(OcppVersion.V_16, REGISTERED_CHARGE_BOX_ID, PATH);
         chargePoint.start();

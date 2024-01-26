@@ -92,12 +92,14 @@ public class AjaxCallController {
         writeOutput(response, s);
     }
 
+    @ResponseBody
     @RequestMapping(value = TXDETAIL_PATH + "/{transactionId}")
-    public void getTransactionDetails(@PathVariable("transactionId") int transactionId, HttpServletResponse response) throws IOException {
+    public String getTransactionDetails(@PathVariable("transactionId") int transactionId, HttpServletResponse response) throws IOException {
 //        String s = serializeArray(transactionRepository.getAllStartStopDetails(chargeBoxId));
         Transaction transaction = transactionRepository.getDetails(transactionId).getTransaction();
-        String s = objectMapper.writeValueAsString(transaction);
-        writeOutput(response, s);
+//        return objectMapper.writeValueAsString(transaction);
+//        writeOutput(response, s);
+        return "abc";
     }
 
     @RequestMapping(value = RESERVATION_IDS_PATH)
