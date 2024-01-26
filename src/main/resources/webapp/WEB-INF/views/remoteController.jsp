@@ -59,7 +59,7 @@
 
 
             </table>
-            <p>The value for the key "specificKey" is: ${transactionDetails['transaction_pk']}</p>
+            <p>The value for the key "specificKey" is: ${txDetails['transaction_pk']}</p>
             <br>
             <section><span>Parameters</span></section>
             <table class="userInput">
