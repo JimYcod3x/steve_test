@@ -37,7 +37,7 @@ public interface TransactionRepository {
 
     List<Integer> getActiveTransactionIds(String chargeBoxId);
 
-    public Map<String, String> getAllStartStopDetails(String chargeBoxId);
+    public Map<String, String> getAllStartStopDetails();
 
     TransactionDetails getDetails(int transactionPk, boolean firstArrivingMeterValueIfMultiple);
 

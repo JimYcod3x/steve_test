@@ -85,9 +85,9 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     }
 
     @Override
-    public Map<String, String> getAllStartStopDetails(String chargeBoxId) {
+    public Map<String, String> getAllStartStopDetails() {
         // Get a list of active transaction IDs
-        List<Integer> activeTransactionIds = getActiveTransactionIds(chargeBoxId);
+//        List<Integer> activeTransactionIds = getActiveTransactionIds(chargeBoxId);
 
         // Query the database for details based on the active transaction IDs
 

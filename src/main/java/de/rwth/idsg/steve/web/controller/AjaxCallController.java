@@ -38,6 +38,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Sevket Goekay <sevketgokay@gmail.com>
@@ -95,7 +96,7 @@ public class AjaxCallController {
 
     @RequestMapping(value = TXDETAIL_PATH )
     public void getTransactionDetails(@PathVariable("chargeBoxId") String chargeBoxId, HttpServletResponse response) throws IOException {
-        String s = serializeArray(transactionRepository.getAllStartStopDetails(chargeBoxId));
+        Map<String, String> s = transactionRepository.getAllStartStopDetails();
         writeOutput(response, s);
     }
 
@@ -126,6 +127,11 @@ public class AjaxCallController {
     private void writeOutput(HttpServletResponse response, String str) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.getWriter().write(str);
+    }
+
+    private void writeOutput(HttpServletResponse response, Map<String, String> resultSet) throws IOException {
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.getWriter().write(resultSet.toString());
     }
 
 }
