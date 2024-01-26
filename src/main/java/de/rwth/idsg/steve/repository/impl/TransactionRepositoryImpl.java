@@ -87,11 +87,10 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         List<Integer> activeTransactionIds = getActiveTransactionIds(chargeBoxId);
 
         // Query the database for details based on the active transaction IDs
-        List<Integer> allStartStopDetails = ctx.selectFrom(TRANSACTION)
+
+        return ctx.selectFrom(TRANSACTION)
                 .where(TRANSACTION.TRANSACTION_PK.in(activeTransactionIds))
                 .fetch(TRANSACTION.TRANSACTION_PK);
-
-        return allStartStopDetails;
     }
     @Override
     public TransactionDetails getDetails(int transactionPk, boolean firstArrivingMeterValueIfMultiple) {

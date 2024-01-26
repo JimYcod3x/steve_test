@@ -29,7 +29,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static de.rwth.idsg.steve.utils.Helpers.getRandomString;
 
@@ -38,7 +37,6 @@ import static de.rwth.idsg.steve.utils.Helpers.getRandomString;
  * @since 21.03.2018
  */
 @Slf4j
-@SpringJUnitConfig(value = de.rwth.idsg.steve.config.BeanConfiguration.class)
 public class ApplicationJsonTest {
 
     private static final String PATH = "ws://localhost:8080/steve/websocket/CentralSystemService/";

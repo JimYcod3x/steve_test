@@ -25,7 +25,6 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
 import de.rwth.idsg.steve.repository.ChargePointRepository;
 import de.rwth.idsg.steve.repository.ReservationRepository;
 import de.rwth.idsg.steve.repository.TransactionRepository;
-import de.rwth.idsg.steve.repository.dto.Transaction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -94,9 +93,10 @@ public class AjaxCallController {
         writeOutput(response, s);
     }
 
-    @RequestMapping(value = TXDETAIL_PATH + "/{transactionId}")
-    public Transaction getTransactionDetails(@PathVariable("transactionId") int transactionId, HttpServletResponse response) throws IOException {
-        return transactionRepository.getDetails(transactionId).getTransaction();
+    @RequestMapping(value = TXDETAIL_PATH )
+    public void getTransactionDetails(@PathVariable("chargeBoxId") String chargeBoxId, HttpServletResponse response) throws IOException {
+        String s = serializeArray(transactionRepository.getAllStartStopDetails(chargeBoxId));
+        writeOutput(response, s);
     }
 
     @RequestMapping(value = RESERVATION_IDS_PATH)
