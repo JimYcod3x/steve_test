@@ -17,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -70,8 +72,21 @@ public class RemoteController extends Ocpp16Controller {
         setActiveUserIdTagList(model);
         model.addAttribute(START_STOP_PARAMS, new StartStopParams());
         Map<String, String> transactionDetails = transactionRepository.getAllStartStopDetails();
+        formatDateTimeInMap(transactionDetails);
         model.addAttribute("txDetails", transactionDetails);
         return "remoteController";
+    }
+
+    public void formatDateTimeInMap(Map<String, String> transactionDetails) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
+        for (Map.Entry<String, String> entry : transactionDetails.entrySet()) {
+            String value = entry.getValue();
+            LocalDateTime dateTime = LocalDateTime.parse(value, inputFormatter);
+            String formattedDateTime = dateTime.format(outputFormatter);
+            transactionDetails.put(entry.getKey(), formattedDateTime);
+        }
     }
 
 
