@@ -96,7 +96,7 @@ public class AjaxCallController {
 
     @RequestMapping(value = TXDETAIL_PATH )
     public void getTransactionDetails(@PathVariable("chargeBoxId") String chargeBoxId, HttpServletResponse response) throws IOException {
-        Map<String, String> s = transactionRepository.getAllStartStopDetails();
+        String s = serializeArray(transactionRepository.getAllStartStopDetails());
         writeOutput(response, s);
     }
 
@@ -117,6 +117,16 @@ public class AjaxCallController {
         }
     }
 
+    private String serializeArray(Map<String, String> resultMap) {
+        try {
+            return objectMapper.writeValueAsString(resultMap);
+        } catch (JsonProcessingException e) {
+            // As fallback return empty array, do not let the frontend hang
+            log.error("Error occurred during serialization of response. Returning empty array instead!", e);
+            return "[]";
+        }
+    }
+
     /**
      * We want to handle this JSON conversion locally, and do not want to register an application-wide
      * HttpMessageConverter just for this little class. Otherwise, it might have unwanted side effects due to
@@ -128,10 +138,4 @@ public class AjaxCallController {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.getWriter().write(str);
     }
-
-    private void writeOutput(HttpServletResponse response, Map<String, String> resultSet) throws IOException {
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().write(resultSet.toString());
-    }
-
 }
