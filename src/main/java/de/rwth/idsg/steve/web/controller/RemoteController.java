@@ -17,7 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
@@ -81,13 +81,13 @@ public class RemoteController extends Ocpp16Controller {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
         for (Map.Entry<String, String> entry : transactionDetails.entrySet()) {
             String value = entry.getValue();
             try {
                 // Attempt to parse only if the value is a datetime
-                ZonedDateTime dateTime = ZonedDateTime.parse(value, formatter);
+                LocalDateTime dateTime = LocalDateTime.parse(value, formatter);
                 String formattedDateTime = dateTime.format(formatter);
                 transactionDetails.put(entry.getKey(), formattedDateTime);
             } catch (Exception e) {
