@@ -94,7 +94,7 @@ public class AjaxCallController {
 
     @ResponseBody
     @RequestMapping(value = TXDETAIL_PATH + "/{transactionId}")
-    public String getTransactionDetails(@PathVariable("transactionId") int transactionId, HttpServletResponse response) throws IOException {
+    public String getTransactionDetails(@PathVariable("transactionId") int transactionId) throws IOException {
 //        String s = serializeArray(transactionRepository.getAllStartStopDetails(chargeBoxId));
         Transaction transaction = transactionRepository.getDetails(transactionId).getTransaction();
 //        return objectMapper.writeValueAsString(transaction);
