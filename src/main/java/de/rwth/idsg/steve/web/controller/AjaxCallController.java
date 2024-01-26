@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.rwth.idsg.steve.repository.ChargePointRepository;
 import de.rwth.idsg.steve.repository.ReservationRepository;
 import de.rwth.idsg.steve.repository.TransactionRepository;
-import de.rwth.idsg.steve.repository.dto.Transaction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -38,6 +37,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Sevket Goekay <sevketgokay@gmail.com>
@@ -94,9 +94,9 @@ public class AjaxCallController {
 
     @ResponseBody
     @RequestMapping(value = TXDETAIL_PATH + "/{transactionId}")
-    public Transaction getTransactionDetails(@PathVariable("transactionId") int transactionId ) throws IOException {
+    public Map<String, Object> getTransactionDetails(@PathVariable("transactionId") int transactionId ) throws IOException {
 //        String s = serializeArray(transactionRepository.getAllStartStopDetails(chargeBoxId));
-     return transactionRepository.getDetails(transactionId).getTransaction();
+     return transactionRepository.getDetails(transactionId).getTransaction().getAllAttributes();
 //        writeOutput(response, s);
     }
 
