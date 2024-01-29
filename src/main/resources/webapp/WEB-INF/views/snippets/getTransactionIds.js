@@ -32,12 +32,10 @@ $("#chargePointSelectList").change(function() {
 	})
 
 
-	var start = {
-		connectorId: $("#connectorId").text(),
-		idTag: $("#idTag").text()
-	};
+		connectorId = $("#connectorId").text(),
+		idTag = $("#idTag").text()
 	console.log(start);
-	$.post("${ctxPath}/manager/operations/${opVersion}/start", start, function(data) {
+	$.post(`$\{ctxPath}/manager/operations/$\{opVersion}/start/${connectorId}/${idTag}`, start, function(data) {
 
 	}, "json").fail(function(xhr, status, error){
 		// Failure callback function

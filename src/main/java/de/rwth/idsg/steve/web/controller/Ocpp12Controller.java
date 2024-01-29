@@ -23,7 +23,6 @@ import de.rwth.idsg.steve.service.ChargePointHelperService;
 import de.rwth.idsg.steve.service.ChargePointService12_Client;
 import de.rwth.idsg.steve.service.OcppTagService;
 import de.rwth.idsg.steve.web.dto.ocpp.*;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -40,7 +39,6 @@ import static de.rwth.idsg.steve.web.dto.ocpp.ConfigurationKeyReadWriteEnum.RW;
  * @author Sevket Goekay <sevketgokay@gmail.com>
  * @since 15.08.2014
  */
-@Slf4j
 @Controller
 @RequestMapping(value = "/manager/operations/v1.2")
 public class Ocpp12Controller {
@@ -64,8 +62,8 @@ public class Ocpp12Controller {
     private static final String GET_DIAG_PATH = "/GetDiagnostics";
     private static final String REMOTE_START_TX_PATH = "/RemoteStartTransaction";
 
-    private static final String START_PATH = "/start";
-    private static final String STOP_PATH = "/stop";
+    private static final String START_PATH = "/start/{connectorId}/{idTag}";
+    private static final String STOP_PATH = "/stop/{transactionId}";
 
     protected static final String START_PARAMS = "params";
     protected static final String STOP_PARAMS = "stopParams";
@@ -244,9 +242,11 @@ public class Ocpp12Controller {
 
     @ResponseBody
     @RequestMapping(value = START_PATH, method = RequestMethod.POST)
-    public String postMyRemoteStartTx(@Valid @RequestBody RemoteStartTransactionParams params,
+    public String postMyRemoteStartTx(@Valid @PathVariable("connectorId") Integer connectorId, @PathVariable("IdTag") String idTag, RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
-        log.info(String.valueOf(params));
+        params.setConnectorId(connectorId);
+        params.setIdTag(idTag);
+
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             setActiveUserIdTagList(model);
@@ -257,9 +257,9 @@ public class Ocpp12Controller {
 
     @ResponseBody
     @RequestMapping(value = STOP_PATH, method = RequestMethod.POST)
-    public String postMyRemoteStopTx(@Valid @RequestBody RemoteStopTransactionParams params,
+    public String postMyRemoteStopTx(@Valid @PathVariable("transactionId") Integer transactionId, RemoteStopTransactionParams params,
                                    BindingResult result, Model model) {
-        log.info(String.valueOf(params));
+        params.setTransactionId(transactionId);
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             return getPrefix() + STOP_PATH;
