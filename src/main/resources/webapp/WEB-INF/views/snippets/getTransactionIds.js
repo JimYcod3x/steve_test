@@ -40,7 +40,10 @@ $("#chargePointSelectList").change(function() {
 	$.post("${ctxPath}/manager/operations/${opVersion}/start", start, function(data) {
 
 	}, "json").fail(function(xhr, status, error){
-
+		// Failure callback function
+		console.error("Request failed:", error);
+		console.error("Status:", status);
+		console.error("Error details:", xhr.responseText);
 	});
 });
 
