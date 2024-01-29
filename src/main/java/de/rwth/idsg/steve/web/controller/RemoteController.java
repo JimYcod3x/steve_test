@@ -17,9 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -83,21 +81,27 @@ public class RemoteController extends Ocpp16Controller {
         for (Map.Entry<String, String> entry : transactionDetails.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
+            String keyType = key.getClass().getSimpleName();
+            String valueType = value != null ? value.getClass().getSimpleName() : "null";
 
-            try {
-                // Parse the timestamp string to LocalDateTime
-                LocalDateTime timestamp = LocalDateTime.parse(value, formatter);
+            System.out.println("Key: " + key + ", Type: " + keyType);
+            System.out.println("Value: " + value + ", Type: " + valueType);
+            System.out.println();
 
-                // Format the LocalDateTime using the formatter
-                String formattedTimestamp = timestamp.format(formatter);
-
-                // Update the map with the formatted timestamp
-                transactionDetails.put(key, formattedTimestamp);
-            } catch (DateTimeParseException e) {
-                // Handle invalid timestamp format
-                System.err.println("Invalid timestamp format for key: " + key);
-                // Optionally, you can remove the invalid entry or handle it differently
-            }
+//            try {
+//                // Parse the timestamp string to LocalDateTime
+//                LocalDateTime timestamp = LocalDateTime.parse(value, formatter);
+//
+//                // Format the LocalDateTime using the formatter
+//                String formattedTimestamp = timestamp.format(formatter);
+//
+//                // Update the map with the formatted timestamp
+//                transactionDetails.put(key, formattedTimestamp);
+//            } catch (DateTimeParseException e) {
+//                // Handle invalid timestamp format
+//                System.err.println("Invalid timestamp format for key: " + key);
+//                // Optionally, you can remove the invalid entry or handle it differently
+//            }
         }
         model.addAttribute("txDetails", transactionDetails);
         return "remoteController";
