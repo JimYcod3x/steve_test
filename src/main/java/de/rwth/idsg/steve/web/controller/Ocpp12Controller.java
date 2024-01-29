@@ -242,7 +242,7 @@ public class Ocpp12Controller {
 
     @ResponseBody
     @RequestMapping(value = START_PATH, method = RequestMethod.POST)
-    public String postMyRemoteStartTx(@Valid @RequestBody RemoteStartTransactionParams params,
+    public String postMyRemoteStartTx( @RequestBody @Valid RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
 //        params.setConnectorId(connectorId);
 //        params.setIdTag(idTag);
@@ -257,7 +257,7 @@ public class Ocpp12Controller {
 
     @ResponseBody
     @RequestMapping(value = STOP_PATH, method = RequestMethod.POST)
-    public String postMyRemoteStopTx(@Valid @RequestBody RemoteStopTransactionParams params,
+    public String postMyRemoteStopTx(@RequestBody @Valid RemoteStopTransactionParams params,
                                    BindingResult result, Model model) {
 //        params.setTransactionId(transactionId);
         if (result.hasErrors()) {

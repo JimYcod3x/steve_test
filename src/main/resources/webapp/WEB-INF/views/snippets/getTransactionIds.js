@@ -43,7 +43,7 @@ $("#chargePointSelectList").change(function() {
 	var stop = {transactionId: $("#transcationId").text()};
 
 
-	console.log("${ctxPath}/manager/operations/${opVersion}/start/"+connectorId+"/"+idTag);
+	console.log("${ctxPath}/manager/operations/${opVersion}/start/");
 
 	var csrfToken = $("input[name='_csrf']").val();
 
