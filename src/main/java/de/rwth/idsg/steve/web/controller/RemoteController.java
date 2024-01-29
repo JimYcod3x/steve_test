@@ -9,6 +9,7 @@ import de.rwth.idsg.steve.repository.TransactionRepository;
 import de.rwth.idsg.steve.service.ChargePointHelperService;
 import de.rwth.idsg.steve.service.ChargePointService12_Client;
 import de.rwth.idsg.steve.web.dto.ocpp.StartStopParams;
+import jooq.steve.db.tables.Transaction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,7 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ScheduledExecutorService;
 
 @Slf4j
@@ -64,13 +65,15 @@ public class RemoteController extends Ocpp16Controller {
         return client12;
     }
 
+    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     @GetMapping(REMOTE_PATH)
     public String myGetController(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
         model.addAttribute(START_STOP_PARAMS, new StartStopParams());
-        Map<String, String> transactionDetails = transactionRepository.getAllStartStopDetails();
-        model.addAttribute("txDetails", transactionDetails);
+        String formatted = (transactionRepository.getAllStartStopDetails().get(Transaction.TRANSACTION.START_TIMESTAMP)).format(String.valueOf(myFormatObj));
+//        Map<String, String> transactionDetails = (transactionRepository.getAllStartStopDetails().get(Transaction.TRANSACTION.START_TIMESTAMP)).format;
+        model.addAttribute("txDetails", formatted);
         return "remoteController";
     }
 
