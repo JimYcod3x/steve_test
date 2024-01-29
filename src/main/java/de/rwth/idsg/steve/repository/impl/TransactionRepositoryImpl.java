@@ -106,7 +106,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                 Object fieldValue = transactionRecord.get(field);
 
 
-                if ((fieldValue instanceof Timestamp timestamp)) {
+                if ((fieldValue instanceof Timestamp timestamp) && fieldValue != null) {
 
                     // Convert the timestamp to LocalDateTime
                     LocalDateTime dateTime = timestamp.toLocalDateTime();
@@ -122,12 +122,10 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 
                     transactionMap.put(columnName, formattedDateTime);
                 }
-                try {
+
                     String columnValue = fieldValue.toString(); // Assuming all values are Strings
                     transactionMap.put(columnName, columnValue);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+
             }
             return transactionMap;
         } else {
