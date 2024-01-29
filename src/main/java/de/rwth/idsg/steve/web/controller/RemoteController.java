@@ -72,33 +72,6 @@ public class RemoteController extends Ocpp16Controller {
         setActiveUserIdTagList(model);
         model.addAttribute(START_STOP_PARAMS, new StartStopParams());
         Map<String, String> transactionDetails = transactionRepository.getAllStartStopDetails();
-        String pattern = "yyyy-MM-dd HH:mm:ss";
-
-        // Create a DateTimeFormatter using the pattern
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-
-        // Iterate over the map and update timestamp values
-//        for (Map.Entry<String, String> entry : transactionDetails.entrySet()) {
-//            String key = entry.getKey();
-//            String value = entry.getValue();
-//            try {
-//
-//                DateTimeFormatter stringtoDateFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-//                // Parse the timestamp string to LocalDateTime
-//                assert value != null;
-//                LocalDateTime timestamp = LocalDateTime.parse(value, stringtoDateFormatter);
-//
-//                // Format the LocalDateTime using the formatter
-//                String formattedTimestamp = timestamp.format(formatter);
-//
-//                // Update the map with the formatted timestamp
-//                transactionDetails.put(key, formattedTimestamp);
-//            } catch (DateTimeParseException e) {
-//                // Handle invalid timestamp format
-//                System.err.println("Invalid timestamp format for key: " + key);
-//                // Optionally, you can remove the invalid entry or handle it differently
-//            }
-//        }
         model.addAttribute("txDetails", transactionDetails);
         return "remoteController";
     }

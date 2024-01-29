@@ -28,10 +28,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -65,8 +62,8 @@ public class Ocpp12Controller {
     private static final String GET_DIAG_PATH = "/GetDiagnostics";
     private static final String REMOTE_START_TX_PATH = "/RemoteStartTransaction";
 
-    private static final String START_PATH = "/start";
-    private static final String STOP_PATH = "/stop";
+    private static final String START_PATH = "/start/{connectorId}/{idTag}";
+    private static final String STOP_PATH = "/stop/{transactionId}";
 
     protected static final String START_PARAMS = "params";
     protected static final String STOP_PARAMS = "stopParams";
@@ -245,8 +242,11 @@ public class Ocpp12Controller {
 
     @ResponseBody
     @RequestMapping(value = START_PATH, method = RequestMethod.POST)
-    public String postMyRemoteStartTx(@Valid @ModelAttribute(START_PARAMS) RemoteStartTransactionParams params,
+    public String postMyRemoteStartTx(@Valid @PathVariable("connectorId") Integer connectorId, @PathVariable("IdTag") String idTag, RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
+        params.setConnectorId(connectorId);
+        params.setIdTag(idTag);
+
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             setActiveUserIdTagList(model);
@@ -257,8 +257,9 @@ public class Ocpp12Controller {
 
     @ResponseBody
     @RequestMapping(value = STOP_PATH, method = RequestMethod.POST)
-    public String postMyRemoteStopTx(@Valid @ModelAttribute(STOP_PARAMS) RemoteStopTransactionParams params,
+    public String postMyRemoteStopTx(@Valid @PathVariable("transactionId") Integer transactionId, RemoteStopTransactionParams params,
                                    BindingResult result, Model model) {
+        params.setTransactionId(transactionId);
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             return getPrefix() + STOP_PATH;

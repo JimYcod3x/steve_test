@@ -95,9 +95,7 @@ public class AjaxCallController {
     }
 
     @RequestMapping(value = TXDETAIL_PATH )
-    public void getTransactionDetails(@PathVariable("chargeBoxId") String chargeBoxId, HttpServletResponse response) throws IOException {
-
-
+    public void getTransactionDetails(HttpServletResponse response) throws IOException {
         String s = serializeArray(transactionRepository.getAllStartStopDetails());
         writeOutput(response, s);
     }
