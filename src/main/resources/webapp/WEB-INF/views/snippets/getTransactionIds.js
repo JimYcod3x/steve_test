@@ -34,7 +34,7 @@ $("#chargePointSelectList").change(function() {
 
 		connectorId = $("#connectorId").text(),
 		idTag = $("#idTag").text()
-	$.post(`$\{ctxPath}/manager/operations/$\{opVersion}/start/${connectorId}/${idTag}`, function(data) {
+	$.post(`${ctxPath}/manager/operations/${opVersion}/start/${connectorId}/${idTag}`, function(data) {
 
 	}, "json").fail(function(xhr, status, error){
 		// Failure callback function
