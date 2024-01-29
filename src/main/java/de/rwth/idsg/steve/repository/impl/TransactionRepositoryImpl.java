@@ -118,7 +118,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                     LocalDateTime timestamp = LocalDateTime.parse(columnValue, stringtoDateFormatter);
 
                     String formattedTimestamp = timestamp.format(formatter);
-                    transactionMap.put(columnName, String.valueOf(timestamp));
+                    transactionMap.put(columnName, formattedTimestamp);
 
                 } catch (DateTimeParseException e) {
                     // Handle invalid timestamp format
