@@ -9,7 +9,6 @@ import de.rwth.idsg.steve.repository.TransactionRepository;
 import de.rwth.idsg.steve.service.ChargePointHelperService;
 import de.rwth.idsg.steve.service.ChargePointService12_Client;
 import de.rwth.idsg.steve.web.dto.ocpp.StartStopParams;
-import jooq.steve.db.tables.Transaction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 
 @Slf4j
@@ -71,9 +72,27 @@ public class RemoteController extends Ocpp16Controller {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
         model.addAttribute(START_STOP_PARAMS, new StartStopParams());
-        String formatted = (transactionRepository.getAllStartStopDetails().get(Transaction.TRANSACTION.START_TIMESTAMP)).format(String.valueOf(myFormatObj));
-//        Map<String, String> transactionDetails = (transactionRepository.getAllStartStopDetails().get(Transaction.TRANSACTION.START_TIMESTAMP)).format;
-        model.addAttribute("txDetails", formatted);
+        Map<String, String> transactionDetails = transactionRepository.getAllStartStopDetails();
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+
+        // Create a DateTimeFormatter using the pattern
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
+        // Iterate over the map and update timestamp values
+        for (Map.Entry<String, String> entry : transactionDetails.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            // Parse the timestamp string to LocalDateTime
+            LocalDateTime timestamp = LocalDateTime.parse(value); // Assuming the string is in ISO_LOCAL_DATE_TIME format
+
+            // Format the LocalDateTime using the formatter
+            String formattedTimestamp = timestamp.format(formatter);
+
+            // Update the map with the formatted timestamp
+            transactionDetails.put(key, formattedTimestamp);
+        }
+        model.addAttribute("txDetails", transactionDetails);
         return "remoteController";
     }
 
