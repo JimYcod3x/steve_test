@@ -122,7 +122,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 
                     transactionMap.put(columnName, formattedDateTime);
                 }
-                String columnValue = transactionRecord.get(field, String.class); // Assuming all values are Strings
+                String columnValue = fieldValue.toString(); // Assuming all values are Strings
                 transactionMap.put(columnName, columnValue);
             }
             return transactionMap;
