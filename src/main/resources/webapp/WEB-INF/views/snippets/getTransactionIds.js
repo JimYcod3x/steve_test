@@ -37,9 +37,9 @@ $("#chargePointSelectList").change(function() {
 
 	var csrfToken = $("input[name='_csrf']").val();
 
-		connectorId = $("#connectorId").text();
-		idTag = $("#idTag").text();
-	transactionId = $("#transcationId").text();
+		var connectorId = $("#connectorId").text();
+		var idTag = $("#idTag").text();
+	var transactionId = $("#transcationId").text();
 
 
 	console.log("${ctxPath}/manager/operations/${opVersion}/start/?connectorId="+connectorId+"/idTag="+idTag);
@@ -48,7 +48,7 @@ $("#chargePointSelectList").change(function() {
 
 // Make the AJAX POST request
 	$.ajax({
-		url: "${ctxPath}/manager/operations/${opVersion}/start/?connectorId="+connectorId+"/?idTag="+idTag,
+		url: "${ctxPath}/manager/operations/${opVersion}/start/"+connectorId+idTag,
 		type: 'POST',
 		headers: {
 			'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
