@@ -37,9 +37,9 @@ $("#chargePointSelectList").change(function() {
 
 	var csrfToken = $("input[name='_csrf']").val();
 
-		connectorId: $("#connectorId").text();
-		idTag: $("#idTag").text();
-	var stop = {transactionId: $("#transcationId").text()};
+		connectorId = $("#connectorId").text();
+		idTag = $("#idTag").text();
+	transactionId = $("#transcationId").text();
 
 
 	console.log("${ctxPath}/manager/operations/${opVersion}/start/?connectorId="+connectorId+"/idTag="+idTag);
@@ -53,7 +53,6 @@ $("#chargePointSelectList").change(function() {
 		headers: {
 			'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
 		},
-		data: start,
 		success: function(data) {
 			// Handle success response
 			console.log("Success:", data);
