@@ -62,8 +62,8 @@ public class Ocpp12Controller {
     private static final String GET_DIAG_PATH = "/GetDiagnostics";
     private static final String REMOTE_START_TX_PATH = "/RemoteStartTransaction";
 
-    private static final String START_PATH = "/start/{connectorId}/{idTag}";
-    private static final String STOP_PATH = "/stop/{transactionId}";
+    private static final String START_PATH = "/start";
+    private static final String STOP_PATH = "/stop";
 
     protected static final String START_PARAMS = "params";
     protected static final String STOP_PARAMS = "stopParams";
@@ -242,10 +242,10 @@ public class Ocpp12Controller {
 
     @ResponseBody
     @RequestMapping(value = START_PATH, method = RequestMethod.POST)
-    public String postMyRemoteStartTx(@Valid @PathVariable("connectorId") Integer connectorId, @PathVariable("IdTag") String idTag, RemoteStartTransactionParams params,
+    public String postMyRemoteStartTx(@Valid @RequestBody RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
-        params.setConnectorId(connectorId);
-        params.setIdTag(idTag);
+//        params.setConnectorId(connectorId);
+//        params.setIdTag(idTag);
 
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
@@ -257,9 +257,9 @@ public class Ocpp12Controller {
 
     @ResponseBody
     @RequestMapping(value = STOP_PATH, method = RequestMethod.POST)
-    public String postMyRemoteStopTx(@Valid @PathVariable("transactionId") Integer transactionId, RemoteStopTransactionParams params,
+    public String postMyRemoteStopTx(@Valid @RequestBody RemoteStopTransactionParams params,
                                    BindingResult result, Model model) {
-        params.setTransactionId(transactionId);
+//        params.setTransactionId(transactionId);
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             return getPrefix() + STOP_PATH;
