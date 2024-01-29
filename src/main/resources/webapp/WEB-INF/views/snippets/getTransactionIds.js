@@ -39,7 +39,7 @@ $("#chargePointSelectList").change(function() {
 	connectorId = encodeURIComponent($("#connectorId").text());
 	idTag = encodeURIComponent($("#idTag").text());
 
-	console.log(`${ctxPath}/manager/operations/${opVersion}/start/${connectorId}/${idTag}`);
+	console.log(`${ctxPath}/manager/operations/${opVersion}/start/\${connectorId}/\${idTag}`);
 
 	$.post(`${ctxPath}/manager/operations/${opVersion}/start/${connectorId}/${idTag}`, function(data) {
 
