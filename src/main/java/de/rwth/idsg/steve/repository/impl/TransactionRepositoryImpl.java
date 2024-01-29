@@ -102,29 +102,32 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         if (transactionRecord != null) {
             Map<String, String> transactionMap = new HashMap<>();
             for (Field<?> field : transactionRecord.fields()) {
-                String columnName = field.getName();
-                Object fieldValue = transactionRecord.get(field);
+
+                    String columnName = field.getName();
+                    Object fieldValue = transactionRecord.get(field);
+                if (fieldValue != null) {
 
 
-                if ((fieldValue instanceof Timestamp timestamp) && fieldValue != null) {
+                    if ((fieldValue instanceof Timestamp timestamp)) {
 
-                    // Convert the timestamp to LocalDateTime
-                    LocalDateTime dateTime = timestamp.toLocalDateTime();
+                        // Convert the timestamp to LocalDateTime
+                        LocalDateTime dateTime = timestamp.toLocalDateTime();
 
-                    // Define the datetime format pattern
-                    String pattern = "yyyy-MM-dd HH:mm:ss";
+                        // Define the datetime format pattern
+                        String pattern = "yyyy-MM-dd HH:mm:ss";
 
-                    // Create a DateTimeFormatter using the pattern
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+                        // Create a DateTimeFormatter using the pattern
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
-                    // Format the LocalDateTime using the formatter
-                    String formattedDateTime = dateTime.format(formatter);
+                        // Format the LocalDateTime using the formatter
+                        String formattedDateTime = dateTime.format(formatter);
 
-                    transactionMap.put(columnName, formattedDateTime);
-                }
+                        transactionMap.put(columnName, formattedDateTime);
+                    }
 
                     String columnValue = fieldValue.toString(); // Assuming all values are Strings
                     transactionMap.put(columnName, columnValue);
+                }
 
             }
             return transactionMap;
