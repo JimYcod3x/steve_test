@@ -35,8 +35,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.Writer;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,29 +89,41 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 
     @Override
     public Map<String, String> getAllStartStopDetails() {
+        // Get a list of active transaction IDs
+//        List<Integer> activeTransactionIds = getActiveTransactionIds(chargeBoxId);
+
+        // Query the database for details based on the active transaction IDs
+
         Record transactionRecord = ctx.selectFrom(TRANSACTION)
                 .orderBy(TRANSACTION.TRANSACTION_PK.desc())
                 .limit(1)
                 .fetchOne();
 
-        String pattern = "yyyy-MM-dd HH:mm:ss";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-
         if (transactionRecord != null) {
             Map<String, String> transactionMap = new HashMap<>();
             for (Field<?> field : transactionRecord.fields()) {
                 String columnName = field.getName();
-                Object columnValue = transactionRecord.get(field);
-                if (columnValue instanceof DateTime) {
-                    // Convert Timestamp to LocalDateTime
-                    DateTime dateTime = DateTime.parse(formatter.format((TemporalAccessor) columnValue));
-                    // Store LocalDateTime as a string in the format you desire
-                    String stringValue = dateTime.toString(); // Adjust format if needed
-                    transactionMap.put(columnName, stringValue);
-                } else {
-                    String stringColumnValue = (columnValue != null) ? columnValue.toString() : null;
-                    transactionMap.put(columnName, stringColumnValue);
+                Object fieldValue = transactionRecord.get(field);
+
+
+                if ((fieldValue instanceof Timestamp timestamp)) {
+
+                    // Convert the timestamp to LocalDateTime
+                    LocalDateTime dateTime = timestamp.toLocalDateTime();
+
+                    // Define the datetime format pattern
+                    String pattern = "yyyy-MM-dd HH:mm:ss";
+
+                    // Create a DateTimeFormatter using the pattern
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
+                    // Format the LocalDateTime using the formatter
+                    String formattedDateTime = dateTime.format(formatter);
+
+                    transactionMap.put(columnName, formattedDateTime);
                 }
+                String columnValue = transactionRecord.get(field, String.class); // Assuming all values are Strings
+                transactionMap.put(columnName, columnValue);
             }
             return transactionMap;
         } else {
