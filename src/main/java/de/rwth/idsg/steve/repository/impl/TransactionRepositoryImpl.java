@@ -106,21 +106,19 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 
                 String columnName = field.getName();
                 Object fieldValue = transactionRecord.get(field);
-                if (fieldValue != null) {
-                    try {
+                String columnValue = fieldValue.toString();
+                try {
 
-                        DateTimeFormatter stringtoDateFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-                        // Parse the timestamp string to LocalDateTime
-                        LocalDateTime timestamp = LocalDateTime.parse(fieldValue.toString(), stringtoDateFormatter);
-                        transactionMap.put(columnName, String.valueOf(timestamp));
+                    DateTimeFormatter stringtoDateFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+                    // Parse the timestamp string to LocalDateTime
+                    LocalDateTime timestamp = LocalDateTime.parse(columnValue, stringtoDateFormatter);
+                    transactionMap.put(columnName, String.valueOf(timestamp));
 
-                    } catch (DateTimeParseException e) {
-                        // Handle invalid timestamp format
-                        // Optionally, you can remove the invalid entry or handle it differently
-                    }
+                } catch (DateTimeParseException e) {
+                    // Handle invalid timestamp format
+                    // Optionally, you can remove the invalid entry or handle it differently
                 }
-                assert fieldValue != null;
-                String columnValue = fieldValue.toString(); // Assuming all values are Strings
+                // Assuming all values are Strings
                 transactionMap.put(columnName, columnValue);
             }
             return transactionMap;
