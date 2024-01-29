@@ -19,7 +19,6 @@
 package de.rwth.idsg.steve.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.base.Strings;
 import de.rwth.idsg.steve.SteveProdCondition;
 import de.rwth.idsg.steve.web.api.ApiControllerAdvice;
@@ -56,7 +55,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import static de.rwth.idsg.steve.SteveConfiguration.CONFIG;
@@ -133,16 +131,16 @@ public class SecurityConfiguration {
     @Order(1)
     public SecurityFilterChain apiKeyFilterChain(HttpSecurity http, ObjectMapper objectMapper) throws Exception {
         return http.antMatcher(CONFIG.getApiMapping() + "/**")
-            // .cors()
-            // .configurationSource(request -> {
-            //     CorsConfiguration cors = new CorsConfiguration();
-            //     cors.setAllowedOrigins(List.of("*"));
-	        //     cors.setAllowedMethods(List.of("*"));
-            //     cors.setAllowedHeaders(List.of("*"));
-            //     cors.setAllowCredentials(false);
-            //     return cors;
-            // })
-            // .and()
+             .cors()
+             .configurationSource(request -> {
+                 CorsConfiguration cors = new CorsConfiguration();
+                 cors.setAllowedOrigins(List.of("*"));
+	             cors.setAllowedMethods(List.of("*"));
+                 cors.setAllowedHeaders(List.of("*"));
+                 cors.setAllowCredentials(false);
+                 return cors;
+             })
+             .and()
             .csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
