@@ -36,6 +36,7 @@ $("#chargePointSelectList").change(function() {
 		connectorId: $("#connectorId").text(),
 		idTag: $("#idTag").text()
 	};
+	console.log(start);
 	$.post("${ctxPath}/manager/operations/${opVersion}/start", start, function(data) {
 
 	}, "json").fail(function(xhr, status, error){
