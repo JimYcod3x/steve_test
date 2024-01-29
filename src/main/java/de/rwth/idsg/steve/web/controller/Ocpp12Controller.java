@@ -23,6 +23,7 @@ import de.rwth.idsg.steve.service.ChargePointHelperService;
 import de.rwth.idsg.steve.service.ChargePointService12_Client;
 import de.rwth.idsg.steve.service.OcppTagService;
 import de.rwth.idsg.steve.web.dto.ocpp.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,7 @@ import static de.rwth.idsg.steve.web.dto.ocpp.ConfigurationKeyReadWriteEnum.RW;
  * @author Sevket Goekay <sevketgokay@gmail.com>
  * @since 15.08.2014
  */
+@Slf4j
 @Controller
 @RequestMapping(value = "/manager/operations/v1.2")
 public class Ocpp12Controller {
@@ -244,7 +246,7 @@ public class Ocpp12Controller {
     @RequestMapping(value = START_PATH, method = RequestMethod.POST)
     public String postMyRemoteStartTx(@Valid @RequestBody RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
-        System.out.println(params);
+        log.info(String.valueOf(params));
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             setActiveUserIdTagList(model);
@@ -257,7 +259,7 @@ public class Ocpp12Controller {
     @RequestMapping(value = STOP_PATH, method = RequestMethod.POST)
     public String postMyRemoteStopTx(@Valid @RequestBody RemoteStopTransactionParams params,
                                    BindingResult result, Model model) {
-        System.out.println(params);
+        log.info(String.valueOf(params));
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             return getPrefix() + STOP_PATH;
