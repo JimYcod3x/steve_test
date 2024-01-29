@@ -256,6 +256,7 @@ public class Ocpp12Controller {
     @RequestMapping(value = STOP_PATH, method = RequestMethod.POST)
     public String postMyRemoteStopTx(@Valid @RequestBody RemoteStopTransactionParams params,
                                    BindingResult result, Model model) {
+        System.out.println(params);
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             return getPrefix() + STOP_PATH;
