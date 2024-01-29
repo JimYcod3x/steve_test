@@ -36,8 +36,8 @@ $("#chargePointSelectList").change(function() {
 	// idTag = $("#idTag").text();
 
 
-	connectorId = encodeURIComponent($("#connectorId").text());
-	idTag = encodeURIComponent($("#idTag").text());
+	connectorId = $("#connectorId").text();
+	idTag = $("#idTag").text();
 
 	console.log(`${ctxPath}/manager/operations/${opVersion}/start/\${connectorId}/\${idTag}`);
 

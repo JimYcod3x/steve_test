@@ -60,8 +60,8 @@
 
             </table>
             <p>The value for the key "specificKey" is: <span id="transcationId"> ${txDetails['transaction_pk']}</span></p>
-            <p>The value for the key "specificKey" is: <span id="connectorId"> 1</span></p>
-            <p>The value for the key "specificKey" is: <span id="idTag"> ${txDetails['id_tag']}</span></p>
+            <p>The value for the key "specificKey" is: <span id="connectorId"> ${txDetails['connector_pk'][0]}</span></p>
+            <p>The value for the key "specificKey" is: <span id="idTag"> ${txDetails['id_tag'][0]}</span></p>
             <br>
             <section><span>Parameters</span></section>
             <table class="userInput">
