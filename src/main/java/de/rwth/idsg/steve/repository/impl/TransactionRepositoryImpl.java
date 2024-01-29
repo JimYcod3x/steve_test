@@ -107,11 +107,17 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                 String columnName = field.getName();
                 Object fieldValue = transactionRecord.get(field);
                 String columnValue = fieldValue.toString();
+                String pattern = "yyyy-MM-dd HH:mm:ss";
+
+                // Create a DateTimeFormatter using the pattern
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
                 try {
 
                     DateTimeFormatter stringtoDateFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
                     // Parse the timestamp string to LocalDateTime
                     LocalDateTime timestamp = LocalDateTime.parse(columnValue, stringtoDateFormatter);
+
+                    String formattedTimestamp = timestamp.format(formatter);
                     transactionMap.put(columnName, String.valueOf(timestamp));
 
                 } catch (DateTimeParseException e) {
