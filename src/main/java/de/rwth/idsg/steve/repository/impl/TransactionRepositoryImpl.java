@@ -125,9 +125,9 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                 } catch (DateTimeParseException e) {
                     // Handle invalid timestamp format
                     // Optionally, you can remove the invalid entry or handle it differently
+                transactionMap.put(columnName, columnValue);
                 }
                 // Assuming all values are Strings
-                transactionMap.put(columnName, columnValue);
             }
             return transactionMap;
         } else {
