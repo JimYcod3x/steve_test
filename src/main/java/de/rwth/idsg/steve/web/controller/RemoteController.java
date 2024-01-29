@@ -83,13 +83,6 @@ public class RemoteController extends Ocpp16Controller {
         for (Map.Entry<String, String> entry : transactionDetails.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            String keyType = key.getClass().getSimpleName();
-            String valueType = value != null ? value.getClass().getSimpleName() : "null";
-
-            System.out.println("Key: " + key + ", Type: " + keyType);
-            System.out.println("Value: " + value + ", Type: " + valueType);
-            System.out.println();
-
             try {
 
                 DateTimeFormatter stringtoDateFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
