@@ -48,7 +48,7 @@ $("#chargePointSelectList").change(function() {
 
 // Make the AJAX POST request
 	$.ajax({
-		url: "${ctxPath}/manager/operations/${opVersion}/start/"+connectorId + "/" + idTag,
+		url: "${ctxPath}/manager/operations/${opVersion}/RemoteController/start/"+connectorId + "/" + idTag,
 		type: 'POST',
 		headers: {
 			'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
