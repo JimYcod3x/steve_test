@@ -35,8 +35,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.Writer;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,15 +93,17 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                 .limit(1)
                 .fetchOne();
 
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
         if (transactionRecord != null) {
             Map<String, String> transactionMap = new HashMap<>();
             for (Field<?> field : transactionRecord.fields()) {
                 String columnName = field.getName();
                 Object columnValue = transactionRecord.get(field);
-
-                if (columnValue instanceof Timestamp) {
+                if (columnValue instanceof DateTime) {
                     // Convert Timestamp to LocalDateTime
-                    LocalDateTime dateTime = ((Timestamp) columnValue).toLocalDateTime();
+                    DateTime dateTime = DateTime.parse(formatter.format((TemporalAccessor) columnValue));
                     // Store LocalDateTime as a string in the format you desire
                     String stringValue = dateTime.toString(); // Adjust format if needed
                     transactionMap.put(columnName, stringValue);
