@@ -35,9 +35,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.Writer;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,24 +103,6 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                     String columnName = field.getName();
                     Object fieldValue = transactionRecord.get(field);
                 if (fieldValue != null) {
-
-
-                    if ((fieldValue instanceof Timestamp timestamp)) {
-
-                        // Convert the timestamp to LocalDateTime
-                        LocalDateTime dateTime = timestamp.toLocalDateTime();
-
-                        // Define the datetime format pattern
-                        String pattern = "yyyy-MM-dd HH:mm:ss";
-
-                        // Create a DateTimeFormatter using the pattern
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-
-                        // Format the LocalDateTime using the formatter
-                        String formattedDateTime = dateTime.format(formatter);
-
-                        transactionMap.put(columnName, formattedDateTime);
-                    }
 
                     String columnValue = fieldValue.toString(); // Assuming all values are Strings
                     transactionMap.put(columnName, columnValue);
