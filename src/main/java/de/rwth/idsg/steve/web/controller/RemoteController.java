@@ -17,8 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -72,29 +70,11 @@ public class RemoteController extends Ocpp16Controller {
         setActiveUserIdTagList(model);
         model.addAttribute(START_STOP_PARAMS, new StartStopParams());
         Map<String, String> transactionDetails = transactionRepository.getAllStartStopDetails();
-        formatDateTimeInMap(transactionDetails);
         model.addAttribute("txDetails", transactionDetails);
         return "remoteController";
     }
 
-    public void formatDateTimeInMap(Map<String, String> transactionDetails) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-
-        for (Map.Entry<String, String> entry : transactionDetails.entrySet()) {
-            String value = entry.getValue();
-            try {
-                // Attempt to parse only if the value is a datetime
-                LocalDateTime dateTime = LocalDateTime.parse(value, formatter);
-                String formattedDateTime = dateTime.format(formatter);
-                transactionDetails.put(entry.getKey(), formattedDateTime);
-            } catch (Exception e) {
-                // Ignore parsing errors, keep the original value
-            }
-        }
-    }
 
 
 //    @ResponseBody
