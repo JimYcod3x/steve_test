@@ -32,8 +32,15 @@ $("#chargePointSelectList").change(function() {
 	})
 
 
-	connectorId = $("#connectorId").text();
-	idTag = $("#idTag").text();
+	// connectorId = $("#connectorId").text();
+	// idTag = $("#idTag").text();
+
+
+	connectorId = encodeURIComponent($("#connectorId").text());
+	idTag = encodeURIComponent($("#idTag").text());
+
+	console.log(`${ctxPath}/manager/operations/${opVersion}/start/${connectorId}/${idTag}`);
+
 	$.post(`${ctxPath}/manager/operations/${opVersion}/start/${connectorId}/${idTag}`, function(data) {
 
 	}, "json").fail(function(xhr, status, error){
