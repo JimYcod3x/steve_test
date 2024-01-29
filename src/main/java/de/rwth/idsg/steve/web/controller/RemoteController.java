@@ -92,10 +92,10 @@ public class RemoteController extends Ocpp16Controller {
 
             try {
 
-                DateTimeFormatter stringtoDate = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+                DateTimeFormatter stringtoDateFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
                 // Parse the timestamp string to LocalDateTime
                 assert value != null;
-                LocalDateTime timestamp = LocalDateTime.parse(value, stringtoDate);
+                LocalDateTime timestamp = LocalDateTime.parse(value, stringtoDateFormatter);
 
                 // Format the LocalDateTime using the formatter
                 String formattedTimestamp = timestamp.format(formatter);
