@@ -82,14 +82,25 @@
     </div>
 <%--        <div class="op16-content">--%>
 <%--            --%>
-<%--&lt;%&ndash;            <form:form action="${ctxPath}/manager/operations/${opVersion}/stop" modelAttribute="stopParams">&ndash;%&gt;--%>
-<%--                <section><span>Charge Points with OCPP ${opVersion}</span></section>--%>
-<%--                <section><span>Parameters</span></section>--%>
-<%--                <table class="userInput">--%>
+            <form:form id="start">
+                <section><span>Charge Points with OCPP ${opVersion}</span></section>
+                <%@ include file="00-cp-single.jsp" %>
+                <section><span>Parameters</span></section>
+                <table class="userInput">
+                    <tr><td>Connector ID:</td>
+                        <td><form:select path="connectorId" disabled="true"/></td>
+                    </tr>
+                    <tr><td>OCPP ID Tag:</td>
+                        <td>
+                            <form:select path="idTag">
+                                <form:options items="${idTagList}" />
+                            </form:select>
+                        </td>
+                    </tr>
 
-<%--                    <tr><td></td><td><div class="submit-button"><input type="submit" value="Perform"></div></td></tr>--%>
-<%--                </table>--%>
-<%--            </form:form>--%>
+                    <tr><td></td><td><div class="submit-button"><input type="submit" value="Perform"></div></td></tr>
+                </table>
+            </form:form>
 <%--        </div>--%>
 
     </div>
