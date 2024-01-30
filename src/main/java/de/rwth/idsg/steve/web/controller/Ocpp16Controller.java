@@ -257,7 +257,7 @@ public class Ocpp16Controller extends Ocpp15Controller {
         }
         return REDIRECT_TASKS_PATH + getClient16().getCompositeSchedule(params);
     }
-    @GetMapping("/manager/operations/v1.6/remoteController")
+    @GetMapping("remoteController")
     public String myGetController(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
