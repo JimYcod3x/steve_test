@@ -23,7 +23,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/manager")
+@RequestMapping(value = "/manager/operations/v1.6/")
 public class RemoteController extends Ocpp16Controller {
 
 
