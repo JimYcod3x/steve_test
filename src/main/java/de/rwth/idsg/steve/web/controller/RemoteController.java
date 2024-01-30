@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -23,7 +22,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/manager/operations/v1.6/remoteController")
+//@RequestMapping()
 public class RemoteController extends Ocpp16Controller {
 
 
@@ -66,7 +65,7 @@ public class RemoteController extends Ocpp16Controller {
     }
 
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-    @GetMapping()
+    @GetMapping("/manager/operations/v1.6/remoteController")
     public String myGetController(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
