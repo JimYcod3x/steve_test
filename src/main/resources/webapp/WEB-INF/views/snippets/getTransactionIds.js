@@ -37,7 +37,7 @@ $("#chargePointSelectList").change(function() {
 
 	var start = {
 		connectorId: 1,
-		idTag: $("#idTag").text()
+		idTag: $("#idTag").find("option:selected").text()
 	};
 
 	var transactionId = $("#transcationId").text();
