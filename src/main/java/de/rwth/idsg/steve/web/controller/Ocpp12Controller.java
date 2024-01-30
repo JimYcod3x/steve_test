@@ -81,6 +81,7 @@ public class Ocpp12Controller {
     // -------------------------------------------------------------------------
 
     protected ChargePointService12_Client getClient12() {
+        log.info("getclient");
         return client12;
     }
 
