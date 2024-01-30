@@ -50,6 +50,7 @@ $("#chargePointSelectList").change(function() {
 	$.ajax({
 		url: "${ctxPath}/manager/operations/${opVersion}/start/",
 		type: 'POST',
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 		headers: {
 			'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
 		},
