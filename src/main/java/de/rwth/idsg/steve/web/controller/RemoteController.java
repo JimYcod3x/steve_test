@@ -23,7 +23,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/manager/operations/v1.6/")
+@RequestMapping(value = "/manager/operations/v1.6/remoteController")
 public class RemoteController extends Ocpp16Controller {
 
 
@@ -66,7 +66,7 @@ public class RemoteController extends Ocpp16Controller {
     }
 
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-    @GetMapping(REMOTE_PATH)
+    @GetMapping()
     public String myGetController(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
