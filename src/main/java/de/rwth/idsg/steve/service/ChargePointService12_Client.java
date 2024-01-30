@@ -137,12 +137,13 @@ public class ChargePointService12_Client {
     // -------------------------------------------------------------------------
 
     public int remoteStartTransaction(RemoteStartTransactionParams params) {
+        log.info("OneTest");
         RemoteStartTransactionTask task = new RemoteStartTransactionTask(getVersion(), params);
-
+        log.info("TwoTest");
         BackgroundService.with(executorService)
                          .forFirst(task.getParams().getChargePointSelectList())
                          .execute(c -> getOcpp12Invoker().remoteStartTransaction(c, task));
-
+        log.info("ThreeTest");
         return taskStore.add(task);
     }
 
