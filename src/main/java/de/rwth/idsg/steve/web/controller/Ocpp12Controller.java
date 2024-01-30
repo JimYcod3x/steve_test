@@ -247,8 +247,8 @@ public class Ocpp12Controller {
     @RequestMapping(value = START_PATH, method = RequestMethod.POST)
     public String postMyRemoteStartTx(@Valid RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
-//        params.setConnectorId(connectorId);
-//        params.setIdTag(idTag);
+        params.setConnectorId(1);
+        params.setIdTag("CARD-0000");
         log.info(params.toString());
 
         if (result.hasErrors()) {
