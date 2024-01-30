@@ -62,8 +62,8 @@ public class Ocpp12Controller {
     private static final String GET_DIAG_PATH = "/GetDiagnostics";
     private static final String REMOTE_START_TX_PATH = "/RemoteStartTransaction";
 
-    private static final String START_PATH = "/start/{connectorId}/{idTag}";
-    private static final String STOP_PATH = "/stop/{transactionId}";
+    private static final String START_PATH = "/start";
+    private static final String STOP_PATH = "/stop/";
 
     protected static final String START_PARAMS = "params";
     protected static final String STOP_PARAMS = "stopParams";
