@@ -231,6 +231,7 @@ public class Ocpp12Controller {
         return REDIRECT_TASKS_PATH + getClient12().getDiagnostics(params);
     }
 
+    @ResponseBody
     @RequestMapping(value = REMOTE_START_TX_PATH, method = RequestMethod.POST)
     public String postRemoteStartTx(@Valid @ModelAttribute(PARAMS) RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
@@ -248,8 +249,8 @@ public class Ocpp12Controller {
     @RequestMapping(value = START_PATH, method = RequestMethod.POST)
     public String postMyRemoteStartTx(@Valid RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
-        params.setConnectorId(1);
-        params.setIdTag("CARD-0000");
+//        params.setConnectorId(1);
+//        params.setIdTag("CARD-0000");
         log.info(params.toString());
 
         if (result.hasErrors()) {
