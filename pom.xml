@@ -32,6 +32,9 @@
     </licenses>
 
     <properties>
+        <flyway.url>jdbc:mysql://192.168.1.181:3306/stevedb</flyway.url>
+        <flyway.user>steve</flyway.user>
+        <flyway.password>changeme</flyway.password>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
