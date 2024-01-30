@@ -81,7 +81,6 @@ public class Ocpp12Controller {
     // -------------------------------------------------------------------------
 
     protected ChargePointService12_Client getClient12() {
-        log.info("getclient");
         return client12;
     }
 
@@ -257,6 +256,7 @@ public class Ocpp12Controller {
             setActiveUserIdTagList(model);
             return getPrefix() + START_PATH;
         }
+        log.info(String.valueOf(getClient12().remoteStartTransaction(params)));
         return REDIRECT_TASKS_PATH + getClient12().remoteStartTransaction(params);
     }
 
