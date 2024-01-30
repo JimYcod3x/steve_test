@@ -35,24 +35,25 @@ $("#chargePointSelectList").change(function() {
 	// connectorId = $("#connectorId").text();
 	// idTag = $("#idTag").text();
 
-	var csrfToken = $("input[name='_csrf']").val();
+	var start = {
+		connectorId: $("#connectorId").text(),
+		idTag: $("#idTag").text()
+	};
 
-		var connectorId = $("#connectorId").text();
-		var idTag = $("#idTag").text();
 	var transactionId = $("#transcationId").text();
 
 
-	console.log("${ctxPath}/manager/operations/${opVersion}/start/?connectorId="+connectorId+"/idTag="+idTag);
 
 	var csrfToken = $("input[name='_csrf']").val();
 
 // Make the AJAX POST request
 	$.ajax({
-		url: "${ctxPath}/manager/operations/${opVersion}/RemoteController/start/"+connectorId + "/" + idTag,
+		url: "${ctxPath}/manager/operations/${opVersion}/start/",
 		type: 'POST',
 		headers: {
 			'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
 		},
+		data: start,
 		success: function(data) {
 			// Handle success response
 			console.log("Success:", data);

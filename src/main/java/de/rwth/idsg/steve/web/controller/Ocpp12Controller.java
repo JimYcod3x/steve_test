@@ -242,10 +242,10 @@ public class Ocpp12Controller {
 
     @ResponseBody
     @RequestMapping(value = START_PATH, method = RequestMethod.POST)
-    public String postMyRemoteStartTx(@Valid @PathVariable("connectorId") Integer connectorId, @PathVariable("IdTag") String idTag, RemoteStartTransactionParams params,
+    public String postMyRemoteStartTx(@Valid @RequestBody RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
-        params.setConnectorId(connectorId);
-        params.setIdTag(idTag);
+//        params.setConnectorId(connectorId);
+//        params.setIdTag(idTag);
 
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
