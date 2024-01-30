@@ -20,23 +20,20 @@ package de.rwth.idsg.steve.web.controller;
 
 import de.rwth.idsg.steve.ocpp.OcppVersion;
 import de.rwth.idsg.steve.repository.ChargingProfileRepository;
+import de.rwth.idsg.steve.repository.TaskStore;
+import de.rwth.idsg.steve.repository.TransactionRepository;
+import de.rwth.idsg.steve.service.ChargePointHelperService;
 import de.rwth.idsg.steve.service.ChargePointService12_Client;
 import de.rwth.idsg.steve.service.ChargePointService15_Client;
 import de.rwth.idsg.steve.service.ChargePointService16_Client;
-import de.rwth.idsg.steve.web.dto.ocpp.ChangeConfigurationParams;
-import de.rwth.idsg.steve.web.dto.ocpp.ClearChargingProfileParams;
-import de.rwth.idsg.steve.web.dto.ocpp.ConfigurationKeyEnum;
-import de.rwth.idsg.steve.web.dto.ocpp.ConfigurationKeyReadWriteEnum;
-import de.rwth.idsg.steve.web.dto.ocpp.GetCompositeScheduleParams;
-import de.rwth.idsg.steve.web.dto.ocpp.GetConfigurationParams;
-import de.rwth.idsg.steve.web.dto.ocpp.SetChargingProfileParams;
-import de.rwth.idsg.steve.web.dto.ocpp.TriggerMessageParams;
+import de.rwth.idsg.steve.web.dto.ocpp.*;
 import ocpp.cs._2015._10.RegistrationStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,6 +61,25 @@ public class Ocpp16Controller extends Ocpp15Controller {
 
     @Autowired private ChargingProfileRepository chargingProfileRepository;
 
+    @Autowired
+    @Qualifier("ChargePointService12_Client")
+    private ChargePointService12_Client client12;
+    private static final String REMOTE_PATH = "/remoteController";
+    private static final String REDIRECT_PATH = "redirect:/manager/remoteController";
+    private static final String START_PATH = "/start";
+
+
+    private static final String STOP_PATH = "/stop";
+    @Autowired
+    protected ChargePointHelperService chargePointHelperService;
+    protected static final String START_STOP_PARAMS = "startStopParams";
+    protected static final String STOP_PARAMS = "stopParams";
+
+    @Autowired
+    protected TaskStore taskStore;
+
+    @Autowired
+    protected TransactionRepository transactionRepository;
     // -------------------------------------------------------------------------
     // Paths
     // -------------------------------------------------------------------------
@@ -241,4 +257,14 @@ public class Ocpp16Controller extends Ocpp15Controller {
         }
         return REDIRECT_TASKS_PATH + getClient16().getCompositeSchedule(params);
     }
+    @GetMapping("/manager/operations/v1.6/remoteController")
+    public String myGetController(Model model) {
+        setCommonAttributesForTx(model);
+        setActiveUserIdTagList(model);
+        model.addAttribute(START_STOP_PARAMS, new StartStopParams());
+        Map<String, String> transactionDetails = transactionRepository.getAllStartStopDetails();
+        model.addAttribute("txDetails", transactionDetails);
+        return "remoteController";
+    }
 }
+
