@@ -75,8 +75,8 @@
                     </td>
                 </tr>
                 <tr><td>ID of the Active Transaction:</td><td><form:select path="transactionId" disabled="true" /></td></tr>
-                <tr><td><div class="submit-button"><input style="background: green; color: whitesmoke; align-content: center" value="Start" onclick="remoteStart()"></div></td>
-                <td><div  class="submit-button"><input style="background: red; color: whitesmoke; align-content: center" value="Stop"></div></td></tr>
+                <tr><td><div class="submit-button"><input id="start" style="background: green; color: whitesmoke; align-content: center" value="Start" onclick="remoteStart()"></div></td>
+                <td><div  class="submit-button"><input id="stop" style="background: red; color: whitesmoke; align-content: center" value="Stop"></div></td></tr>
             </table>
         </form:form>
     </div>

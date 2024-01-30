@@ -88,7 +88,9 @@ $("#chargePointSelectList").change(function() {
 // 		select.html(options);
 // 	});
 // });
-function remoteStart(){
+
+$(document).ready(function() {
+	$('#start').click(function (){
 	$.ajax({
 		url: "${ctxPath}/manager/operations/${opVersion}/RemoteStartTransaction",
 		type: 'POST',
