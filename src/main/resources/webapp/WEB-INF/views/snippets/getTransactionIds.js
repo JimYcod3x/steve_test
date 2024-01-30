@@ -36,7 +36,7 @@ $("#chargePointSelectList").change(function() {
 	// idTag = $("#idTag").text();
 
 	var start = {
-		connectorId: $("#connectorId").text(),
+		connectorId: 1,
 		idTag: $("#idTag").text()
 	};
 
