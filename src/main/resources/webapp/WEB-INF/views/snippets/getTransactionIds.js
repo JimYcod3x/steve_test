@@ -86,7 +86,7 @@ $(document).ready(function () {
     var start = {
         connectorId: 1,
         idTag: $("#idTag").find("option:selected").text(),
-        chargePointSelectList : $("#chargePointSelectList").find("option:selected").text()
+        chargePointSelectList : $("#chargePointSelectList").find("option:selected").val()
 
     };
     var csrfToken = $("input[name='_csrf']").val();
