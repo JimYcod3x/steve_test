@@ -18,7 +18,11 @@
  */
 package de.rwth.idsg.steve.web.controller;
 
+import de.rwth.idsg.steve.ocpp.ChargePointService12_Invoker;
+import de.rwth.idsg.steve.ocpp.ChargePointService12_InvokerImpl;
 import de.rwth.idsg.steve.ocpp.OcppVersion;
+import de.rwth.idsg.steve.ocpp.task.RemoteStartTransactionTask;
+import de.rwth.idsg.steve.service.BackgroundService;
 import de.rwth.idsg.steve.service.ChargePointHelperService;
 import de.rwth.idsg.steve.service.ChargePointService12_Client;
 import de.rwth.idsg.steve.service.OcppTagService;
@@ -33,6 +37,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Map;
+import java.util.concurrent.ScheduledExecutorService;
 
 import static de.rwth.idsg.steve.web.dto.ocpp.ConfigurationKeyReadWriteEnum.RW;
 
@@ -53,6 +58,12 @@ public class Ocpp12Controller {
     private ChargePointService12_Client client12;
 
     protected static final String PARAMS = "params";
+
+    protected ScheduledExecutorService executorService;
+
+    protected OcppVersion getVersion() {
+        return OcppVersion.V_12;
+    }
 
     // -------------------------------------------------------------------------
     // Paths
@@ -76,6 +87,7 @@ public class Ocpp12Controller {
 
     protected static final String REDIRECT_TASKS_PATH = "redirect:/manager/operations/tasks/";
 
+    private ChargePointService12_InvokerImpl invoker12;
     // -------------------------------------------------------------------------
     // Helpers
     // -------------------------------------------------------------------------
@@ -108,6 +120,9 @@ public class Ocpp12Controller {
 
     protected void setActiveUserIdTagList(Model model) {
         model.addAttribute("idTagList", ocppTagService.getActiveIdTags());
+    }
+    protected ChargePointService12_Invoker getOcpp12Invoker() {
+        return invoker12;
     }
 
     // -------------------------------------------------------------------------
@@ -245,19 +260,17 @@ public class Ocpp12Controller {
 
     @ResponseBody
     @RequestMapping(value = START_PATH, method = RequestMethod.POST)
-    public String postMyRemoteStartTx(@Valid RemoteStartTransactionParams params,
-                                    BindingResult result, Model model) {
+    public void postMyRemoteStartTx(@Valid RemoteStartTransactionParams params) {
 //        params.setConnectorId(1);
 //        params.setIdTag("CARD-0000");
         log.info(params.toString());
 
-        if (result.hasErrors()) {
-            setCommonAttributesForTx(model);
-            setActiveUserIdTagList(model);
-            return getPrefix() + START_PATH;
-        }
-        log.info(String.valueOf(getClient12().remoteStartTransaction(params)));
-        return REDIRECT_TASKS_PATH + getClient12().remoteStartTransaction(params);
+        RemoteStartTransactionTask task = new RemoteStartTransactionTask(getVersion(), params);
+        log.info("TwoTest");
+        BackgroundService.with(executorService)
+                .forFirst(task.getParams().getChargePointSelectList())
+                .execute(c -> getOcpp12Invoker().remoteStartTransaction(c, task));
+        log.info("ThreeTest");
     }
 
     @ResponseBody
