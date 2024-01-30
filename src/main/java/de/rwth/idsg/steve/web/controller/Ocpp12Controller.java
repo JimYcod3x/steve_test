@@ -23,6 +23,7 @@ import de.rwth.idsg.steve.service.ChargePointHelperService;
 import de.rwth.idsg.steve.service.ChargePointService12_Client;
 import de.rwth.idsg.steve.service.OcppTagService;
 import de.rwth.idsg.steve.web.dto.ocpp.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,7 @@ import static de.rwth.idsg.steve.web.dto.ocpp.ConfigurationKeyReadWriteEnum.RW;
  * @author Sevket Goekay <sevketgokay@gmail.com>
  * @since 15.08.2014
  */
+@Slf4j
 @Controller
 @RequestMapping(value = "/manager/operations/v1.2")
 public class Ocpp12Controller {
@@ -246,6 +248,7 @@ public class Ocpp12Controller {
                                     BindingResult result, Model model) {
 //        params.setConnectorId(connectorId);
 //        params.setIdTag(idTag);
+        log.info(String.valueOf(params).toString());
 
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
