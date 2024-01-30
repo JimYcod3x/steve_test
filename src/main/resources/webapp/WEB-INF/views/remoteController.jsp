@@ -78,10 +78,6 @@
                 <tr><td><div class="submit-button"><input id="start" style="background: green; color: whitesmoke; align-content: center" value="Start"></div></td>
                 <td><div  class="submit-button"><input id="stop" style="background: red; color: whitesmoke; align-content: center" value="Stop"></div></td></tr>
             </table>
-        </form:form>
-    </div>
-<%--        <div class="op16-content">--%>
-<%--            --%>
             <form:form id="start">
                 <section><span>Charge Points with OCPP ${opVersion}</span></section>
                 <%@ include file="00-cp-single.jsp" %>
@@ -101,6 +97,11 @@
                     <tr><td></td><td><div class="submit-button"><input type="submit" value="Perform"></div></td></tr>
                 </table>
             </form:form>
+        </form:form>
+    </div>
+<%--        <div class="op16-content">--%>
+<%--            --%>
+
 <%--        </div>--%>
 
     </div>
