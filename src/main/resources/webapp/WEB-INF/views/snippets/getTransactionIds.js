@@ -41,7 +41,7 @@ $("#chargePointSelectList").change(function() {
 
 
 
-	var csrfToken = $("input[name='_csrf']").val();
+
 
 // Make the AJAX POST request
 // 	$.ajax({
@@ -91,6 +91,8 @@ $(document).ready(function () {
 		connectorId: 1,
 		idTag: $("#idTag").find("option:selected").text()
 	};
+	var csrfToken = $("input[name='_csrf']").val();
+
 	$('#start').click(function () {
 
 
