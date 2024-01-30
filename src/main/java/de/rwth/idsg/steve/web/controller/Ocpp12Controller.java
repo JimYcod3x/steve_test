@@ -233,6 +233,7 @@ public class Ocpp12Controller {
     @RequestMapping(value = REMOTE_START_TX_PATH, method = RequestMethod.POST)
     public String postRemoteStartTx(@Valid @ModelAttribute(PARAMS) RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
+        log.info(params.toString());
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
             setActiveUserIdTagList(model);
