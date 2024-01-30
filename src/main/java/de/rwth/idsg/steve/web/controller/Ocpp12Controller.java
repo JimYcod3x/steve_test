@@ -231,7 +231,6 @@ public class Ocpp12Controller {
         return REDIRECT_TASKS_PATH + getClient12().getDiagnostics(params);
     }
 
-    @ResponseBody
     @RequestMapping(value = REMOTE_START_TX_PATH, method = RequestMethod.POST)
     public String postRemoteStartTx(@Valid @ModelAttribute(PARAMS) RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
