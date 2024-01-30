@@ -248,7 +248,7 @@ public class Ocpp12Controller {
                                     BindingResult result, Model model) {
 //        params.setConnectorId(connectorId);
 //        params.setIdTag(idTag);
-        log.info(String.valueOf(params).toString());
+        log.info(params.toString());
 
         if (result.hasErrors()) {
             setCommonAttributesForTx(model);
