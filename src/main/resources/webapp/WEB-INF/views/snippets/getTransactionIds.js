@@ -88,4 +88,22 @@ $("#chargePointSelectList").change(function() {
 // 		select.html(options);
 // 	});
 // });
+function remoteStart(){
+	$.ajax({
+		url: "${ctxPath}/manager/operations/${opVersion}/RemoteStartTransaction",
+		type: 'POST',
+		headers: {
+			'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
+		},
+		data: start,
+		success: function(data) {
+			// Handle success response
+			console.log("Success:", data);
+		},
+		error: function(xhr, status, error) {
+			// Handle error response
+			console.error("Error:", error);
+		}
+	});
+}
 

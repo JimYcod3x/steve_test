@@ -73,7 +73,7 @@
                     <li><a href="${ctxPath}/manager/settings">SETTINGS</a></li>
                     <li><a href="${ctxPath}/manager/log">LOG</a></li>
                     <li><a href="${ctxPath}/manager/about">ABOUT</a></li>
-                    <li><a href="${ctxPath}/manager/operations/v1.6/remoteController">REMOTE CONTROLLER</a></li>
+                    <li><a href="${ctxPath}/manager/remoteController">REMOTE CONTROLLER</a></li>
                     <li><a href="${ctxPath}/manager/signout">SIGN OUT</a></li>
                 </ul>
             </div>
