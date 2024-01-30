@@ -35,10 +35,7 @@ $("#chargePointSelectList").change(function() {
 	// connectorId = $("#connectorId").text();
 	// idTag = $("#idTag").text();
 
-	var start = {
-		connectorId: 1,
-		idTag: $("#idTag").find("option:selected").text()
-	};
+
 
 	var transactionId = $("#transcationId").text();
 
@@ -89,23 +86,30 @@ $("#chargePointSelectList").change(function() {
 // 	});
 // });
 
-$(document).ready(function() {
-	$('#start').click(function (){
-	$.ajax({
-		url: "${ctxPath}/manager/operations/${opVersion}/RemoteStartTransaction",
-		type: 'POST',
-		headers: {
-			'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
-		},
-		data: start,
-		success: function(data) {
-			// Handle success response
-			console.log("Success:", data);
-		},
-		error: function(xhr, status, error) {
-			// Handle error response
-			console.error("Error:", error);
-		}
+$(document).ready(function () {
+	var start = {
+		connectorId: 1,
+		idTag: $("#idTag").find("option:selected").text()
+	};
+	$('#start').click(function () {
+
+
+		$.ajax({
+			url: "${ctxPath}/manager/operations/${opVersion}/RemoteStartTransaction",
+			type: 'POST',
+			headers: {
+				'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
+			},
+			data: start,
+			success: function (data) {
+				// Handle success response
+				console.log("Success:", data);
+			},
+			error: function (xhr, status, error) {
+				// Handle error response
+				console.error("Error:", error);
+			}
+		});
 	});
-}
+});
 
