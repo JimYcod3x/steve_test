@@ -47,22 +47,22 @@ $("#chargePointSelectList").change(function() {
 	var csrfToken = $("input[name='_csrf']").val();
 
 // Make the AJAX POST request
-	$.ajax({
-		url: "${ctxPath}/manager/operations/${opVersion}/start/",
-		type: 'POST',
-		headers: {
-			'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
-		},
-		data: start,
-		success: function(data) {
-			// Handle success response
-			console.log("Success:", data);
-		},
-		error: function(xhr, status, error) {
-			// Handle error response
-			console.error("Error:", error);
-		}
-	});
+// 	$.ajax({
+// 		url: "${ctxPath}/manager/operations/${opVersion}/start/",
+// 		type: 'POST',
+// 		headers: {
+// 			'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
+// 		},
+// 		data: start,
+// 		success: function(data) {
+// 			// Handle success response
+// 			console.log("Success:", data);
+// 		},
+// 		error: function(xhr, status, error) {
+// 			// Handle error response
+// 			console.error("Error:", error);
+// 		}
+// 	});
 
 	// $.post("${ctxPath}/manager/operations/${opVersion}/start/"+connectorId+"/"+idTag, function(data) {
 	//
