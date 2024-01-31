@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -68,7 +69,7 @@ public class RemoteController extends Ocpp16Controller {
 
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     @GetMapping(REMOTE_PATH)
-    public String myGetController(Model model) {
+    public String myGetController(Model model) throws NoSuchFieldException {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
         model.addAttribute(START_STOP_PARAMS, new StartStopParams());
@@ -77,9 +78,10 @@ public class RemoteController extends Ocpp16Controller {
 //            log.info("value of map:" + v);
 //        }
         TransactionDetails metaValues = transactionRepository.getDetails( Integer.parseInt(transactionDetails.values().toArray()[0].toString()));
-
-//        String[] metaValue = (String[]) Array.get(metaValues.getValues().get(0), 0);
-        log.info((metaValues.getValues().get(0)).getValue());
+        List metaValueList = (metaValues.getValues());
+        for (Object o : metaValueList) {
+        log.info(String.valueOf(o.getClass().getField("measurand")));
+        }
         model.addAttribute("metaValues", metaValues.getValues());
         model.addAttribute("txDetails", transactionDetails);
         return "remoteController";
