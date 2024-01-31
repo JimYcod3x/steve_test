@@ -82,17 +82,17 @@ $("#chargePointSelectList").change(function () {
 // 	});
 // });
 
-$('#start').submit(function(event) {
+$('#start').click(function(event) {
 
     event.preventDefault();
 
-    var start = $(this).serialize();
-    // var start = {
-    //     connectorId: 1,
-    //     idTag: $("#idTag").find("option:selected").text(),
-    //     chargePointSelectList : $("#chargePointSelectList").find("option:selected").val()
-    //
-    // };
+    // var start = $(this).serialize();
+    var start = {
+        connectorId: 1,
+        idTag: $("#idTag").find("option:selected").text(),
+        chargePointSelectList : $("#chargePointSelectList").find("option:selected").val()
+
+    };
     var csrfToken = $("input[name='_csrf']").val();
 
     // $('#start').click(function () {
