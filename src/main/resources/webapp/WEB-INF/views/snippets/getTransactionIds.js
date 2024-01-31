@@ -123,8 +123,7 @@ $('#stop').click(function(event) {
 
     // var start = $(this).serialize();
     var start = {
-        connectorId: 1,
-        idTag: $("#idTag").find("option:selected").text(),
+        transactionId: $("#transcationId").text(),
         chargePointSelectList : $("#chargePointSelectList").find("option:selected").val()
 
     };
@@ -134,7 +133,7 @@ $('#stop').click(function(event) {
 
 
         $.ajax({
-            url: "${ctxPath}/manager/operations/${opVersion}/RemoteStartTransaction",
+            url: "${ctxPath}/manager/operations/${opVersion}/RemoteStopTransaction",
             type: 'POST',
             headers: {
                 'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
