@@ -49,13 +49,13 @@
                             </form:select>
                         </td>
                     </tr>
-<%--                    <c:forEach items="${txDetails}" var="txD">--%>
-<%--                        <tr>--%>
-<%--                            <td>${txD.key}</td>--%>
-<%--                            <td>${txD.value}</td>--%>
-<%--                        </tr>--%>
+                    <c:forEach items="${metaVaules}" var="txD">
+                        <tr>
+                            <td>${txD.key}</td>
+                            <td>${txD.value}</td>
+                        </tr>
 
-<%--                    </c:forEach>--%>
+                    </c:forEach>
 
 
                 </table>

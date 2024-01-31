@@ -141,9 +141,6 @@ public class ChargePointService12_Client {
 
     public int remoteStartTransaction(RemoteStartTransactionParams params) {
 
-        params.setConnectorId(1);
-        params.setIdTag("CARD-0000");
-
         log.info("OneTest");
         RemoteStartTransactionTask task = new RemoteStartTransactionTask(getVersion(), params);
         log.info("TwoTest");

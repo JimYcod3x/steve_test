@@ -6,6 +6,7 @@ import de.rwth.idsg.steve.ocpp.ChargePointService12_InvokerImpl;
 import de.rwth.idsg.steve.ocpp.OcppVersion;
 import de.rwth.idsg.steve.repository.TaskStore;
 import de.rwth.idsg.steve.repository.TransactionRepository;
+import de.rwth.idsg.steve.repository.dto.TransactionDetails;
 import de.rwth.idsg.steve.service.ChargePointHelperService;
 import de.rwth.idsg.steve.service.ChargePointService12_Client;
 import de.rwth.idsg.steve.web.dto.ocpp.StartStopParams;
@@ -72,6 +73,8 @@ public class RemoteController extends Ocpp16Controller {
         setActiveUserIdTagList(model);
         model.addAttribute(START_STOP_PARAMS, new StartStopParams());
         Map<String, String> transactionDetails = transactionRepository.getAllStartStopDetails();
+        TransactionDetails metaValues = transactionRepository.getDetails(Integer.parseInt(transactionDetails.get("Transaction_pk")));
+        model.addAttribute("metaValues", metaValues);
         model.addAttribute("txDetails", transactionDetails);
         return "remoteController";
     }
