@@ -73,6 +73,9 @@ public class RemoteController extends Ocpp16Controller {
         setActiveUserIdTagList(model);
         model.addAttribute(START_STOP_PARAMS, new StartStopParams());
         Map<String, String> transactionDetails = transactionRepository.getAllStartStopDetails();
+        for (String v : transactionDetails.values()) {
+            log.info("value of map:" + v);
+        }
         TransactionDetails metaValues = transactionRepository.getDetails(Integer.parseInt(transactionDetails.get("Transaction_pk")));
         model.addAttribute("metaValues", metaValues);
         model.addAttribute("txDetails", transactionDetails);
