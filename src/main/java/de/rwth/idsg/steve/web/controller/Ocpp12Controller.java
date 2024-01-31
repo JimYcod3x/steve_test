@@ -257,6 +257,17 @@ public class Ocpp12Controller {
         return REDIRECT_TASKS_PATH + getClient12().remoteStartTransaction(params);
     }
 
+    @RequestMapping(value = REMOTE_START_TX_PATH, method = RequestMethod.GET)
+    public String geetRemoteStartTx(@Valid @ModelAttribute(PARAMS) RemoteStartTransactionParams params,
+                                    BindingResult result, Model model) {
+        log.info(params.toString());
+        if (result.hasErrors()) {
+            setCommonAttributesForTx(model);
+            setActiveUserIdTagList(model);
+            return getPrefix() + REMOTE_START_TX_PATH;
+        }
+        return REDIRECT_TASKS_PATH + getClient12().remoteStartTransaction(params);
+    }
 
     @ResponseBody
     @RequestMapping(value = START_PATH, method = RequestMethod.POST)
