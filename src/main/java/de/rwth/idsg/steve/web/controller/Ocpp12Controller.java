@@ -163,7 +163,7 @@ public class Ocpp12Controller {
         return getPrefix() + GET_DIAG_PATH;
     }
 
-    @RequestMapping(value = REMOTE_START_TX_PATH, method = RequestMethod.GET)
+    @RequestMapping(value = REMOTE_START_TX_PATH+"/t", method = RequestMethod.GET)
     public String getRemoteStartTx(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
