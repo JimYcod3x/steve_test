@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -79,7 +80,15 @@ public class RemoteController extends Ocpp16Controller {
         TransactionDetails metaValues = transactionRepository.getDetails( Integer.parseInt(transactionDetails.values().toArray()[0].toString()));
 
 //        String[] metaValue = (String[]) Array.get(metaValues.getValues().get(0), 0);
-        log.info((metaValues.getValues().get(1)).getMeasurand());
+
+        List<TransactionDetails.MeterValues> metaValueList = (List<TransactionDetails.MeterValues>) metaValues;
+        for (TransactionDetails.MeterValues meterValues : metaValueList) {
+            log.info(meterValues.getValue());;
+            log.info(meterValues.getMeasurand());
+            log.info(String.valueOf(meterValues.getValueTimestamp()));
+            log.info(meterValues.getUnit());
+        }
+
         model.addAttribute("metaValues", metaValues.getValues());
         model.addAttribute("txDetails", transactionDetails);
         return "remoteController";
