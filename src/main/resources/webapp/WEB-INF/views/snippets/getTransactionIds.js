@@ -154,6 +154,7 @@ $('#stop').click(function(event) {
                 console.error("Error:", error);
             }
         });
+        reload()
     // });
 });
 
