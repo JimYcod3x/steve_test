@@ -106,28 +106,31 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 
                 String columnName = field.getName();
                 Object fieldValue = transactionRecord.get(field);
-                String columnValue = fieldValue.toString();
-                String pattern = "yyyy-MM-dd HH:mm:ss";
+                if (fieldValue != null) {
+                    String columnValue = fieldValue.toString();
 
-                // Create a DateTimeFormatter using the pattern
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-                try {
+                    String pattern = "yyyy-MM-dd HH:mm:ss";
 
-                    DateTimeFormatter stringtoDateFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-                    // Parse the timestamp string to LocalDateTime
-                    LocalDateTime timestamp = LocalDateTime.parse(columnValue, stringtoDateFormatter);
+                    // Create a DateTimeFormatter using the pattern
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+                    try {
 
-                    String formattedTimestamp = timestamp.format(formatter);
+                        DateTimeFormatter stringtoDateFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+                        // Parse the timestamp string to LocalDateTime
+                        LocalDateTime timestamp = LocalDateTime.parse(columnValue, stringtoDateFormatter);
 
-                    transactionMap.put(columnName, formattedTimestamp);
-                    System.out.println(transactionMap);
+                        String formattedTimestamp = timestamp.format(formatter);
 
-                } catch (DateTimeParseException e) {
-                    // Handle invalid timestamp format
-                    // Optionally, you can remove the invalid entry or handle it differently
-                transactionMap.put(columnName, columnValue);
+                        transactionMap.put(columnName, formattedTimestamp);
+                        System.out.println(transactionMap);
+
+                    } catch (DateTimeParseException e) {
+                        // Handle invalid timestamp format
+                        // Optionally, you can remove the invalid entry or handle it differently
+                        transactionMap.put(columnName, columnValue);
+                    }
+                    // Assuming all values are Strings
                 }
-                // Assuming all values are Strings
             }
             return transactionMap;
         } else {

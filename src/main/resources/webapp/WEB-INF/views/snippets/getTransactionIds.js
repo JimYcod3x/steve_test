@@ -117,3 +117,38 @@ $('#start').click(function(event) {
     // });
 });
 
+$('#stop').click(function(event) {
+
+    event.preventDefault();
+
+    // var start = $(this).serialize();
+    var start = {
+        connectorId: 1,
+        idTag: $("#idTag").find("option:selected").text(),
+        chargePointSelectList : $("#chargePointSelectList").find("option:selected").val()
+
+    };
+    var csrfToken = $("input[name='_csrf']").val();
+
+    // $('#start').click(function () {
+
+
+        $.ajax({
+            url: "${ctxPath}/manager/operations/${opVersion}/RemoteStartTransaction",
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
+            },
+            data: start,
+            success: function (data) {
+                // Handle success response
+                console.log("Success:", data);
+            },
+            error: function (xhr, status, error) {
+                // Handle error response
+                console.error("Error:", error);
+            }
+        });
+    // });
+});
+
