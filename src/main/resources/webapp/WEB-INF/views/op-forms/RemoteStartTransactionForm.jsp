@@ -18,7 +18,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 --%>
-<form:form action="${ctxPath}/manager/operations/${opVersion}/RemoteStartTransaction" modelAttribute="params" method="get">
+<form:form action="${ctxPath}/manager/operations/${opVersion}/RemoteStartTransaction" modelAttribute="params">
     <section><span>Charge Points with OCPP ${opVersion}</span></section>
     <%@ include file="../00-cp-single.jsp" %>
     <section><span>Parameters</span></section>

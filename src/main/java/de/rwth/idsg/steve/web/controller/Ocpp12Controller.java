@@ -163,7 +163,7 @@ public class Ocpp12Controller {
         return getPrefix() + GET_DIAG_PATH;
     }
 
-    @RequestMapping(value = REMOTE_START_TX_PATH+"/t", method = RequestMethod.GET)
+    @RequestMapping(value = REMOTE_START_TX_PATH, method = RequestMethod.GET)
     public String getRemoteStartTx(Model model) {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
@@ -245,19 +245,7 @@ public class Ocpp12Controller {
         return REDIRECT_TASKS_PATH + getClient12().getDiagnostics(params);
     }
 
-//    @RequestMapping(value = REMOTE_START_TX_PATH, method = RequestMethod.POST)
-//    public String postRemoteStartTx(@Valid @ModelAttribute(PARAMS) RemoteStartTransactionParams params,
-//                                    BindingResult result, Model model) {
-//        log.info(params.toString());
-//        if (result.hasErrors()) {
-//            setCommonAttributesForTx(model);
-//            setActiveUserIdTagList(model);
-//            return getPrefix() + REMOTE_START_TX_PATH;
-//        }
-//        return REDIRECT_TASKS_PATH + getClient12().remoteStartTransaction(params);
-//    }
-
-    @RequestMapping(value = REMOTE_START_TX_PATH, method = RequestMethod.GET)
+    @RequestMapping(value = REMOTE_START_TX_PATH, method = RequestMethod.POST)
     public String postRemoteStartTx(@Valid @ModelAttribute(PARAMS) RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
         log.info(params.toString());
@@ -268,6 +256,7 @@ public class Ocpp12Controller {
         }
         return REDIRECT_TASKS_PATH + getClient12().remoteStartTransaction(params);
     }
+
 
     @ResponseBody
     @RequestMapping(value = START_PATH, method = RequestMethod.POST)
