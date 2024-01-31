@@ -18,8 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.lang.reflect.Field;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -69,7 +69,7 @@ public class RemoteController extends Ocpp16Controller {
 
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     @GetMapping(REMOTE_PATH)
-    public String myGetController(Model model) {
+    public String myGetController(Model model) throws NoSuchFieldException, IllegalAccessException {
         setCommonAttributesForTx(model);
         setActiveUserIdTagList(model);
         model.addAttribute(START_STOP_PARAMS, new StartStopParams());
@@ -78,7 +78,18 @@ public class RemoteController extends Ocpp16Controller {
 //            log.info("value of map:" + v);
 //        }
         TransactionDetails metaValues = transactionRepository.getDetails( Integer.parseInt(transactionDetails.values().toArray()[0].toString()));
-        log.info(Arrays.toString(TransactionDetails.MeterValues.class.getFields()));
+
+        Field field = TransactionDetails.MeterValues.class.getDeclaredField("measurand");
+
+        // Allow access to the private field
+        field.setAccessible(true);
+
+        // Get the value of the field from the instance
+        int fieldValue = (int) field.get(TransactionDetails.MeterValues.class);
+
+        System.out.println("Field value: " + fieldValue);
+
+        log.info("Field value: " + fieldValue);
         model.addAttribute("metaValues", metaValues.getValues());
         model.addAttribute("txDetails", transactionDetails);
         return "remoteController";
