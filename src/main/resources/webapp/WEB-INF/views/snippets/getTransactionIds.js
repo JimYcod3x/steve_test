@@ -117,6 +117,7 @@ $('#start').click(function(event) {
                 console.error("Error:", error);
             }
         });
+    location.reload();
     // });
 });
 
@@ -154,7 +155,7 @@ $('#stop').click(function(event) {
                 console.error("Error:", error);
             }
         });
-        reload()
+    location.reload();
     // });
 });
 
