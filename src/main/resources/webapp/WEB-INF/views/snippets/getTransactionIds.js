@@ -104,6 +104,9 @@ $('#start').click(function(event) {
             headers: {
                 'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
             },
+            xhrFields: {
+                withCredentials: true
+            },
             data: start,
             success: function (data) {
                 // Handle success response
@@ -137,6 +140,9 @@ $('#stop').click(function(event) {
             type: 'POST',
             headers: {
                 'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
+            },
+            xhrFields: {
+                withCredentials: true
             },
             data: start,
             success: function (data) {
