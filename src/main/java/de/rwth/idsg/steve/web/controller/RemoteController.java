@@ -80,7 +80,7 @@ public class RemoteController extends Ocpp16Controller {
         TransactionDetails metaValues = transactionRepository.getDetails( Integer.parseInt(transactionDetails.values().toArray()[0].toString()));
         List metaValueList = (metaValues.getValues());
         for (Object o : metaValueList) {
-        log.info(String.valueOf(o.getClass().getField("measurand")));
+        log.info(String.valueOf(o));
         }
         model.addAttribute("metaValues", metaValues.getValues());
         model.addAttribute("txDetails", transactionDetails);
