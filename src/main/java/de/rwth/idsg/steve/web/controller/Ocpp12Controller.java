@@ -258,7 +258,7 @@ public class Ocpp12Controller {
 //    }
 
     @RequestMapping(value = REMOTE_START_TX_PATH, method = RequestMethod.GET)
-    public String geetRemoteStartTx(@Valid @ModelAttribute(PARAMS) RemoteStartTransactionParams params,
+    public String postRemoteStartTx(@Valid @ModelAttribute(PARAMS) RemoteStartTransactionParams params,
                                     BindingResult result, Model model) {
         log.info(params.toString());
         if (result.hasErrors()) {
