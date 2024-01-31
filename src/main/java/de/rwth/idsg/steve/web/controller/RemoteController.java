@@ -77,7 +77,7 @@ public class RemoteController extends Ocpp16Controller {
 //            log.info("value of map:" + v);
 //        }
         TransactionDetails metaValues = transactionRepository.getDetails( Integer.parseInt(transactionDetails.values().toArray()[0].toString()));
-        log.info(metaValues.getValues().toString());
+        log.info(String.valueOf(metaValues.getValues().getFirst()));
         model.addAttribute("metaValues", metaValues.getValues());
         model.addAttribute("txDetails", transactionDetails);
         return "remoteController";
