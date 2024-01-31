@@ -52,5 +52,14 @@ public class TransactionDetails {
 
         // New in OCPP 1.6
         private final String phase;
+
+        @Override
+        public String toString() {
+            return "MeterValues{" +
+                    "value='" + value + '\'' +
+                    ", measurand='" + measurand + '\'' +
+                    ", unit='" + unit + '\'' +
+                    '}';
+        }
     }
 }
