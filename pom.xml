@@ -32,15 +32,11 @@
     </licenses>
 
     <properties>
-        <flyway.url>jdbc:mysql://localhost:3306/stevedb</flyway.url>
-        <flyway.user>steve</flyway.user>
-        <flyway.password>changeme</flyway.password>
-        <flyway.cleanDisabled>false</flyway.cleanDisabled>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <jooq.version>3.19.1</jooq.version>
-        <flyway.version>10.6.0</flyway.version>
+        <flyway.version>9.2.2</flyway.version>
         <cxf.version>3.5.5</cxf.version>
         <spring.version>5.3.31</spring.version>
         <spring.security.version>5.7.10</spring.security.version>
