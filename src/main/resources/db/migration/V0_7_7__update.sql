@@ -1,3 +1,4 @@
+set foreign_key_checks = 0;
 ALTER TABLE `chargebox`
 CHANGE COLUMN `chargeBoxId` `chargeBoxId` VARCHAR(255) NOT NULL COMMENT '' ,
 CHANGE COLUMN `endpoint_address` `endpoint_address` VARCHAR(255) NULL DEFAULT NULL COMMENT '' ,
