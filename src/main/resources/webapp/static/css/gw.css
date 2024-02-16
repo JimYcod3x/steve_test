@@ -1,0 +1,299 @@
+:root {
+  background: #dfe5fc;
+}
+
+body {
+  background: #dfe5fc;
+  /* scale: 0.81; */
+}
+
+.main-cont {
+  position: relative;
+  padding-left: 0;
+}
+.logo {
+  margin: 1rem 8rem 1rem;
+  width: 8rem;
+  height: 5rem;
+}
+
+.product {
+  width: 7.5rem;
+  height: 7.5rem;
+  background: white;
+  position: absolute;
+  border-radius: 50%;
+  padding: 0.5rem;
+  box-shadow: 0 0px 8px 10px white;
+  top: 2%;
+  right: 4%;
+}
+
+.p-container {
+  margin: 0 auto;
+  width: 21rem;
+  height: 10rem;
+  background: #e0aef3;
+  left: 0;
+  margin-left: 0;
+  border-radius: 0 8rem 8rem 0;
+  border: 1rem solid #e0aef3;
+  position: relative;
+}
+
+.ocpp-gw {
+  word-spacing: 999rem;
+  background: #e0aef3;
+  line-height: 1.6rem;
+  padding: 1rem;
+  position: absolute;
+  width: 1rem;
+  top: -12%;
+}
+
+.gw_wrapper {
+  bottom: 0%;
+  word-spacing: 0.1rem;
+  width: 35%;
+  line-height: 1rem;
+  margin-left: 2rem;
+  position: absolute;
+}
+
+.t-bg {
+  background: #e0aef3;
+}
+.b-space {
+  padding-left: 1rem;
+}
+.form-wrapper {
+  border-radius: 1rem;
+  width: 80%;
+  left: 2rem;
+  background: #f8f9fa;
+  box-shadow: 0 2px 7px 1px rgb(47, 47, 52);
+}
+
+.form-select {
+  margin: 1rem auto;
+  width: 15rem;
+  font-size: 0.9rem;
+  --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23F8F9FA' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e")!important;
+  border-radius: 30px;
+}
+
+select {
+  background-color: #d9d9d9 !important;
+  color: #f8f9fa !important;
+
+}
+.time_status {
+  margin: 1rem 1.5rem;
+}
+.status {
+  margin-top: 0
+}
+
+.MainContainer {
+  padding-left: 7rem;
+  text-align: center;
+  margin: 0;
+  border: 0;
+}
+
+.stopwatch {
+  padding: 0;
+  background: linear-gradient(top, #222, #444);
+  overflow: hidden;
+  display: inline-block;
+  border: 0px;
+}
+
+.box {
+  width: 1rem;
+  height: 3rem;
+  font-size: 2rem;
+  overflow: hidden;
+  background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
+  position: relative;
+  float: left;
+  border: 0;
+}
+
+.number {
+  width: 1rem;
+  line-height: 40px;
+  font-family: digital, arial, verdana;
+  text-align: center;
+  color: #d9d9d9;
+  background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0px;
+  -webkit-animation: moveup 1s steps(10, end) infinite;
+  animation: moveup 1s steps(10, end) infinite;
+}
+
+#stopwatch_controls button {
+  cursor: pointer;
+  padding: 5px 10px;
+  background: #eeeeee;
+  font-family: arial, verdana, tahoma;
+  font-size: 20px;
+  border-radius: 0 0 3px 3px;
+}
+
+input[name="controls"] {
+  display: none;
+}
+
+#stop:checked ~ .stopwatch .number {
+  animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+}
+#start:checked ~ .stopwatch .number {
+  animation-play-state: running;
+  -webkit-animation-play-state: running;
+}
+#reset:checked ~ .stopwatch .number {
+  animation: none;
+  -webkit-animation: none;
+}
+
+.moveuptens {
+  -webkit-animation: moveuptens 1s steps(10, end) infinite; /* Chrome, Safari, Opera */
+  animation: moveuptens 1s steps(10, end) infinite;
+  /*By default animation will be paused*/
+  animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+}
+.moveupsix {
+  -webkit-animation: moveupsix 1s steps(6, end) infinite; /* Chrome, Safari, Opera */
+  animation: moveupsix 1s steps(6, end) infinite;
+  /*By default animation will be paused*/
+  animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+}
+
+.onesPlaceSeconds {
+  animation-duration: 10s;
+  -webkit-animation-duration: 10s;
+}
+.tensPlaceSeconds {
+  animation-duration: 60s;
+  -webkit-animation-duration: 60s;
+}
+
+.onesPlaceMiliSeconds {
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+} /*1/10th of .second*/
+
+.tensPlaceMiliSeconds {
+  animation-duration: 0.1s;
+  -webkit-animation-duration: 0.1s;
+}
+.hundredsPlaceMiliSeconds {
+  animation-duration: 0.01s;
+  -webkit-animation-duration: 0.01s;
+}
+
+.onesPlaceMinutes {
+  animation-duration: 600s;
+  -webkit-animation-duration: 600s;
+} /*60 times .second*/
+.tensPlaceMinutes {
+  animation-duration: 3600s;
+  -webkit-animation-duration: 3600s;
+} /*60 times .minute*/
+
+.onesPlaceHours {
+  animation-duration: 36000s;
+  -webkit-animation-duration: 36000s;
+} /*60 times .minute*/
+.tensPlaceHours {
+  animation-duration: 360000s;
+  -webkit-animation-duration: 360000s;
+} /*10 times .hour*/
+
+@-webkit-keyframes moveup {
+  0% {
+    top: 0px;
+  }
+  100% {
+    top: -400px;
+  }
+}
+
+@keyframes moveup {
+  0% {
+    top: 0px;
+  }
+  100% {
+    top: -400px;
+  }
+}
+
+@-webkit-keyframes moveuptens {
+  0% {
+    top: 0px;
+  }
+  100% {
+    top: -400px;
+  }
+}
+
+@keyframes moveuptens {
+  0% {
+    top: 0px;
+  }
+  100% {
+    top: -400px;
+  }
+}
+
+@-webkit-keyframes moveupsix {
+  0% {
+    top: 0px;
+  }
+  100% {
+    top: -240px;
+  }
+}
+
+@keyframes moveupsix {
+  0% {
+    top: 0px;
+  }
+  100% {
+    top: -240px;
+  }
+}
+
+@font-face {
+  font-family: "digital";
+  src: url("DS-DIGI.TTF");
+}
+
+.btn-ps {
+  padding: 0 1rem;
+  padding-left: 3rem;
+  padding-right: 2rem;
+  border-radius: 0 8rem 8rem 0;
+  font-size: 2.5rem;
+}
+
+.btn-pe {
+  padding: 0 1rem;
+  padding-right: 3rem;
+  padding-left: 2rem;
+  border-radius: 8rem 0 0 8rem;
+  font-size: 2.5rem;
+}
+
+.timer {
+  font-family: "digital";
+  src: url("DS-DIGI.TTF");
+  font-size: 3rem;
+}

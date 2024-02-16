@@ -36,7 +36,7 @@ $("#chargePointSelectList").change(function () {
     // idTag = $("#idTag").text();
 
 
-    var transactionId = $("#transcationId").text();
+    // var transactionId = $("#transcationId").text();
 
 
 // Make the AJAX POST request
@@ -82,80 +82,80 @@ $("#chargePointSelectList").change(function () {
 // 	});
 // });
 
-$('#start').click(function(event) {
-
-    event.preventDefault();
-
-    // var start = $(this).serialize();
-    var start = {
-        connectorId: 1,
-        idTag: $("#idTag").find("option:selected").text(),
-        chargePointSelectList : $("#chargePointSelectList").find("option:selected").val()
-
-    };
-    var csrfToken = $("input[name='_csrf']").val();
-
-    // $('#start').click(function () {
-
-
-        $.ajax({
-            url: "${ctxPath}/manager/operations/${opVersion}/RemoteStartTransaction",
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
-            },
-            xhrFields: {
-                withCredentials: true
-            },
-            data: start,
-            success: function (data) {
-                // Handle success response
-                console.log("Success:", data);
-            },
-            error: function (xhr, status, error) {
-                // Handle error response
-                console.error("Error:", error);
-            }
-        });
-    location.reload();
-    // });
-});
-
-$('#stop').click(function(event) {
-
-    event.preventDefault();
-
-    // var start = $(this).serialize();
-    var start = {
-        transactionId: $("#transcationId").text(),
-        chargePointSelectList : $("#chargePointSelectList").find("option:selected").val()
-
-    };
-    var csrfToken = $("input[name='_csrf']").val();
-
-    // $('#start').click(function () {
-
-
-        $.ajax({
-            url: "${ctxPath}/manager/operations/${opVersion}/RemoteStopTransaction",
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
-            },
-            xhrFields: {
-                withCredentials: true
-            },
-            data: start,
-            success: function (data) {
-                // Handle success response
-                console.log("Success:", data);
-            },
-            error: function (xhr, status, error) {
-                // Handle error response
-                console.error("Error:", error);
-            }
-        });
-    location.reload();
-    // });
-});
+// $('#start').click(function(event) {
+//
+//     event.preventDefault();
+//
+//     // var start = $(this).serialize();
+//     var start = {
+//         connectorId: 1,
+//         idTag: $("#idTag").find("option:selected").text(),
+//         chargePointSelectList : $("#chargePointSelectList").find("option:selected").val()
+//
+//     };
+//     var csrfToken = $("input[name='_csrf']").val();
+//
+//     // $('#start').click(function () {
+//
+//
+//         $.ajax({
+//             url: "${ctxPath}/manager/operations/${opVersion}/RemoteStartTransaction",
+//             type: 'POST',
+//             headers: {
+//                 'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
+//             },
+//             xhrFields: {
+//                 withCredentials: true
+//             },
+//             data: start,
+//             success: function (data) {
+//                 // Handle success response
+//                 console.log("Success:", data);
+//             },
+//             error: function (xhr, status, error) {
+//                 // Handle error response
+//                 console.error("Error:", error);
+//             }
+//         });
+//     location.reload();
+//     // });
+// });
+//
+// $('#stop').click(function(event) {
+//
+//     event.preventDefault();
+//
+//     // var start = $(this).serialize();
+//     var stop = {
+//         transactionId: $("#transcationId").text(),
+//         chargePointSelectList : $("#chargePointSelectList").find("option:selected").val()
+//
+//     };
+//     var csrfToken = $("input[name='_csrf']").val();
+//
+//     // $('#start').click(function () {
+//
+//
+//         $.ajax({
+//             url: "${ctxPath}/manager/operations/${opVersion}/RemoteStopTransaction",
+//             type: 'POST',
+//             headers: {
+//                 'X-CSRF-TOKEN': csrfToken  // Include the CSRF token in the request headers
+//             },
+//             xhrFields: {
+//                 withCredentials: true
+//             },
+//             data: stop,
+//             success: function (data) {
+//                 // Handle success response
+//                 console.log("Success:", data);
+//             },
+//             error: function (xhr, status, error) {
+//                 // Handle error response
+//                 console.error("Error:", error);
+//             }
+//         });
+//     location.reload();
+//     // });
+// });
 

@@ -25,6 +25,7 @@ import de.rwth.idsg.steve.repository.dto.ConnectorStatus;
 import de.rwth.idsg.steve.web.dto.ChargePointForm;
 import de.rwth.idsg.steve.web.dto.ChargePointQueryForm;
 import de.rwth.idsg.steve.web.dto.ConnectorStatusForm;
+import de.rwth.idsg.steve.web.dto.ocpp.StatusWithTimestamp;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -63,4 +64,6 @@ public interface ChargePointRepository {
     int addChargePoint(ChargePointForm form);
     void updateChargePoint(ChargePointForm form);
     void deleteChargePoint(int chargeBoxPk);
+
+    List<StatusWithTimestamp> getStatusForConnectorId(String chargeBoxId);
 }

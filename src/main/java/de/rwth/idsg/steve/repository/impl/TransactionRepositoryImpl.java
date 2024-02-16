@@ -27,6 +27,7 @@ import de.rwth.idsg.steve.web.dto.TransactionQueryForm;
 import jooq.steve.db.enums.TransactionStopEventActor;
 import jooq.steve.db.tables.records.ConnectorMeterValueRecord;
 import jooq.steve.db.tables.records.TransactionStartRecord;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.jooq.Record;
 import org.jooq.*;
@@ -132,6 +133,22 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                     }
                     // Assuming all values are Strings
                 }
+
+            }
+            @NotNull Result<ConnectorMeterValueRecord> metaValueRecords = ctx.selectFrom(CONNECTOR_METER_VALUE)
+                    .where(CONNECTOR_METER_VALUE.TRANSACTION_PK.eq(transactionRecord.getValue(TRANSACTION.TRANSACTION_PK)))
+                    .and(CONNECTOR_METER_VALUE.MEASURAND.eq("Power.Active.Import"))
+                    .orderBy(CONNECTOR_METER_VALUE.VALUE_TIMESTAMP.desc())
+                    .limit(1)
+                    .fetch();
+
+
+            // Add meta values to the map
+            for (Record metaValueRecord : metaValueRecords) {
+                String metaValue = metaValueRecord.getValue(CONNECTOR_METER_VALUE.VALUE);
+                String metaUnit = metaValueRecord.getValue(CONNECTOR_METER_VALUE.UNIT);
+                transactionMap.put("MetaValue", metaValue);
+                transactionMap.put("MetaUnit", metaUnit);
 
             }
             return transactionMap;

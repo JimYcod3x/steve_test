@@ -29,26 +29,21 @@ import de.rwth.idsg.steve.utils.DateTimeUtils;
 import de.rwth.idsg.steve.web.dto.ChargePointForm;
 import de.rwth.idsg.steve.web.dto.ChargePointQueryForm;
 import de.rwth.idsg.steve.web.dto.ConnectorStatusForm;
+import de.rwth.idsg.steve.web.dto.ocpp.StatusWithTimestamp;
 import jooq.steve.db.tables.records.AddressRecord;
 import jooq.steve.db.tables.records.ChargeBoxRecord;
 import lombok.extern.slf4j.Slf4j;
 import ocpp.cs._2015._10.RegistrationStatus;
 import org.joda.time.DateTime;
-import org.jooq.Condition;
-import org.jooq.DSLContext;
-import org.jooq.Field;
-import org.jooq.Record1;
-import org.jooq.Record5;
-import org.jooq.Result;
-import org.jooq.SelectConditionStep;
-import org.jooq.SelectQuery;
-import org.jooq.Table;
+import org.jooq.*;
 import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -59,6 +54,8 @@ import static de.rwth.idsg.steve.utils.CustomDSL.includes;
 import static jooq.steve.db.tables.ChargeBox.CHARGE_BOX;
 import static jooq.steve.db.tables.Connector.CONNECTOR;
 import static jooq.steve.db.tables.ConnectorStatus.CONNECTOR_STATUS;
+import static org.jooq.impl.DSL.field;
+import static org.jooq.impl.DSL.table;
 
 /**
  * @author Sevket Goekay <sevketgokay@gmail.com>
@@ -269,6 +266,36 @@ public class ChargePointRepositoryImpl implements ChargePointRepository {
                                            .build()
                   );
     }
+
+    public List<StatusWithTimestamp> getStatusForConnectorId(String chargeBoxId) {
+        // Define the DSL context
+        // Define tables and fields
+        Table<?> cs = table("connector_status").as("cs");
+        Table<?> c = table("connector").as("c");
+        Field<String> statusField = field("cs.status", String.class);
+        Field<LocalDateTime> statusTimestampField = field("cs.status_timestamp", LocalDateTime.class);
+
+        // Build the jOOQ query
+        Record2<String, LocalDateTime> record = ctx.select(statusField, statusTimestampField)
+                .from(cs)
+                .join(c).on(field("cs.connector_pk").eq(field("c.connector_pk")))
+                .where(field("c.connector_id").eq(1))
+                .orderBy(field("cs.status_timestamp").desc(), statusField)
+                .limit(1)
+                .fetchOne();
+
+        List<StatusWithTimestamp> statusAndTimestampList = new ArrayList<>();
+        // Return the status if not null
+        if (record != null) {
+            String status = record.value1(); // Get the status from the record
+            LocalDateTime startTimestamp = record.value2(); // Get the start timestamp from the record
+
+            StatusWithTimestamp statusWithTimestamp = new StatusWithTimestamp(status, startTimestamp);
+            statusAndTimestampList.add(statusWithTimestamp);
+        }
+        return statusAndTimestampList;
+    }
+
 
     @Override
     public List<Integer> getNonZeroConnectorIds(String chargeBoxId) {
