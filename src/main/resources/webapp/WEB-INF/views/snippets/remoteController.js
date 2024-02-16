@@ -21,6 +21,7 @@ $(document).ready(function () {
         var currentMinutes = $("#minutes").text(); // Retrieve the current text content
         var currentHours = $("#hours").text();
         var currentPower = $("#power").text();
+        var $statusElement = $("#status");
 
         var power = eventData.power;
         var status = eventData.status;
@@ -31,7 +32,7 @@ $(document).ready(function () {
         var idTag = eventData.idTag;
         var option = $("<option>");
 
-        $("#status").text(status);
+        $statusElement.text(status);
         $("#transactionId").text(transactionId);
 
         if ($("#idTag").find("option").length === 0) {
@@ -44,9 +45,10 @@ $(document).ready(function () {
         }
 
         if (status === "Available") {
-            $("#status").css('color', '#28a745')
+            $statusElement.css('color', '#28a745')
             $("#stop").addClass('disabled');
             $("#start").removeClass('disabled');
+            $statusElement.text("利用可能");
         }
 
         if (status === "Charging") {
@@ -55,13 +57,20 @@ $(document).ready(function () {
             $("#minutes").text(minutes);
             $("#hours").text(hours);
             $("#power").text(power);
-            $("#status").css('color', '#ffc107')
+            $statusElement.css('color', '#ffc107')
+            $statusElement.text("充電中");
+
             $("#stop").removeClass('disabled');
         } else if (status === "Finished") {
             $("#seconds").text(currentSeconds);
             $("#minutes").text(currentMinutes);
             $("#hours").text(currentHours);
             $("#power").text(currentPower);
+            $statusElement.text("終了");
+        }
+
+        if (status === "Preparing") {
+            $statusElement.text("準備中");
         }
 
         // Log the data to the console

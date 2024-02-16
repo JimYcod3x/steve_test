@@ -68,7 +68,7 @@
                     <form:options class="text-secondary" items="${idTagList}"/>
                 </form:select>
             </div>
-            <div class="time_status bg-light fs-2 d-flex justify-content-between">Import Power :<span id="power"
+            <div class="time_status bg-light fs-2 d-flex justify-content-between">瞬時電力 :<span id="power"
                                                                                                       class="power">${power}</span>
             </div>
             <div class="wrapper">
@@ -83,7 +83,7 @@
                 <%--                <button id="button-reset">Reset</button>--%>
                 <%--            </div>--%>
             <div id="transactionId" class="visually-hidden">${transactionId}</div>
-            <div class="time_status bg-light fs-2 d-flex justify-content-between status">Status :<span id="status"
+            <div class="time_status bg-light fs-2 d-flex justify-content-between status">状態 :<span id="status"
                                                                                                        class="status-content fs-1">${status}</span>
             </div>
         </fieldset>
