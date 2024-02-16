@@ -109,7 +109,7 @@ public class RemoteController extends Ocpp16Controller {
 
     public String getStatus() {
         transactionDetails = transactionRepository.getAllStartStopDetails();
-        String status = chargePointRepository.getStatusForConnectorId(chargePointHelperService.getChargePoints(OcppVersion.V_16).getFirst().getChargeBoxId()).getFirst().getStatus();
+        String status = chargePointRepository.getStatusForConnectorId(chargePointHelperService.getChargePoints(OcppVersion.V_16).get(0).getChargeBoxId()).get(0).getStatus();
         for (Map.Entry<String, String> entry : transactionDetails.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
@@ -130,21 +130,21 @@ public class RemoteController extends Ocpp16Controller {
         @GetMapping(REMOTE_PATH)
         public String myGetController (Model model){
 
-            String chargePointId = chargePointHelperService.getChargePoints(OcppVersion.V_16).getFirst().getChargeBoxId();
-            String status = chargePointRepository.getStatusForConnectorId(chargePointId).getFirst().getStatus();
+            String chargePointId = chargePointHelperService.getChargePoints(OcppVersion.V_16).get(0).getChargeBoxId();
+            String status = chargePointRepository.getStatusForConnectorId(chargePointId).get(0).getStatus();
             getStatus();
-            LocalDateTime starttime = chargePointRepository.getStatusForConnectorId(chargePointId).getFirst().getStatusTimestamps();
+            LocalDateTime starttime = chargePointRepository.getStatusForConnectorId(chargePointId).get(0).getStatusTimestamps();
             log.info("new" + status);
             log.info("startTime:" + getTimeDelta());
             log.info("getpower: " + getPower());
 //        log.info("status" + latestList);
-//        log.info("current status: " + latestList.getFirst().getStatus());
-//        log.info("current chargeBoxid: " + latestList.getFirst().getChargeBoxId());
-//        log.info("current pk: " + latestList.getFirst().getChargeBoxPk());
-//        log.info("current connectorId: " + latestList.getFirst().getConnectorId());
-//        log.info("current connectorId: " + latestList.getFirst().getStatusTimestamp());
+//        log.info("current status: " + latestList.get(0).getStatus());
+//        log.info("current chargeBoxid: " + latestList.get(0).getChargeBoxId());
+//        log.info("current pk: " + latestList.get(0).getChargeBoxPk());
+//        log.info("current connectorId: " + latestList.get(0).getConnectorId());
+//        log.info("current connectorId: " + latestList.get(0).getStatusTimestamp());
 
-//        String status = latestList.getFirst().getStatus();
+//        String status = latestList.get(0).getStatus();
 //        for (ConnectorStatus status : latestList) {
 //            log.info("this the status:" + String.valueOf(status.getStatus()));
 //        }
