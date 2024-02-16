@@ -21,6 +21,9 @@
     <script type="text/javascript" src="${ctxPath}/static/js/callback.js"></script>
     <%--    <script type="text/javascript" src="${ctxPath}/static/js/remoteController.js"></script>--%>
     <link rel="stylesheet" type="text/css" href="${ctxPath}/static/css/gw.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+            crossorigin="anonymous"></script>
     <title>MyRemote Controller - </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -91,50 +94,11 @@
         <label id="stop" class="btn btn-danger btn-lg btn-pe shadow-lg" data-toggle="modal" data-target="stopConfirm">Stop</label>
     </div>
 
-    <div class="container">
-        <div class="modal fade" id="startConfirm" tabindex="-1" role="dialog" aria-labelledby="startTitle"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="startTitle">Start Confirmation</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="modal fade" id="stopConfirm" tabindex="-1" role="dialog" aria-labelledby="stopTitle"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="stopTitle">Stop Confirmation</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+
 </div>
 </body>
 </html>

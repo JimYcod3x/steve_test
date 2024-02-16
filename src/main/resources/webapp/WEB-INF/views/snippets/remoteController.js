@@ -12,6 +12,8 @@ $(document).ready(function () {
         $("#power").text('0 W')
     }
 
+
+
     var eventSource = new EventSource('${ctxPath}/manager/fetch-update')
     eventSource.onmessage = function (event) {
         var eventData = JSON.parse(event.data);
@@ -25,15 +27,36 @@ $(document).ready(function () {
         var seconds = eventData.seconds;
         var minutes = eventData.minutes;
         var hours = eventData.hours;
+        var transactionId = eventData.transactionId;
+        var idTag = eventData.idTag;
+        var option = $("<option>");
 
         $("#status").text(status);
+        $("#transactionId").text(transactionId);
+
+        if ($("#idTag").find("option").length === 0) {
+            option.val(idTag);
+            option.text(idTag);
+            option.attr('id', 'idTagPlaceholder')
+            $("#idTag").append(option)
+        } else  if ($("#idTag").find("option").length > 1 ) {
+            $("#idTag").empty();
+        }
+
+        if (status === "Available") {
+            $("#status").css('color', '#28a745')
+            $("#stop").addClass('disabled');
+            $("#start").removeClass('disabled');
+        }
 
         if (status === "Charging") {
+            $("#start").addClass('disabled');
             $("#seconds").text(seconds);
             $("#minutes").text(minutes);
             $("#hours").text(hours);
             $("#power").text(power);
-
+            $("#status").css('color', '#ffc107')
+            $("#stop").removeClass('disabled');
         } else if (status === "Finished") {
             $("#seconds").text(currentSeconds);
             $("#minutes").text(currentMinutes);
@@ -128,15 +151,19 @@ window.onload = function () {
 function startandStop() {
     $('#start').click(function (event) {
 
+        $(this).addClass('disabled');
+
+
         var start = {
             connectorId: 1,
-            idTag: $("#idTag").find("option:selected").text(),
+            idTag: "CARD-0000",
             chargePointSelectList: $("#chargePointSelectList").find("option:selected").val()
         };
         var csrfToken = $("input[name='_csrf']").val();
 
+        // Send two AJAX requests with a delay
         // for (var i = 0; i < 2; i++) {
-            // location.reload()
+        function sendStartRequest() {
             $.ajax({
                 url: "${ctxPath}/manager/operations/${opVersion}/RemoteStartTransaction",
                 type: 'POST',
@@ -148,26 +175,34 @@ function startandStop() {
                 },
                 data: start,
                 success: function (data) {
-                    $('#startConfirm').modal('show')
+                    $("#stop").removeClass("disabled");
+                    // location.reload();
                     console.log("Success:", data);
                 },
                 error: function (xhr, status, error) {
-                    console.error("Error:", error);
+                    setTimeout(sendStartRequest, 2000)
                 }
-            });
+            }) // Send requests with a delay of 2 seconds
+        }
 
-        // }
-    });
-
+        sendStartRequest();
+        // Reload the page after requests have been sent
+        // Reload after 4 seconds (2 requests sent with a delay of 2 seconds each)
+    })
     $('#stop').click(function (event) {
+
+        $(this).addClass('disabled');
+
         var stop = {
             transactionId: $("#transactionId").text(),
             chargePointSelectList: $("#chargePointSelectList").find("option:selected").val()
         };
         var csrfToken = $("input[name='_csrf']").val();
 
+        // location.reload()
         // for (var i = 0; i < 2; i++) {
-        //     location.reload()
+        //
+        function sendStopRequest() {
             $.ajax({
                 url: "${ctxPath}/manager/operations/${opVersion}/RemoteStopTransaction",
                 type: 'POST',
@@ -179,17 +214,21 @@ function startandStop() {
                 },
                 data: stop,
                 success: function (data) {
-                    $('#stopConfirm').modal('show')
+                    $("#start").removeClass('disabled');
                     console.log("Success:", data);
                 },
                 error: function (xhr, status, error) {
+                    setTimeout(sendStopRequest, 2000)
                     console.error("Error:", error);
                 }
 
-            });
-        // }
-    });
+            })
 
+
+        }
+
+        sendStopRequest();
+    })
 }
 
 var currentAction;

@@ -93,6 +93,11 @@ public class RemoteController extends Ocpp16Controller {
         return transactionDetails.get("transaction_pk");
     }
 
+    public String getidTag() {
+        transactionDetails = transactionRepository.getAllStartStopDetails();
+        return transactionDetails.get("id_tag");
+    }
+
     public Duration getTimeDelta() {
         transactionDetails = transactionRepository.getAllStartStopDetails();
         LocalDateTime starttime = LocalDateTime.parse(transactionDetails.get("start_timestamp"), myFormatObj);
@@ -131,8 +136,7 @@ public class RemoteController extends Ocpp16Controller {
         public String myGetController (Model model){
 
             String chargePointId = chargePointHelperService.getChargePoints(OcppVersion.V_16).get(0).getChargeBoxId();
-            String status = chargePointRepository.getStatusForConnectorId(chargePointId).get(0).getStatus();
-            getStatus();
+            String status = getStatus();
             LocalDateTime starttime = chargePointRepository.getStatusForConnectorId(chargePointId).get(0).getStatusTimestamps();
             log.info("new" + status);
             log.info("startTime:" + getTimeDelta());
@@ -200,6 +204,10 @@ public class RemoteController extends Ocpp16Controller {
                 model.addAttribute("seconds", seconds);
                 model.addAttribute("minutes", minutes);
                 model.addAttribute("hours", hours);
+            } else {
+                model.addAttribute("seconds", "00");
+                model.addAttribute("minutes", "00");
+                model.addAttribute("hours", "00");
             }
             model.addAttribute("transactionId", getTransactionId());
 //            model.addAttribute("status", status);
@@ -229,7 +237,10 @@ public class RemoteController extends Ocpp16Controller {
                         eventData.put("seconds", secondsStr);
                         eventData.put("minutes", minutesStr);
                         eventData.put("hours", hoursStr);
-
+                        if (getTransactionId() !=null) {
+                            eventData.put("transactionId", getTransactionId());
+                        }
+                        eventData.put("idTag", getidTag());
                         return eventData;
                     });
         }
