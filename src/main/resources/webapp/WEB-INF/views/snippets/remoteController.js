@@ -12,6 +12,19 @@ $(document).ready(function () {
         $("#power").text('0 W')
     }
 
+    var charging = "充電中"
+    var preparing = "準備中"
+    var finishing = "終了"
+    var available = "利用可能"
+
+    var decodedCharging = decodeURIComponent(escape(charging))
+    var decodedPreparing = decodeURIComponent(escape(preparing))
+    var decodedFinishing = decodeURIComponent(escape(finishing))
+    var decodedAvailable = decodeURIComponent(escape(available))
+
+
+
+
 
 
     var eventSource = new EventSource('${ctxPath}/manager/fetch-update')
@@ -48,7 +61,7 @@ $(document).ready(function () {
             $statusElement.css('color', '#28a745')
             $("#stop").addClass('disabled');
             $("#start").removeClass('disabled');
-            $statusElement.text("利用可能");
+            $statusElement.text(decodedAvailable);
         }
 
         if (status === "Charging") {
@@ -58,19 +71,20 @@ $(document).ready(function () {
             $("#hours").text(hours);
             $("#power").text(power);
             $statusElement.css('color', '#ffc107')
-            $statusElement.text("充電中");
+            $statusElement.text(decodedCharging);
 
             $("#stop").removeClass('disabled');
-        } else if (status === "Finished") {
+        } else if (status === "Finishing") {
             $("#seconds").text(currentSeconds);
             $("#minutes").text(currentMinutes);
             $("#hours").text(currentHours);
             $("#power").text(currentPower);
-            $statusElement.text("終了");
+            $statusElement.text(decodedFinishing);
+            $statusElement.css('color', '#212529')
         }
 
         if (status === "Preparing") {
-            $statusElement.text("準備中");
+            $statusElement.text(decodedPreparing);
         }
 
         // Log the data to the console
@@ -319,3 +333,5 @@ function executeAction() {
 function pad(val) {
     return val < 10 ? "0" + val : val;
 }
+
+screen.orientation.lock("portrait");

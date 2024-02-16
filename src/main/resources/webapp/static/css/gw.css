@@ -296,5 +296,6 @@ input[name="controls"] {
 .timer {
   font-family: "digital";
   src: url("DS-DIGI.TTF");
-  font-size: 3rem;
+  font-size: 4.4rem;
+  margin-bottom: 0;
 }

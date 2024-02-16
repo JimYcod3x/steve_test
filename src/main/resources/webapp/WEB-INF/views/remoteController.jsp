@@ -25,12 +25,13 @@
             integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
             crossorigin="anonymous"></script>
     <title>MyRemote Controller - </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 </head>
 
 <body>
 <%@ include file="00-op-bind-errors.jsp" %>
-<script type="text/javascript">
+<script charset="utf-8" type="text/javascript">
     $(document).ready(function () {
         <%@ include file="snippets/getConnectorIdsZeroAllowed.js" %>
         <%@ include file="snippets/remoteController.js" %>
